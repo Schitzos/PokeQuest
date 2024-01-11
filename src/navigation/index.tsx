@@ -14,6 +14,10 @@ export default function Navigation() {
           headerShown: false,
         }}>
         <Stack.Screen name="Dashboard" component={route.DashboardScreen} />
+        <Stack.Screen
+          name="PokemonDetail"
+          component={route.PokemonDetailScreen}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
