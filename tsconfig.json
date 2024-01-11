@@ -4,10 +4,15 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
+      "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
+      "@config/*": ["./src/config/*"],
+      "@forms/*": ["./src/forms/*"],
+      "@fragments/*": ["./src/fragments/*"],
       "@screens/*": ["./src/screens/*"],
+      "@services/*": ["./src/services/*"],
       "@theme/*": ["./src/theme/*"],
-      // Add more aliases as needed
+      "@utils/*": ["./src/utils/*"],
     },
     "target": "esnext",
     "moduleResolution": "node",
