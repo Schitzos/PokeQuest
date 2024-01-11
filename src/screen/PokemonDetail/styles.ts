@@ -7,4 +7,8 @@ export const styles = StyleSheet.create({
   text: {
     color: 'red',
   },
+  artwork: {
+    width: 360,
+    height: 360,
+  },
 });

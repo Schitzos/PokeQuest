@@ -1,18 +1,18 @@
 import theme from '@theme/index';
 import React from 'react';
-import {StyleSheet, ViewStyle, TouchableHighlight, Text} from 'react-native';
+import {StyleSheet, ViewStyle, Text, TouchableOpacity} from 'react-native';
 
 interface ContentProps {
   children: React.ReactNode;
   color?: string;
-  onPress?: () => void;
+  onPress: () => void;
   size?: 'sm' | 'md' | 'lg';
 }
 
 export default function Button({
   children,
   color,
-  onPress,
+  onPress = () => {},
   size = 'md',
 }: ContentProps) {
   const styleSize = {
@@ -48,10 +48,10 @@ export default function Button({
   });
 
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       style={styles.base as ViewStyle}
-      onPress={() => onPress}>
+      onPress={() => onPress()}>
       <Text style={styles.label}>{children}</Text>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 }

@@ -1,7 +1,10 @@
+import {RootStackParamList} from '@/navigation/types';
 import {queryResponseProps} from '@/utils/types';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 export interface PokemonItem {
   name: string;
+  navigation: StackNavigationProp<RootStackParamList, 'Dashboard'>;
 }
 
 export interface PokemonSpeciesResponse extends queryResponseProps {

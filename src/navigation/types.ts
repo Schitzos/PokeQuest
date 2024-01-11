@@ -1,4 +1,7 @@
 export type RootStackParamList = {
   Dashboard: undefined;
-  PokemonDetail: undefined;
+  PokemonDetail: {
+    pokemonDetail: any;
+    pokemonSpecies: any;
+  };
 };

@@ -1,10 +1,8 @@
 import React, {useEffect, useRef, useCallback} from 'react';
-import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import TextView from '@/components/TextView';
+import {View, StyleSheet} from 'react-native';
 import {getListPokemon} from '@/services/pokemon/pokemon.service';
 import {ListPokemonProps} from './type';
 import PokemonImage from '../PokemonImage';
-import theme from '@/theme';
 
 export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
   const isFirstRender = useRef(true);
@@ -38,13 +36,11 @@ export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
           <View key={idx} style={styles.pages}>
             {page.results.map((pokemon: any) => {
               return (
-                <TouchableOpacity
-                  style={styles.each}
+                <PokemonImage
+                  name={pokemon.name}
+                  navigation={navigation}
                   key={pokemon.name}
-                  onPress={() => navigation.navigate('PokemonDetail')}>
-                  <PokemonImage name={pokemon.name} />
-                  <TextView align="center">{pokemon.name}</TextView>
-                </TouchableOpacity>
+                />
               );
             })}
           </View>
@@ -64,11 +60,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'space-between',
-  },
-  each: {
-    backgroundColor: theme.colors.neutral50,
-    borderColor: theme.colors.neutral100,
-    borderRadius: 8,
-    padding: 8,
   },
 });

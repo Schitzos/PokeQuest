@@ -6,7 +6,7 @@ interface SafeAreaProps {
   children: React.ReactNode;
   color?: string;
   handleScroll?: () => void;
-  isScrollable: boolean;
+  isScrollable?: boolean;
 }
 
 export default function SafeArea({
@@ -18,7 +18,6 @@ export default function SafeArea({
   const styles = StyleSheet.create({
     base: {
       backgroundColor: color || 'transparent',
-      flex: 1,
     },
   });
 

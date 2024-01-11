@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, View, StyleSheet} from 'react-native';
+import {Image, StyleSheet, TouchableOpacity} from 'react-native';
 import TextView from '@/components/TextView';
 import {
   getDetailPokemon,
@@ -10,18 +10,19 @@ import {
   PokemonItem,
   PokemonSpeciesResponse,
 } from './type';
+import theme from '@/theme';
 
-export default function PokemonImage({name}: PokemonItem) {
+export default function PokemonImage({name, navigation}: PokemonItem) {
   const pokemonSpecies: PokemonSpeciesResponse = getSpeciesPokemon({
     name: name,
     key: ['getListPokemon', name],
   }) as PokemonSpeciesResponse;
 
-  const pokemon = pokemonSpecies?.data;
+  const species = pokemonSpecies?.data;
 
   const pokemonDetail: PokemonDetailResponse = getDetailPokemon({
-    id: pokemon ? pokemon.id.toString() : '',
-    key: ['getDetailPokemon', pokemon ? pokemon.id.toString() : ''],
+    id: species ? species.id.toString() : '',
+    key: ['getDetailPokemon', species ? species.id.toString() : ''],
   }) as PokemonDetailResponse;
 
   const detail = pokemonDetail?.data;
@@ -31,7 +32,14 @@ export default function PokemonImage({name}: PokemonItem) {
   }
 
   return (
-    <View>
+    <TouchableOpacity
+      style={styles.each}
+      onPress={() =>
+        navigation.navigate('PokemonDetail', {
+          pokemonDetail: detail,
+          pokemonSpecies: species,
+        })
+      }>
       {detail && (
         <Image
           style={styles.artwork}
@@ -40,7 +48,8 @@ export default function PokemonImage({name}: PokemonItem) {
           }}
         />
       )}
-    </View>
+      <TextView align="center">{name}</TextView>
+    </TouchableOpacity>
   );
 }
 
@@ -48,5 +57,11 @@ const styles = StyleSheet.create({
   artwork: {
     width: 90,
     height: 90,
+  },
+  each: {
+    backgroundColor: theme.colors.neutral50,
+    borderColor: theme.colors.neutral100,
+    borderRadius: 8,
+    padding: 8,
   },
 });
