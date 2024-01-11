@@ -3,6 +3,7 @@ import Tanstack from '@utils/tanstackAdapter';
 interface GetListPokemonParams {
   limit: number;
   key: string[];
+  offset: number;
 }
 
 interface GetSpeciesPokemonParams {
@@ -15,15 +16,15 @@ interface GetDetailPokemonParams {
   key: string[];
 }
 
-export const getListPokemon = ({limit, key}: GetListPokemonParams) => {
+export const getListPokemon = ({limit, offset, key}: GetListPokemonParams) => {
   const options = {
     url: `${process.env.BASE_URL}/pokemon`,
     method: 'GET',
     key: key,
-    params: {limit: limit},
+    params: {limit: limit, offset: offset},
   };
 
-  return Tanstack.Query(options);
+  return Tanstack.InfiniteQuery(options);
 };
 
 export const getSpeciesPokemon = ({name, key}: GetSpeciesPokemonParams) => {
