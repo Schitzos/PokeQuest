@@ -1,6 +1,7 @@
 // SafeArea.js
 import React from 'react';
 import {StyleSheet, SafeAreaView, ViewStyle} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
 interface SafeAreaProps {
   children: React.ReactNode;
@@ -16,6 +17,8 @@ export default function SafeArea({children, color}: SafeAreaProps) {
   });
 
   return (
-    <SafeAreaView style={styles.base as ViewStyle}>{children}</SafeAreaView>
+    <SafeAreaView style={styles.base as ViewStyle}>
+      <ScrollView showsVerticalScrollIndicator={true}>{children}</ScrollView>
+    </SafeAreaView>
   );
 }
