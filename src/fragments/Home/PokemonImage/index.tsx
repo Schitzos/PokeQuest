@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TextView from '@/components/TextView';
 import {
   getDetailPokemon,
@@ -11,8 +11,9 @@ import {
   PokemonSpeciesDataResponse,
 } from './type';
 import theme from '@/theme';
+import FastImage from 'react-native-fast-image';
 import {pokemonType} from '@/constants/pokemonType';
-import IconArrow from '@assets/icons/icon-arrow-light-square-color.svg';
+import IconArrow from '@assets/icons/icon-right-circle.svg';
 
 export default function PokemonImage({name, navigation}: PokemonItem) {
   const pokemonSpecies = getSpeciesPokemon({
@@ -33,6 +34,8 @@ export default function PokemonImage({name, navigation}: PokemonItem) {
     return <TextView>Loading Image</TextView>;
   }
 
+  const imageUrl = detail?.sprites?.other['official-artwork'].front_default;
+
   return (
     <TouchableOpacity
       style={styles.each}
@@ -43,32 +46,32 @@ export default function PokemonImage({name, navigation}: PokemonItem) {
         })
       }>
       <Text style={styles.pokemonId}>#{species?.id}</Text>
-      {detail && (
-        <Image
-          style={styles.artwork}
-          source={{
-            uri: detail?.sprites?.other['official-artwork'].front_default,
-          }}
-        />
-      )}
+      <FastImage
+        style={styles.artwork}
+        source={{
+          uri: `${imageUrl}`,
+        }}
+      />
       <View style={styles.info}>
-        <TextView align="left" fz={14} color={theme.colors.black} fw="600">
+        <TextView align="left" fz={10} color={theme.colors.black} fw="600">
           {name}
         </TextView>
         <View style={styles.typeContainer}>
           <View style={styles.type}>
-            {detail.types.map((val: any) => {
-              const Icon = pokemonType.find(
-                type => type.name === val?.type?.name,
-              )?.icon;
-              return (
-                <View key={val?.type?.name}>
-                  {Icon && <Icon width={24} height={24} />}
-                </View>
-              );
-            })}
+            {detail &&
+              detail?.types?.map((val: any) => {
+                const getIcon = pokemonType.find(
+                  type => type.name === val?.type?.name,
+                );
+                const Icon = getIcon?.icon;
+                return (
+                  <View key={val?.type?.name}>
+                    {Icon && <Icon width={12} height={12} />}
+                  </View>
+                );
+              })}
           </View>
-          <IconArrow />
+          <IconArrow width={12} height={12} color={theme.colors.primary} />
         </View>
       </View>
     </TouchableOpacity>
@@ -78,25 +81,28 @@ export default function PokemonImage({name, navigation}: PokemonItem) {
 const styles = StyleSheet.create({
   each: {
     backgroundColor: theme.colors.neutral50,
-    borderColor: theme.colors.primary200,
-    borderWidth: 2,
-    borderRadius: 8,
-    width: '47.5%',
+    borderColor: theme.colors.neutral200,
+    borderWidth: 1,
+    borderRadius: 4,
+    width: '21.6%',
     alignItems: 'center',
     position: 'relative',
   },
   pokemonId: {
-    color: theme.colors.neutral300,
-    fontSize: 36,
-    fontWeight: 'bold',
+    color: theme.colors.neutral500,
+    fontSize: 10,
     alignSelf: 'flex-end',
     position: 'absolute',
-    right: 8,
+    right: 0,
+    backgroundColor: theme.colors.primary100,
+    width: '100%',
+    textAlign: 'right',
+    paddingRight: 4,
+    fontFamily: theme.font.reguler,
   },
   artwork: {
-    padding: 16,
-    width: 150,
-    height: 150,
+    width: 96,
+    height: 96,
   },
   pokeTypes: {
     width: 24,
@@ -104,13 +110,16 @@ const styles = StyleSheet.create({
   },
   info: {
     width: '100%',
-    padding: 8,
+    padding: 4,
     backgroundColor: theme.colors.white,
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    // borderTopLeftRadius: 8,
+    // borderTopRightRadius: 8,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
-    gap: 8,
+    borderTopWidth: 1,
+    borderTopColor: theme.colors.neutral100,
+    gap: 4,
+    flex: 1,
   },
   typeContainer: {
     flex: 1,
