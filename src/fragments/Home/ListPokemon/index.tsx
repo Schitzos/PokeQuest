@@ -4,7 +4,7 @@ import {getListPokemon} from '@/services/pokemon/pokemon.service';
 import {ListPokemonProps} from './type';
 import PokemonImage from '../PokemonImage';
 import theme from '@/theme';
-import {ShakeUpDown} from '@/utils/animtaion/shake';
+import {ShakeUpDown} from '@/utils/animation/shake';
 
 export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
   const isFirstRender = useRef(true);
