@@ -9,6 +9,7 @@
           "root": ["./"],
           "alias": {
             "@": "./src",
+            "@assets": "./assets",
             "@components": "./src/components",
             "@config": "./src/config",
             "@forms": "./src/forms",
