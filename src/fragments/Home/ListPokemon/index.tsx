@@ -1,14 +1,17 @@
 import React, {useEffect, useRef, useCallback} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Animated} from 'react-native';
 import {getListPokemon} from '@/services/pokemon/pokemon.service';
 import {ListPokemonProps} from './type';
 import PokemonImage from '../PokemonImage';
+import theme from '@/theme';
+import {ShakeUpDown} from '@/utils/animtaion/shake';
 
 export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
   const isFirstRender = useRef(true);
+  const shakeAnimation = useRef(new Animated.Value(0)).current;
 
   const pokemonLists = getListPokemon({
-    limit: 21,
+    limit: 20,
     key: ['getListPokemon'],
     offset: 0,
   });
@@ -29,8 +32,21 @@ export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
     handleLoadMore();
   }, [handleLoadMore]);
 
+  useEffect(() => {
+    ShakeUpDown(shakeAnimation, 500);
+    const intervalId = setInterval(() => {
+      ShakeUpDown(shakeAnimation, 500);
+    }, 5000);
+    return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <View style={styles.base}>
+      <Animated.Image
+        style={[styles.pokeball, {transform: [{translateY: shakeAnimation}]}]}
+        source={require('@assets/images/pokeball.png')}
+      />
       {pokemons?.map((page: any, idx) => {
         return (
           <View key={idx} style={styles.pages}>
@@ -53,6 +69,21 @@ export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
 const styles = StyleSheet.create({
   base: {
     flex: 1,
+    backgroundColor: theme.colors.white,
+    padding: 16,
+    borderTopLeftRadius: 16,
+    borderTopRightRadius: 16,
+    position: 'relative',
+    paddingTop: 48,
+    gap: 16,
+  },
+  pokeball: {
+    width: 72,
+    height: 72,
+    alignSelf: 'center',
+    position: 'absolute',
+    top: -32,
+    zIndex: 1000,
   },
   pages: {
     flex: 1,

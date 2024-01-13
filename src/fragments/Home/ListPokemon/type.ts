@@ -13,6 +13,6 @@ export interface PokemonListsResponse extends queryResponseProps {
 }
 
 export interface ListPokemonProps {
-  navigation: StackNavigationProp<RootStackParamList, 'Dashboard'>;
+  navigation: StackNavigationProp<RootStackParamList, 'Home'>;
   loadMore: boolean;
 }
