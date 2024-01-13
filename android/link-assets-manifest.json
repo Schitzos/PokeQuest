@@ -1,0 +1,21 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Minecraftia-Regular.ttf",
+      "sha1": "d55584570f7c951f12d515e7278581122c874776"
+    },
+    {
+      "path": "assets/fonts/PixeloidMono.ttf",
+      "sha1": "7c845f5ecff284ebd3ddf6ec29312eef28507910"
+    },
+    {
+      "path": "assets/fonts/PixeloidSans-Bold.ttf",
+      "sha1": "c1d2a318c3a481734cd5596bbaeeee8eabcebf37"
+    },
+    {
+      "path": "assets/fonts/PixeloidSans.ttf",
+      "sha1": "ded4f82e33de6bc79fa4af0d2b3924697f6b953d"
+    }
+  ]
+}

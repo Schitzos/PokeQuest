@@ -4,12 +4,14 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:bundle": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
+    "android:build-debug-apk": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleDebug",
     "ios": "react-native run-ios",
+    "ios:pod-install": "cd ios && pod install --verbose",
     "lint": "eslint .",
     "start": "react-native start",
     "start-clear": "npm start -- --reset-cache",
     "postinstall": "npm run ios:pod-install",
-    "ios:pod-install": "cd ios && pod install --verbose",
     "test": "jest",
     "lint-fix": "eslint . --fix",
     "kill": "watchman watch-del-all"

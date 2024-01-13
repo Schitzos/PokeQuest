@@ -1,3 +1,4 @@
+import theme from '@/theme';
 import React from 'react';
 import {Text, StyleSheet} from 'react-native';
 
@@ -25,6 +26,7 @@ export default function TextView({
       fontWeight: fw,
       textAlign: align,
       textTransform: capitalize ? 'capitalize' : 'none',
+      fontFamily: theme.font.reguler,
     },
   });
 

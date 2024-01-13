@@ -14,6 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-PokeQuest-pokeQuestTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-PokeQuest-pokeQuestTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B3773CC14F0B4CCB92399837 /* Minecraftia-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D301D23E11CA46A9A36E7325 /* Minecraftia-Regular.ttf */; };
+		EEEA1D26A08A4EA1BB22486D /* PixeloidMono.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ADD0EDE340064B048A8CD296 /* PixeloidMono.ttf */; };
+		4EE1AD90F57C4F7783B73B55 /* PixeloidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4DFFC75D5CF4D17905EF27B /* PixeloidSans-Bold.ttf */; };
+		11E056261E3246C88BA9486E /* PixeloidSans.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A8CA40330DC649B39479449E /* PixeloidSans.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +48,10 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = PokeQuest/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-PokeQuest-pokeQuestTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeQuest-pokeQuestTests.release.xcconfig"; path = "Target Support Files/Pods-PokeQuest-pokeQuestTests/Pods-PokeQuest-pokeQuestTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		D301D23E11CA46A9A36E7325 /* Minecraftia-Regular.ttf */ = {isa = PBXFileReference; name = "Minecraftia-Regular.ttf"; path = "../assets/fonts/Minecraftia-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		ADD0EDE340064B048A8CD296 /* PixeloidMono.ttf */ = {isa = PBXFileReference; name = "PixeloidMono.ttf"; path = "../assets/fonts/PixeloidMono.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		B4DFFC75D5CF4D17905EF27B /* PixeloidSans-Bold.ttf */ = {isa = PBXFileReference; name = "PixeloidSans-Bold.ttf"; path = "../assets/fonts/PixeloidSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A8CA40330DC649B39479449E /* PixeloidSans.ttf */ = {isa = PBXFileReference; name = "PixeloidSans.ttf"; path = "../assets/fonts/PixeloidSans.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +130,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				FD5505C1AA07443CB2F40DAF /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +156,18 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		FD5505C1AA07443CB2F40DAF /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				D301D23E11CA46A9A36E7325 /* Minecraftia-Regular.ttf */,
+				ADD0EDE340064B048A8CD296 /* PixeloidMono.ttf */,
+				B4DFFC75D5CF4D17905EF27B /* PixeloidSans-Bold.ttf */,
+				A8CA40330DC649B39479449E /* PixeloidSans.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -243,6 +264,10 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B3773CC14F0B4CCB92399837 /* Minecraftia-Regular.ttf in Resources */,
+				EEEA1D26A08A4EA1BB22486D /* PixeloidMono.ttf in Resources */,
+				4EE1AD90F57C4F7783B73B55 /* PixeloidSans-Bold.ttf in Resources */,
+				11E056261E3246C88BA9486E /* PixeloidSans.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

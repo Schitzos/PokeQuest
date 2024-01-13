@@ -37,8 +37,15 @@ const androidShadow = `
     shadow: 0px 2px 4px  #0060841a;
   `;
 
+const font = {
+  reguler: 'PixeloidMono',
+  bold: 'PixeloidSans-Bold',
+  regularMine: 'Minecraftia-Regular',
+};
+
 export default {
   colors,
   iosShadow,
   androidShadow,
+  font,
 };

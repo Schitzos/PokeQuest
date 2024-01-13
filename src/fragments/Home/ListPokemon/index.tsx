@@ -11,7 +11,7 @@ export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
   const shakeAnimation = useRef(new Animated.Value(0)).current;
 
   const pokemonLists = getListPokemon({
-    limit: 20,
+    limit: 1,
     key: ['getListPokemon'],
     offset: 0,
   });
