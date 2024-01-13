@@ -4,8 +4,9 @@ import React from 'react';
 import {styles} from './styles';
 import TextView from '@components/TextView';
 import {useNavigation} from '@react-navigation/native';
-import Button from '../Button';
 import {View} from 'react-native';
+import IconChevronLeft from '@assets/icons/icon-chevron-left.svg';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface HeaderScreenProps {
   label: string;
@@ -14,13 +15,15 @@ interface HeaderScreenProps {
 
 export default function HeaderScreen({
   label,
-  color = '#FFF',
+  color = theme.colors.white,
 }: HeaderScreenProps) {
   const navigation = useNavigation();
   return (
     <SafeArea color={color}>
       <View style={styles.base}>
-        <Button onPress={() => navigation.goBack()}>Back</Button>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <IconChevronLeft color={theme.colors.white} />
+        </TouchableOpacity>
         <TextView color={theme.colors.white} fz={16} fw="bold">
           {label}
         </TextView>
