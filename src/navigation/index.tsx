@@ -13,7 +13,7 @@ export default function Navigation() {
         screenOptions={{
           headerShown: false,
         }}>
-        <Stack.Screen name="Dashboard" component={route.DashboardScreen} />
+        <Stack.Screen name="Home" component={route.HomeScreen} />
         <Stack.Screen
           name="PokemonDetail"
           component={route.PokemonDetailScreen}
