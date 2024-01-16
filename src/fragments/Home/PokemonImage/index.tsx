@@ -14,6 +14,7 @@ import theme from '@/theme';
 import FastImage from 'react-native-fast-image';
 import {pokemonType} from '@/constants/pokemonType';
 import IconArrow from '@assets/icons/icon-right-circle.svg';
+import IconPokeBall from '@assets/icons/icon-pokeball.svg';
 
 export default function PokemonImage({name, navigation}: PokemonItem) {
   const pokemonSpecies = getSpeciesPokemon({
@@ -30,10 +31,6 @@ export default function PokemonImage({name, navigation}: PokemonItem) {
 
   const detail = (pokemonDetail?.data || {}) as PokemonDetailDataResponse;
 
-  if (pokemonSpecies.isLoading || pokemonDetail.isLoading) {
-    return <TextView>Loading Image</TextView>;
-  }
-
   const imageUrl = detail?.sprites?.other['official-artwork'].front_default;
 
   return (
@@ -45,12 +42,16 @@ export default function PokemonImage({name, navigation}: PokemonItem) {
           pokemonSpecies: species,
         })
       }>
-      <Text style={styles.pokemonId}>#{species?.id}</Text>
+      <Text style={styles.pokemonId}>
+        {pokemonSpecies.isLoading ? 'Loading' : `#${species?.id || 'null'}`}
+      </Text>
       <FastImage
         style={styles.artwork}
         source={{
-          uri: `${imageUrl}`,
+          uri: imageUrl,
+          priority: FastImage.priority.high,
         }}
+        defaultSource={require('@assets/images/default_image_loading.png')}
       />
       <View style={styles.info}>
         <TextView align="left" fz={10} color={theme.colors.black} fw="600">
@@ -58,7 +59,7 @@ export default function PokemonImage({name, navigation}: PokemonItem) {
         </TextView>
         <View style={styles.typeContainer}>
           <View style={styles.type}>
-            {detail &&
+            {detail && !pokemonDetail.isLoading ? (
               detail?.types?.map((val: any) => {
                 const getIcon = pokemonType.find(
                   type => type.name === val?.type?.name,
@@ -69,7 +70,10 @@ export default function PokemonImage({name, navigation}: PokemonItem) {
                     {Icon && <Icon width={12} height={12} />}
                   </View>
                 );
-              })}
+              })
+            ) : (
+              <IconPokeBall width={12} height={12} />
+            )}
           </View>
           <IconArrow width={12} height={12} color={theme.colors.primary} />
         </View>
@@ -104,6 +108,13 @@ const styles = StyleSheet.create({
     width: 96,
     height: 96,
   },
+  imageLoading: {
+    width: 96,
+    height: 96,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 4,
+  },
   pokeTypes: {
     width: 24,
     height: 24,
@@ -112,8 +123,6 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 4,
     backgroundColor: theme.colors.white,
-    // borderTopLeftRadius: 8,
-    // borderTopRightRadius: 8,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 8,
     borderTopWidth: 1,

@@ -5,6 +5,7 @@ import {ListPokemonProps} from './type';
 import PokemonImage from '../PokemonImage';
 import theme from '@/theme';
 import {ShakeUpDown} from '@/utils/animation/shake';
+import ListPokemonSkeleton from '../ListPokemonSkeleton';
 
 export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
   const isFirstRender = useRef(true);
@@ -47,21 +48,23 @@ export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
         style={[styles.pokeball, {transform: [{translateY: shakeAnimation}]}]}
         source={require('@assets/images/pokeball.png')}
       />
-      {pokemons?.map((page: any, idx) => {
-        return (
-          <View key={idx} style={styles.pages}>
-            {page.results.map((pokemon: any) => {
-              return (
-                <PokemonImage
-                  name={pokemon.name}
-                  navigation={navigation}
-                  key={pokemon.name}
-                />
-              );
-            })}
-          </View>
-        );
-      })}
+      {pokemonLists.isLoading && <ListPokemonSkeleton />}
+      {!pokemonLists.isLoading &&
+        pokemons?.map((page: any, idx) => {
+          return (
+            <View key={idx} style={styles.pages}>
+              {page.results.map((pokemon: any) => {
+                return (
+                  <PokemonImage
+                    name={pokemon.name}
+                    navigation={navigation}
+                    key={pokemon.name}
+                  />
+                );
+              })}
+            </View>
+          );
+        })}
     </View>
   );
 }

@@ -18,7 +18,6 @@ export default function SafeArea({
 }: SafeAreaProps) {
   const styles = StyleSheet.create({
     base: {
-      flex: 1,
       backgroundColor: color || theme.colors.neutral50,
     },
   });

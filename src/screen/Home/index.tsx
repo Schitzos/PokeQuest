@@ -7,10 +7,10 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  TextInput,
   Platform,
   Image,
 } from 'react-native';
+import Search from '@/fragments/Shared/Search';
 
 export default function Dashboard({navigation}: DashboardScreenProps) {
   const [loadMore, setLoadMore] = useState(false);
@@ -24,6 +24,9 @@ export default function Dashboard({navigation}: DashboardScreenProps) {
     if (layoutMeasurement.height + contentOffset.y >= contentSize.height - 20) {
       handleScroll && handleScroll();
     }
+    // if (contentOffset.y > 280) {
+    //   console.log('here');
+    // }
   };
 
   useEffect(() => {
@@ -42,13 +45,9 @@ export default function Dashboard({navigation}: DashboardScreenProps) {
             style={styles.pokeball}
             source={require('@assets/images/app_logo.png')}
           />
-          <TextInput
-            autoCapitalize="none"
-            placeholder={'Search Pokemon by Name or Pokemon ID'}
-            style={styles.search}
-            // value={inputValue}
-            // onChangeText={text => setInputValue(text)}
-            // onSubmitEditing={handleSubmitSearch}
+          <Search
+            placeholder="Search Pokemon by Name or Pokemon ID"
+            handleSearch={() => {}}
           />
         </View>
         <ListPokemon navigation={navigation} loadMore={loadMore} />
@@ -86,6 +85,8 @@ const styles = StyleSheet.create({
     color: theme.colors.black,
     borderColor: theme.colors.primary100,
     borderWidth: 2,
+    fontFamily: theme.font.reguler,
+    fontSize: 12,
   },
   pokeball: {
     width: 256,

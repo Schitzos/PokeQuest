@@ -9,6 +9,7 @@ interface TextViewProps {
   fw?: '400' | '600' | '700' | 'bold' | 'normal';
   align?: 'center' | 'auto' | 'left' | 'right' | 'justify' | undefined;
   capitalize?: boolean;
+  font?: string;
 }
 
 export default function TextView({
@@ -18,6 +19,7 @@ export default function TextView({
   fw = 'normal',
   align = 'left',
   capitalize = true,
+  font = theme.font.reguler,
 }: TextViewProps) {
   const styles = StyleSheet.create({
     base: {
@@ -26,7 +28,7 @@ export default function TextView({
       fontWeight: fw,
       textAlign: align,
       textTransform: capitalize ? 'capitalize' : 'none',
-      fontFamily: theme.font.reguler,
+      fontFamily: font,
     },
   });
 
