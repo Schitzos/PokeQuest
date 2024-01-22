@@ -9,13 +9,15 @@ import IconChevronLeft from '@assets/icons/icon-chevron-left.svg';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface HeaderScreenProps {
-  label: string;
+  label?: string;
   color?: string;
+  align?: 'center' | 'auto' | 'left' | 'right' | 'justify' | undefined;
 }
 
 export default function HeaderScreen({
   label,
   color = theme.colors.white,
+  align = 'center',
 }: HeaderScreenProps) {
   const navigation = useNavigation();
   return (
@@ -24,7 +26,7 @@ export default function HeaderScreen({
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <IconChevronLeft color={theme.colors.white} />
         </TouchableOpacity>
-        <TextView color={theme.colors.white} fz={16} fw="bold">
+        <TextView color={theme.colors.white} fz={24} align={align}>
           {label}
         </TextView>
       </View>
