@@ -23,7 +23,7 @@ import IconArrow from '@assets/icons/icon-right-circle.svg';
 import IconPokeBall from '@assets/icons/icon-pokeball.svg';
 import {pokemonColor} from '@/constants/pokemonColor';
 
-export default function PokemonImage({name, navigation}: PokemonItem) {
+export default function PokemonSearch({name, navigation}: PokemonItem) {
   const pokemonSpecies = getSpeciesPokemon({
     name: name,
     key: ['getSpeciesPokemon', name],
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.neutral200,
     borderWidth: 1,
     borderRadius: 4,
-    width: '21.6%',
+    width: '50%',
     alignItems: 'center',
     position: 'relative',
   },
@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
     fontFamily: theme.font.reguler,
   },
   artwork: {
-    width: 96,
-    height: 96,
+    width: 200,
+    height: 200,
     marginLeft: -8,
   },
   imageLoading: {

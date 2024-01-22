@@ -1,23 +1,36 @@
 import React, {useEffect, useRef, useCallback} from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
-import {getListPokemon} from '@/services/pokemon/pokemon.service';
-import {ListPokemonProps} from './type';
+import {
+  getListPokemon,
+  searchPokemon,
+} from '@/services/pokemon/pokemon.service';
+import {ListPokemonProps, PokemonItem} from './type';
 import PokemonImage from '../PokemonImage';
 import theme from '@/theme';
 import {ShakeUpDown} from '@/utils/animation/shake';
 import ListPokemonSkeleton from '../ListPokemonSkeleton';
 
-export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
+export default function ListPokemon({
+  navigation,
+  loadMore,
+  search,
+}: ListPokemonProps) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
 
   const pokemonLists = getListPokemon({
-    limit: 16,
+    limit: 48,
     key: ['getListPokemon'],
     offset: 0,
   });
 
+  const pokemonSearch = searchPokemon({
+    key: ['searchPokemon'],
+    search: search,
+  });
+
   const pokemons = pokemonLists?.data?.pages || [];
+  const pokeSearch = (pokemonSearch.data as PokemonItem) || {};
 
   const handleLoadMore = useCallback(() => {
     if (loadMore && !pokemonLists.isFetching && !isFirstRender.current) {
@@ -34,6 +47,13 @@ export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
   }, [handleLoadMore]);
 
   useEffect(() => {
+    if (!isFirstRender.current) {
+      search && pokemonSearch.refetch();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
+
+  useEffect(() => {
     ShakeUpDown(shakeAnimation, 500);
     const intervalId = setInterval(() => {
       ShakeUpDown(shakeAnimation, 500);
@@ -48,8 +68,16 @@ export default function ListPokemon({navigation, loadMore}: ListPokemonProps) {
         style={[styles.pokeball, {transform: [{translateY: shakeAnimation}]}]}
         source={require('@assets/images/pokeball.png')}
       />
+      {search && (
+        <PokemonImage
+          name={pokeSearch.name}
+          navigation={navigation}
+          key={pokeSearch.name}
+        />
+      )}
       {pokemonLists.isLoading && <ListPokemonSkeleton />}
-      {!pokemonLists.isLoading &&
+      {!search &&
+        !pokemonLists.isLoading &&
         pokemons?.map((page: any, idx) => {
           return (
             <View key={idx} style={styles.pages}>
