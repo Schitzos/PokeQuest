@@ -2,19 +2,12 @@ import React, {useEffect, useState} from 'react';
 import theme from '@theme/index';
 import {DashboardScreenProps} from './type';
 import ListPokemon from '@/fragments/Home/ListPokemon';
-import {
-  View,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-  Platform,
-  Image,
-} from 'react-native';
+import {View, StyleSheet, SafeAreaView, ScrollView, Image} from 'react-native';
 import Search from '@/fragments/Shared/Search';
 
 export default function Dashboard({navigation}: DashboardScreenProps) {
   const [loadMore, setLoadMore] = useState(false);
-
+  const [search, setSearch] = useState('');
   const handleScroll = () => {
     setLoadMore(true);
   };
@@ -40,17 +33,23 @@ export default function Dashboard({navigation}: DashboardScreenProps) {
         showsVerticalScrollIndicator={true}
         onScroll={onScroll}
         scrollEventThrottle={16}>
-        <View style={styles.infoContainer}>
-          <Image
-            style={styles.pokeball}
-            source={require('@assets/images/app_logo.png')}
-          />
-          <Search
-            placeholder="Search Pokemon by Name or Pokemon ID"
-            handleSearch={() => {}}
+        <View style={{flex: 1}}>
+          <View style={styles.infoContainer}>
+            <Image
+              style={styles.pokeball}
+              source={require('@assets/images/app_logo.png')}
+            />
+            <Search
+              placeholder="Search Pokemon by Name or Pokemon ID"
+              handleSearch={setSearch}
+            />
+          </View>
+          <ListPokemon
+            navigation={navigation}
+            loadMore={loadMore}
+            search={search}
           />
         </View>
-        <ListPokemon navigation={navigation} loadMore={loadMore} />
       </ScrollView>
     </View>
   );
@@ -69,24 +68,7 @@ const styles = StyleSheet.create({
     gap: 16,
     padding: 16,
     paddingBottom: 38,
-  },
-  textGroup: {
-    gap: 8,
-    marginBottom: 64,
-  },
-  content: {
     flex: 1,
-  },
-  search: {
-    backgroundColor: theme.colors.white,
-    paddingVertical: Platform.OS === 'android' ? 8 : 12,
-    paddingHorizontal: 16,
-    borderRadius: 16,
-    color: theme.colors.black,
-    borderColor: theme.colors.primary100,
-    borderWidth: 2,
-    fontFamily: theme.font.reguler,
-    fontSize: 12,
   },
   pokeball: {
     width: 256,
