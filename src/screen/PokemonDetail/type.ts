@@ -5,3 +5,7 @@ export type PokemonDetailScreenProps = {
   route: any;
   navigation: StackNavigationProp<RootStackParamList, 'PokemonDetail'>;
 };
+
+export interface IconProps extends React.SVGProps<SVGSVGElement> {
+  // Add any additional props if needed
+}

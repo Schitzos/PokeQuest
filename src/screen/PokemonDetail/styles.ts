@@ -5,24 +5,9 @@ export const styles = StyleSheet.create({
   base: {
     flex: 1,
   },
-  text: {
-    color: 'red',
-  },
-  imageContainer: {
-    flex: 1,
-  },
-  imageBackground: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  artwork: {
-    width: 300,
-    height: 300,
-    zIndex: 1000,
-  },
   pokeStat: {
-    padding: 16,
+    paddingHorizontal: 16,
+    paddingTop: 8,
     gap: 8,
     backgroundColor: theme.colors.white,
     borderTopLeftRadius: 16,
@@ -30,15 +15,26 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginTop: -16,
   },
-  perStat: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  tabBarIndicator: {
+    backgroundColor: theme.colors.neutral500,
+    height: 1,
+    borderRadius: 10,
+    color: 'red',
   },
-  progressParent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    width: '60%',
+  tabBar: {
+    backgroundColor: theme.colors.white,
+    elevation: 0,
+    borderBottomColor: theme.colors.neutral50,
+    borderBottomWidth: 1,
+  },
+  tabBarText: {
+    color: theme.colors.neutral400,
+    fontFamily: theme.font.reguler,
+    fontSize: 12,
+  },
+  tabBarTextFocus: {
+    color: theme.colors.black,
+    fontFamily: theme.font.reguler,
+    fontSize: 12,
   },
 });
