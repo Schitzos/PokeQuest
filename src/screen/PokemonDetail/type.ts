@@ -9,3 +9,7 @@ export type PokemonDetailScreenProps = {
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   // Add any additional props if needed
 }
+
+export interface PokemonEvolveDataResponse {
+  chain: any;
+}

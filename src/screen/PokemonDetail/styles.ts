@@ -37,4 +37,10 @@ export const styles = StyleSheet.create({
     fontFamily: theme.font.reguler,
     fontSize: 12,
   },
+  pokeball: {
+    width: 72,
+    height: 72,
+    alignSelf: 'center',
+    zIndex: 1000,
+  },
 });
