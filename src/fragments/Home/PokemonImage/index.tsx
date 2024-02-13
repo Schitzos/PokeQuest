@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -7,91 +7,65 @@ import {
   View,
 } from 'react-native';
 import TextView from '@/components/TextView';
-import {
-  getDetailPokemon,
-  getSpeciesPokemon,
-} from '@/services/pokemon/pokemon.service';
-import {
-  PokemonDetailDataResponse,
-  PokemonItem,
-  PokemonSpeciesDataResponse,
-} from './type';
+import {getSpeciesPokemonAlt} from '@/services/pokemon/pokemon.service';
+import {PokemonItem, PokemonSpecies} from './type';
 import theme from '@/theme';
 import FastImage from 'react-native-fast-image';
-import {pokemonType} from '@/constants/pokemonType';
-import IconArrow from '@assets/icons/icon-right-circle.svg';
-import IconPokeBall from '@assets/icons/icon-pokeball.svg';
 import {pokemonColor} from '@/constants/pokemonColor';
+import Skeleton from '@/components/Skeleton';
 
-export default function PokemonImage({name, navigation}: PokemonItem) {
-  const pokemonSpecies = getSpeciesPokemon({
-    name: name,
-    key: ['getSpeciesPokemon', name],
-  });
+export default function PokemonImage({name, id, navigation}: PokemonItem) {
+  const [species, setSpecies] = useState<PokemonSpecies | undefined>();
+  const [loading, setLoading] = useState(true);
 
-  const species = (pokemonSpecies?.data || {}) as PokemonSpeciesDataResponse;
+  useEffect(() => {
+    getSpeciesPokemonAlt({
+      id: id,
+    })
+      .then((res: any) => {
+        setSpecies(res);
+        setLoading(false);
+      })
+      .catch((error: any) => {
+        console.log('error get species', error);
+      });
+  }, [id]);
 
-  const pokemonDetail = getDetailPokemon({
-    id: species ? species?.id?.toString() : '',
-    key: ['getDetailPokemon', species ? species?.id?.toString() : ''],
-  });
-
-  const detail = (pokemonDetail?.data || {}) as PokemonDetailDataResponse;
-
-  const imageUrl = detail?.sprites?.other['official-artwork'].front_default;
+  if (loading) {
+    return <Skeleton height={120} width={'21%'} />;
+  }
 
   return (
     <TouchableOpacity
       style={styles.each}
       onPress={() =>
         navigation.navigate('PokemonDetail', {
-          pokemonDetail: detail,
-          pokemonSpecies: species,
+          id: id,
         })
       }>
-      <ImageBackground
-        source={
-          pokemonColor.find(val => val.name === species?.color?.name)
-            ?.background || require('@assets/images/default_image_loading.png')
-        }
-        style={styles.background}>
-        <Text style={styles.pokemonId}>
-          {pokemonSpecies.isLoading ? 'Loading' : `#${species?.id || 'null'}`}
-        </Text>
-        <FastImage
-          style={styles.artwork}
-          source={{
-            uri: imageUrl,
-            priority: FastImage.priority.high,
-          }}
-          defaultSource={require('@assets/images/default_image_loading.png')}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      </ImageBackground>
+      {!loading && (
+        <ImageBackground
+          source={
+            pokemonColor[species?.color?.name as keyof typeof pokemonColor]
+          }
+          style={styles.background}
+          defaultSource={require('@assets/images/app_logo.png')}>
+          <Text style={styles.pokemonId}>#{id}</Text>
+          <FastImage
+            style={styles.artwork}
+            source={{
+              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
+              priority: FastImage.priority.high,
+            }}
+            defaultSource={require('@assets/images/default_image_loading.png')}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+        </ImageBackground>
+      )}
       <View style={styles.info}>
-        <TextView align="left" fz={10} color={theme.colors.black} fw="600">
+        <TextView align="center" fz={10} color={theme.colors.black} fw="600">
           {name}
         </TextView>
-        <View style={styles.typeContainer}>
-          <View style={styles.type}>
-            {detail && !pokemonDetail.isLoading ? (
-              detail?.types?.map((val: any) => {
-                const getIcon = pokemonType.find(
-                  type => type.name === val?.type?.name,
-                );
-                const Icon = getIcon?.icon;
-                return (
-                  <View key={val?.type?.name}>
-                    {Icon && <Icon width={12} height={12} />}
-                  </View>
-                );
-              })
-            ) : (
-              <IconPokeBall width={12} height={12} />
-            )}
-          </View>
-          <IconArrow width={12} height={12} color={theme.colors.primary} />
-        </View>
       </View>
     </TouchableOpacity>
   );

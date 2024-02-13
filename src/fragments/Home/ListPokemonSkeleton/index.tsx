@@ -7,7 +7,7 @@ export default function ListPokemonSkeleton() {
   return (
     <View style={styles.base}>
       {[...Array(numberOfSkeletons)].map((_, index) => (
-        <Skeleton height={150} width={'21%'} key={index} />
+        <Skeleton height={120} width={'21%'} key={index} />
       ))}
     </View>
   );

@@ -4,6 +4,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 export interface PokemonItem {
   name: string;
+  id: number;
 }
 
 export interface PokemonListsResponse extends queryResponseProps {

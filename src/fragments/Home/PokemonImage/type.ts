@@ -5,6 +5,13 @@ import {StackNavigationProp} from '@react-navigation/stack';
 export interface PokemonItem {
   name: string;
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
+  id: number;
+}
+
+export interface PokemonSpecies {
+  color: {
+    name: string;
+  };
 }
 
 export interface PokemonSpeciesDataResponse extends queryResponseProps {
@@ -12,11 +19,28 @@ export interface PokemonSpeciesDataResponse extends queryResponseProps {
   color: {
     name: string;
   };
+  evolution_chain: {
+    url: string;
+  };
 }
 
 export interface PokemonDetailDataResponse extends queryResponseProps {
+  id: number;
+  weight: number;
+  name: string;
+  stats: Array<{
+    base_stat: number;
+    stat: {
+      name: string;
+      url: string;
+    };
+  }>;
+  height: number;
   types: Array<{
-    name: string;
+    slot: number;
+    type: {
+      name: string;
+    };
   }>;
   sprites: {
     other: {

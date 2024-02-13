@@ -17,9 +17,9 @@ export default function ListPokemon({
 }: ListPokemonProps) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
-
+  const limit = 36;
   const pokemonLists = getListPokemon({
-    limit: 48,
+    limit: limit,
     key: ['getListPokemon'],
     offset: 0,
   });
@@ -73,18 +73,21 @@ export default function ListPokemon({
           name={pokeSearch.name}
           navigation={navigation}
           key={pokeSearch.name}
+          id={pokeSearch.id}
         />
       )}
       {pokemonLists.isLoading && <ListPokemonSkeleton />}
       {!search &&
         !pokemonLists.isLoading &&
-        pokemons?.map((page: any, idx) => {
+        pokemons?.map((page: any, pageIndex) => {
           return (
-            <View key={idx} style={styles.pages}>
-              {page.results.map((pokemon: any) => {
+            <View key={pageIndex} style={styles.pages}>
+              {page.results.map((pokemon: any, pokemonIndex: number) => {
+                const pokemonId = pageIndex * limit + pokemonIndex + 1;
                 return (
                   <PokemonImage
                     name={pokemon.name}
+                    id={pokemonId}
                     navigation={navigation}
                     key={pokemon.name}
                   />
