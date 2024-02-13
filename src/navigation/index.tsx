@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {RootStackParamList} from './types';
 import {createStackNavigator} from '@react-navigation/stack';
 import route from './route';
+import PetNavigator from './PetNavigator';
 
 const Stack = createStackNavigator<RootStackParamList>(); // Specify the param list type
 
@@ -12,11 +13,19 @@ export default function Navigation() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
-        }}>
+        }}
+        initialRouteName={'Preload'}>
+        <Stack.Screen name="Preload" component={route.PreloadScreen} />
         <Stack.Screen name="Home" component={route.HomeScreen} />
         <Stack.Screen
           name="PokemonDetail"
           component={route.PokemonDetailScreen}
+        />
+        <Stack.Screen name="Dashboard" component={route.DashboardScreen} />
+        <Stack.Screen
+          name="PetNavigator"
+          component={PetNavigator}
+          options={{gestureEnabled: false}}
         />
       </Stack.Navigator>
     </NavigationContainer>
