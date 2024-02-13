@@ -10,6 +10,7 @@ interface TextViewProps {
   align?: 'center' | 'auto' | 'left' | 'right' | 'justify' | undefined;
   capitalize?: boolean;
   font?: string;
+  customStyle?: any;
 }
 
 export default function TextView({
@@ -20,6 +21,7 @@ export default function TextView({
   align = 'left',
   capitalize = true,
   font = theme.font.reguler,
+  customStyle,
 }: TextViewProps) {
   const styles = StyleSheet.create({
     base: {
@@ -32,5 +34,5 @@ export default function TextView({
     },
   });
 
-  return <Text style={styles.base}>{children}</Text>;
+  return <Text style={[styles.base, customStyle]}>{children}</Text>;
 }
