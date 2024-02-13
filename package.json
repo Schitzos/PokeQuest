@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:clean": "cd android && ./gradlew clean",
     "android:bundle": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res",
     "android:build-debug-apk": "npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res && cd android && ./gradlew assembleDebug",
     "ios": "react-native run-ios",
@@ -17,9 +18,15 @@
     "kill": "watchman watch-del-all"
   },
   "dependencies": {
+    "@notifee/react-native": "^7.8.2",
+    "@react-native-async-storage/async-storage": "^1.21.0",
+    "@react-native-firebase/app": "^18.8.0",
+    "@react-native-firebase/firestore": "^18.8.0",
+    "@react-navigation/bottom-tabs": "^6.5.11",
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/native-stack": "^6.9.17",
     "@react-navigation/stack": "^6.3.20",
+    "@shopify/flash-list": "^1.6.3",
     "@tanstack/react-query": "^5.17.9",
     "axios": "^1.6.5",
     "query-string": "^8.1.0",
