@@ -8,6 +8,8 @@ interface ContentProps {
   onPress: () => void;
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
+  customStyle?: any;
+  disabled?: boolean;
 }
 
 export default function Button({
@@ -16,6 +18,8 @@ export default function Button({
   onPress = () => {},
   size = 'md',
   fullWidth = false,
+  customStyle,
+  disabled = false,
 }: ContentProps) {
   const styleSize = {
     sm: {
@@ -49,12 +53,20 @@ export default function Button({
       color: theme.colors.white,
       fontFamily: theme.font.reguler,
     },
+    disabled: {
+      backgroundColor: theme.colors.neutral100,
+    },
   });
 
   return (
     <TouchableOpacity
-      style={styles.base as ViewStyle}
-      onPress={() => onPress()}>
+      style={[
+        styles.base as ViewStyle,
+        customStyle,
+        disabled && styles.disabled,
+      ]}
+      onPress={() => onPress()}
+      disabled={disabled}>
       <Text style={styles.label}>{children}</Text>
     </TouchableOpacity>
   );
