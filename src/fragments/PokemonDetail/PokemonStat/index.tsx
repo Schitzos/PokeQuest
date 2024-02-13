@@ -8,15 +8,23 @@ import theme from '@/theme';
 
 export default function PokemonStat({
   pokemonDetail,
+  labeled = false,
 }: {
-  pokemonSpecies: any;
   pokemonDetail: any;
+  labeled?: boolean;
 }) {
   return (
     <View style={styles.base}>
+      {labeled && (
+        <View style={styles.labeled}>
+          <TextView fz={16} color={theme.colors.neutral500}>
+            Pokemon Stats:
+          </TextView>
+        </View>
+      )}
       {pokemonDetail.stats.map((val: any) => (
         <View key={val.stat.name} style={styles.perStat}>
-          <TextView align="center" color={theme.colors.neutral500}>
+          <TextView align="center" color={theme.colors.black50}>
             {val.stat.name}
           </TextView>
           <View style={styles.progressParent}>
@@ -29,27 +37,29 @@ export default function PokemonStat({
           </View>
         </View>
       ))}
-      <View style={styles.measurementContainer}>
-        <View style={styles.meassurmentItem}>
-          <TextView align="center" color={theme.colors.neutral500}>
-            Height
-          </TextView>
-          <TextView fz={16} color={theme.colors.neutral500}>
-            {pokemonDetail.height * 10} cm
-          </TextView>
+      {!labeled && (
+        <View style={styles.measurementContainer}>
+          <View style={styles.meassurmentItem}>
+            <TextView align="center" color={theme.colors.neutral500}>
+              Height
+            </TextView>
+            <TextView fz={16} color={theme.colors.black50}>
+              {pokemonDetail.height * 10} cm
+            </TextView>
+          </View>
+          <View style={styles.meassurmentItem}>
+            <TextView
+              align="center"
+              color={theme.colors.neutral500}
+              capitalize={false}>
+              Weight
+            </TextView>
+            <TextView fz={16} color={theme.colors.black50}>
+              {Math.round(pokemonDetail.weight * 0.1)} kg
+            </TextView>
+          </View>
         </View>
-        <View style={styles.meassurmentItem}>
-          <TextView
-            align="center"
-            color={theme.colors.neutral500}
-            capitalize={false}>
-            Weight
-          </TextView>
-          <TextView fz={16} color={theme.colors.neutral500}>
-            {pokemonDetail.weight * 0.1} kg
-          </TextView>
-        </View>
-      </View>
+      )}
     </View>
   );
 }

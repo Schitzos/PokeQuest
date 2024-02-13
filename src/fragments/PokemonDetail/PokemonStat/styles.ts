@@ -7,6 +7,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
     gap: 8,
   },
+  labeled: {
+    paddingTop: 8,
+    paddingBottom: 4,
+    marginTop: -8,
+  },
   perStat: {
     flexDirection: 'row',
     alignItems: 'center',

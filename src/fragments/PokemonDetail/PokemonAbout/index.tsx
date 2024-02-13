@@ -15,8 +15,8 @@ export default function PokemonAbout({
   const aboutData = [
     {
       label: 'Abilities',
-      value: pokemonDetail.abilities
-        .map((ability: any) => ability.ability.name)
+      value: pokemonDetail?.abilities
+        ?.map((ability: any) => ability.ability.name)
         .join(', '),
     },
   ];
@@ -24,9 +24,9 @@ export default function PokemonAbout({
   return (
     <View style={styles.base}>
       <TextView align="left" color={theme.colors.neutral500}>
-        {pokemonSpecies.flavor_text_entries
-          .find((val: any) => val.language.name === 'en')
-          .flavor_text.replace(/[\n\f]/g, ' ')}
+        {pokemonSpecies?.flavor_text_entries
+          ?.find((val: any) => val.language.name === 'en')
+          ?.flavor_text.replace(/[\n\f]/g, ' ')}
       </TextView>
       <View style={styles.typesContainer}>
         <TextView color={theme.colors.black} font={theme.font.bold}>
@@ -34,7 +34,7 @@ export default function PokemonAbout({
         </TextView>
         <View style={styles.typeContainer}>
           {pokemonDetail &&
-            pokemonDetail.types.map((val: any) => {
+            pokemonDetail?.types?.map((val: any) => {
               const getIcon = pokemonType.find(
                 type => type.name === val?.type?.name,
               );

@@ -9,9 +9,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  artworkContainer: {
+    zIndex: 1000,
+  },
   artwork: {
-    width: 300,
-    height: 300,
+    width: 320,
+    height: 320,
     zIndex: 1000,
   },
 });
