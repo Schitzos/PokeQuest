@@ -1,3 +1,4 @@
+import AxiosAdapter from '@/utils/axiosAdapter';
 import Tanstack from '@utils/tanstackAdapter';
 
 interface GetListPokemonParams {
@@ -13,8 +14,12 @@ interface SearchPokemonParams {
 }
 
 interface GetSpeciesPokemonParams {
-  name: string;
+  id: number | string;
   key: string[];
+}
+
+interface GetSpeciesPokemonAltParams {
+  id: number;
 }
 
 interface GetDetailPokemonParams {
@@ -44,9 +49,20 @@ export const searchPokemon = ({key, search}: SearchPokemonParams) => {
   return Tanstack.Query(options);
 };
 
-export const getSpeciesPokemon = ({name, key}: GetSpeciesPokemonParams) => {
+export const getSpeciesPokemonAlt = async ({
+  id,
+}: GetSpeciesPokemonAltParams) => {
   const options = {
-    url: `${process.env.BASE_URL}/pokemon-species/${name}`,
+    url: `${process.env.BASE_URL}/pokemon-species/${id}`,
+    method: 'GET',
+  };
+
+  return await AxiosAdapter(options);
+};
+
+export const getSpeciesPokemon = ({id, key}: GetSpeciesPokemonParams) => {
+  const options = {
+    url: `${process.env.BASE_URL}/pokemon-species/${id}`,
     method: 'GET',
     key: key,
   };
@@ -63,6 +79,15 @@ export const getDetailPokemon = ({id, key}: GetDetailPokemonParams) => {
   };
 
   return Tanstack.Query(options);
+};
+
+export const getDetailPokemonAlt = async ({id}: GetSpeciesPokemonAltParams) => {
+  const options = {
+    url: `${process.env.BASE_URL}/pokemon/${id}`,
+    method: 'GET',
+  };
+
+  return await AxiosAdapter(options);
 };
 
 export const getEvolveChain = ({id, key}: GetDetailPokemonParams) => {

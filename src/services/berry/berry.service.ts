@@ -12,7 +12,7 @@ interface GetBerryParams {
 }
 
 interface GetBerryImageParams {
-  id: string;
+  name: string;
   key: string[];
 }
 
@@ -37,12 +37,12 @@ export const getBerryDetail = ({name, key}: GetBerryParams) => {
   return Tanstack.Query(options);
 };
 
-export const getBerryItemDetail = ({id, key}: GetBerryImageParams) => {
+export const getBerryItemDetail = ({name, key}: GetBerryImageParams) => {
   const options = {
-    url: `https://pokeapi.co/api/v2/item/${id}`,
+    url: `https://pokeapi.co/api/v2/item/${name}`,
     method: 'GET',
     key: key,
-    enabled: !!id,
+    enabled: !!name,
   };
 
   return Tanstack.Query(options);
