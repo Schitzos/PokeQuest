@@ -1,42 +1,12 @@
-export const pokemonColor = [
-  {
-    name: 'black',
-    background: require('@assets/images/black-background.png'),
-  },
-  {
-    name: 'blue',
-    background: require('@assets/images/blue-background.png'),
-  },
-  {
-    name: 'brown',
-    background: require('@assets/images/brown-background.png'),
-  },
-  {
-    name: 'gray',
-    background: require('@assets/images/white-background.png'),
-  },
-  {
-    name: 'green',
-    background: require('@assets/images/green-background.png'),
-  },
-  {
-    name: 'pink',
-    background: require('@assets/images/pink-background.png'),
-  },
-  {
-    name: 'purple',
-    background: require('@assets/images/purple-background.png'),
-  },
-  {
-    name: 'red',
-    background: require('@assets/images/pink-background.png'),
-  },
-  {
-    name: 'white',
-    background: require('@assets/images/white-background.png'),
-  },
-  {
-    name: 'yellow',
-    background: require('@assets/images/yellow-background.png'),
-  },
-];
+export const pokemonColor = {
+  black: require('@assets/images/black-background.png'),
+  blue: require('@assets/images/blue-background.png'),
+  brown: require('@assets/images/brown-background.png'),
+  gray: require('@assets/images/white-background.png'),
+  green: require('@assets/images/green-background.png'),
+  pink: require('@assets/images/pink-background.png'),
+  purple: require('@assets/images/purple-background.png'),
+  red: require('@assets/images/pink-background.png'),
+  white: require('@assets/images/white-background.png'),
+  yellow: require('@assets/images/yellow-background.png'),
+};
