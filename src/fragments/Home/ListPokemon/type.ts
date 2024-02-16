@@ -1,5 +1,4 @@
 import {RootStackParamList} from '@/navigation/types';
-import {queryResponseProps} from '@/utils/types';
 import {StackNavigationProp} from '@react-navigation/stack';
 
 export interface PokemonItem {
@@ -7,14 +6,23 @@ export interface PokemonItem {
   id: number;
 }
 
-export interface PokemonListsResponse extends queryResponseProps {
-  data: {
-    results?: PokemonItem[];
-  };
-}
-
 export interface ListPokemonProps {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
-  loadMore: boolean;
   search: string;
+  scrollY: any;
+  handleScroll: any;
+  searchTranslateY: any;
+}
+
+export interface PokemonListPage {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: PokemonItem[];
+}
+
+export interface PokemonListsResponse {
+  data: {
+    pages: PokemonListPage[];
+  };
 }
