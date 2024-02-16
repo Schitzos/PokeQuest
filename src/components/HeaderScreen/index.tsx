@@ -7,12 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 import {View} from 'react-native';
 import IconChevronLeft from '@assets/icons/icon-chevron-left.svg';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-
-interface HeaderScreenProps {
-  label?: string;
-  color?: string;
-  align?: 'center' | 'auto' | 'left' | 'right' | 'justify' | undefined;
-}
+import {HeaderScreenProps} from './type';
 
 export default function HeaderScreen({
   label,
