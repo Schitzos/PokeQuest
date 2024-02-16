@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, StyleSheet, SafeAreaView, Platform} from 'react-native';
 import {DashboardScreenProps} from './type';
 import {usePokemon} from '@/hooks/usePokemon';
@@ -15,6 +15,7 @@ import {
   getNextEvolveSpecies,
 } from '@/utils/common/evolution';
 import {transformStatsArray, transformTypesArray} from '@/utils/common/stat';
+import SplashScreen from 'react-native-splash-screen';
 
 export default function Dashboard({navigation, route}: DashboardScreenProps) {
   const {pokemon, removePokemon, setPokemon} = usePokemon();
@@ -26,7 +27,6 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
   };
 
   const handleAction = (val: any) => {
-    console.log(val);
     let heightCalculate;
     if (
       !pokemon.selected.prevBerry ||
@@ -121,6 +121,10 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
       return error;
     }
   };
+
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
 
   return (
     <View style={styles.base}>

@@ -43,4 +43,13 @@ export const styles = StyleSheet.create({
     alignSelf: 'center',
     zIndex: 1000,
   },
+  choosen: {
+    flex: 1,
+    padding: 16,
+    marginTop: '40%',
+  },
+  choosenImage: {
+    width: '100%',
+    height: '100%',
+  },
 });

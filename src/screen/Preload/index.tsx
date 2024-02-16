@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {PreloadScreenProps} from './type';
-import SplashScreen from 'react-native-splash-screen';
 import {useAsyncStorage} from '@react-native-async-storage/async-storage';
 
 export default function Preload({navigation}: PreloadScreenProps) {
@@ -28,7 +27,6 @@ export default function Preload({navigation}: PreloadScreenProps) {
   }, [getItem]);
 
   useEffect(() => {
-    SplashScreen.hide();
     if (loaded && selectedPokemon) {
       navigation.navigate('PetNavigator');
     } else {

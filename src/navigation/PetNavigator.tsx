@@ -35,7 +35,7 @@ export default function PetNavigator() {
       }) => ({
         // eslint-disable-next-line react/no-unstable-nested-components
         tabBarIcon: ({focused}) => {
-          const Icon = tabIcons[props.route.name];
+          // const Icon = tabIcons[props.route.name];
           const iconColor = focused
             ? theme.colors.primary
             : theme.colors.neutral400;

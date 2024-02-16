@@ -1,13 +1,13 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React from 'react';
-import {ScrollView, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {ScrollView, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import theme from '@/theme';
 import {PokemonDatas} from '@/utils/common/evolution';
 import TextView from '@/components/TextView';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@/navigation/types';
 import {useNavigation} from '@react-navigation/native';
+import {styles} from './styles';
 
 interface PokemonEvolveChainProps {
   pokemonEvolve: PokemonDatas;
@@ -63,65 +63,8 @@ const PokemonEvolveChain: React.FC<PokemonEvolveChainProps> = ({
       <View style={styles.baseContainer}>
         <PokemonNode pokemon={pokemonEvolve} />
       </View>
-      {/* {pokemonEvolve.map(val => (
-          <PokemonSprite
-            currentState={currentState}
-            name={val.species_name}
-            key={val.species_name}
-          />
-        ))} */}
     </ScrollView>
   );
 };
 
 export default PokemonEvolveChain;
-
-const styles = StyleSheet.create({
-  baseContainer: {
-    flex: 1,
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
-  base: {
-    flex: 1,
-    flexDirection: 'row',
-    gap: 8,
-    alignItems: 'center',
-  },
-  baseBorder: {
-    padding: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  selected: {
-    borderColor: theme.colors.primary,
-    borderWidth: 1,
-    borderRadius: 8,
-  },
-  childBase: {
-    flex: 1,
-    gap: 8,
-  },
-  childWrapper: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  artwork: {
-    width: 64,
-    height: 64,
-  },
-  evolveContainer: {
-    flexDirection: 'column',
-    padding: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-  },
-  currentState: {
-    borderWidth: 1,
-    borderColor: theme.colors.primary,
-    borderRadius: 8,
-  },
-});

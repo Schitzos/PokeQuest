@@ -16,12 +16,15 @@ export default function Navigation() {
         }}
         initialRouteName={'Preload'}>
         <Stack.Screen name="Preload" component={route.PreloadScreen} />
-        <Stack.Screen name="Home" component={route.HomeScreen} />
+        <Stack.Screen
+          name="Home"
+          component={route.HomeScreen}
+          options={{gestureEnabled: false}}
+        />
         <Stack.Screen
           name="PokemonDetail"
           component={route.PokemonDetailScreen}
         />
-        <Stack.Screen name="Dashboard" component={route.DashboardScreen} />
         <Stack.Screen
           name="PetNavigator"
           component={PetNavigator}

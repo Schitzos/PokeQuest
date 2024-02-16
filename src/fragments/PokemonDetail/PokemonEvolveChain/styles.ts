@@ -1,40 +1,52 @@
+import theme from '@/theme';
 import {StyleSheet} from 'react-native';
 
 export const styles = StyleSheet.create({
+  baseContainer: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
   base: {
     flex: 1,
-    paddingTop: 16,
-    paddingHorizontal: 16,
-    gap: 8,
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-start',
+    gap: 8,
+    alignItems: 'center',
   },
-  perStat: {
+  baseBorder: {
+    padding: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  selected: {
+    borderColor: theme.colors.primary,
+    borderWidth: 1,
+    borderRadius: 8,
+  },
+  childBase: {
+    flex: 1,
+    gap: 8,
+  },
+  childWrapper: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  progressParent: {
-    flexDirection: 'row',
-    alignItems: 'center',
     gap: 8,
-    width: '60%',
+  },
+  artwork: {
+    width: 64,
+    height: 64,
   },
   evolveContainer: {
-    flexWrap: 'wrap',
     flexDirection: 'column',
-  },
-  meassurmentItem: {
-    alignItems: 'center',
+    padding: 8,
     justifyContent: 'center',
-    flex: 1,
-    gap: 16,
-  },
-  meassurmentInfo: {
-    flexDirection: 'row',
-    gap: 8,
     alignItems: 'center',
-    justifyContent: 'center',
+    flexWrap: 'wrap',
+  },
+  currentState: {
+    borderWidth: 1,
+    borderColor: theme.colors.primary,
+    borderRadius: 8,
   },
 });

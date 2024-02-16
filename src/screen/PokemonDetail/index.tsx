@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {useEffect} from 'react';
-import {View, useWindowDimensions, Text} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, useWindowDimensions, Text, Animated} from 'react-native';
 import HeaderScreen from '@components/HeaderScreen';
 import {styles} from './styles';
 import {PokemonDetailScreenProps, PokemonEvolveDataResponse} from './type';
@@ -24,11 +24,9 @@ import PokemonDetailLoading from '@/fragments/PokemonDetail/PokemonDetailLoading
 import {usePokemon} from '@/hooks/usePokemon';
 import {
   PokemonDatas,
-  findPokemonEvolveById,
-  getNextEvolveDetail,
   parseEvolutionChainRecursive,
 } from '@/utils/common/evolution';
-import {transformStatsArray, transformTypesArray} from '@/utils/common/stat';
+import {handleChoosePokemon} from './function';
 
 export default function PokemonDetail({
   route,
@@ -43,6 +41,7 @@ export default function PokemonDetail({
     {key: 'stats', title: 'Stats'},
     {key: 'evolutions', title: 'Evolutions'},
   ]);
+  const [spark, setSpark] = useState(false);
 
   const pokemonSpecies = getSpeciesPokemon({
     id: id,
@@ -83,43 +82,6 @@ export default function PokemonDetail({
         ?.baseColor
     : '';
 
-  const handleChoosePokemon = async () => {
-    await handlePokemonHadEvolution().then((res: any) => {
-      const payload = {
-        pokemonId: detail.id,
-        pokemonName: detail.name,
-        currentExp: Math.round(detail.weight * 0.1),
-        nextExpEvolve: Math.round(res.weight * 0.1),
-        hungerPoints: 0,
-        isActive: true,
-        evolveChain: parseEvolutionChainRecursive(evolve?.chain || []),
-        stats: {
-          ...transformStatsArray(detail.stats),
-          height: detail.height * 10,
-          weight: Math.round(detail.weight * 0.1),
-        },
-        type: transformTypesArray(detail.types),
-        prevBerry: null,
-      };
-      const toLocalStorage = {detail, species, selected: payload};
-      setPokemon(toLocalStorage);
-      navigation.navigate('PetNavigator');
-    });
-  };
-
-  const handlePokemonHadEvolution = async () => {
-    try {
-      const currentStatePokemon = findPokemonEvolveById(parsedEvolve, id);
-      if (currentStatePokemon?.evolveTo) {
-        return getNextEvolveDetail(currentStatePokemon.evolveTo[0].species_id);
-      } else {
-        return {weight: detail.weight};
-      }
-    } catch (error) {
-      return error;
-    }
-  };
-
   const renderTabBar = (props: any) => (
     <TabBar
       {...props}
@@ -148,19 +110,37 @@ export default function PokemonDetail({
   }
 
   return (
-    <View style={styles.base}>
-      <HeaderScreen align="center" label={detail.name} color={baseColor} />
-      <PokemonArt pokemonDetail={detail} />
-      <View style={styles.pokeStat}>
-        <TabView
-          navigationState={{index, routes}}
-          renderScene={renderScene}
-          onIndexChange={setIndex}
-          initialLayout={{width: layout.width}}
-          renderTabBar={renderTabBar}
-        />
-      </View>
-      <FloatingButton color={baseColor} onPress={handleChoosePokemon} />
-    </View>
+    <Animated.View style={styles.base}>
+      <Animated.View style={styles.base}>
+        <HeaderScreen align="center" label={detail.name} color={baseColor} />
+        <PokemonArt pokemonDetail={detail} spark={spark} />
+        <View style={styles.pokeStat}>
+          <TabView
+            navigationState={{index, routes}}
+            renderScene={renderScene}
+            onIndexChange={setIndex}
+            initialLayout={{width: layout.width}}
+            renderTabBar={renderTabBar}
+          />
+        </View>
+        <Animated.View>
+          <FloatingButton
+            color={baseColor}
+            handleChoosePokemon={() =>
+              handleChoosePokemon({
+                setSpark,
+                detail,
+                species,
+                parsedEvolve,
+                id,
+                evolve,
+                setPokemon,
+                navigation,
+              })
+            }
+          />
+        </Animated.View>
+      </Animated.View>
+    </Animated.View>
   );
 }

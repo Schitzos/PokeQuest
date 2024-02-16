@@ -6,6 +6,7 @@ export interface PokemonItem {
   name: string;
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
   id: number;
+  isSearch: boolean;
 }
 
 export interface PokemonSpecies {
