@@ -8,6 +8,7 @@ import {PanGestureHandler} from 'react-native-gesture-handler';
 import {
   handleBallAnimation,
   opacityHidden,
+  resetBallAnimation,
   shakeAnimation,
   translateY,
 } from './animation';
@@ -16,9 +17,11 @@ import {handleGestureEvent} from './function';
 export default function FloatingButton({
   color,
   handleChoosePokemon,
+  spark,
 }: {
   color: string | undefined;
   handleChoosePokemon: () => void;
+  spark: boolean;
 }) {
   useEffect(() => {
     ShakeUpDown(shakeAnimation, 500);
@@ -27,6 +30,12 @@ export default function FloatingButton({
     }, 2000);
     return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    if (!spark) {
+      resetBallAnimation();
+    }
+  }, [spark]);
 
   return (
     <View style={[styles.container, {backgroundColor: color}]}>

@@ -24,3 +24,9 @@ export const handleBallAnimation = ({
     });
   });
 };
+
+export const resetBallAnimation = () => {
+  // Reset translateY and opacityHidden values
+  translateY.setValue(0);
+  opacityHidden.setValue(1);
+};

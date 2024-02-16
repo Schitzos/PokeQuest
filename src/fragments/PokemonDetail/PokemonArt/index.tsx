@@ -10,6 +10,7 @@ import {
   animateOpacityShow,
   opacityHidden,
   opacityShow,
+  resetAnimations,
 } from './animation';
 
 export default function PokemonArt({
@@ -53,8 +54,12 @@ export default function PokemonArt({
       animateOpacityHidden();
       animateOpacityShow();
       animateBackgroundColor();
+    } else {
+      resetAnimations();
     }
   }, [spark]);
+
+  console.log(spark);
 
   return (
     <View style={styles.imageContainer}>

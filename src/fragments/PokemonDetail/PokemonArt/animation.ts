@@ -26,3 +26,11 @@ export const animateBackgroundColor = () => {
     useNativeDriver: true, // useNativeDriver: false for backgroundColor
   }).start();
 };
+
+export const resetAnimations = () => {
+  // Reset opacity values
+  opacityHidden.setValue(1);
+  opacityShow.setValue(0);
+  // Reset background color value
+  backgroundColor.setValue(0);
+};

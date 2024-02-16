@@ -105,6 +105,10 @@ export default function PokemonDetail({
     setIndex(0);
   }, [id]);
 
+  useEffect(() => {
+    setSpark(false);
+  }, []);
+
   if (pokemonDetail.isFetching) {
     return <PokemonDetailLoading />;
   }
@@ -125,6 +129,7 @@ export default function PokemonDetail({
         </View>
         <Animated.View>
           <FloatingButton
+            spark={spark}
             color={baseColor}
             handleChoosePokemon={() =>
               handleChoosePokemon({
