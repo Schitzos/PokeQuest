@@ -1,23 +1,36 @@
-import React, {useEffect, useRef, useCallback} from 'react';
-import {View, StyleSheet, Animated} from 'react-native';
+/* eslint-disable react/no-unstable-nested-components */
+import React, {useEffect, useRef} from 'react';
+import {Animated, Dimensions, View} from 'react-native';
 import {
   getListPokemon,
   searchPokemon,
 } from '@/services/pokemon/pokemon.service';
-import {ListPokemonProps, PokemonItem} from './type';
+import {ListPokemonProps, PokemonItem, PokemonListPage} from './type';
 import PokemonImage from '../PokemonImage';
-import theme from '@/theme';
 import {ShakeUpDown} from '@/utils/animation/shake';
 import ListPokemonSkeleton from '../ListPokemonSkeleton';
+import SplashScreen from 'react-native-splash-screen';
+import TextView from '@/components/TextView';
+import LoadingList from '../LoadingList';
+import {styles} from './styles';
 
 export default function ListPokemon({
   navigation,
-  loadMore,
   search,
+  scrollY,
+  handleScroll,
+  searchTranslateY,
 }: ListPokemonProps) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
-  const limit = 36;
+  const limit = 96;
+  const windowHeight = Dimensions.get('window').height;
+  const translateY = scrollY.interpolate({
+    inputRange: [0, 750], // Adjust the range as needed
+    outputRange: [0, -260],
+    extrapolate: 'clamp',
+  });
+
   const pokemonLists = getListPokemon({
     limit: limit,
     key: ['getListPokemon'],
@@ -29,29 +42,31 @@ export default function ListPokemon({
     search: search,
   });
 
-  const pokemons = pokemonLists?.data?.pages || [];
+  const pokemons = (pokemonLists?.data?.pages as PokemonListPage[]) || [];
+  const flattenData = pokemons.flatMap(page => {
+    return (page?.results || []) as PokemonItem[];
+  });
+
   const pokeSearch = (pokemonSearch.data as PokemonItem) || {};
 
-  const handleLoadMore = useCallback(() => {
-    if (loadMore && !pokemonLists.isFetching && !isFirstRender.current) {
+  const handleLoadMore = () => {
+    if (!pokemonLists.isFetching) {
       pokemonLists.fetchNextPage();
     }
-  }, [loadMore, pokemonLists]);
-
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    handleLoadMore();
-  }, [handleLoadMore]);
+  };
 
   useEffect(() => {
     if (!isFirstRender.current) {
       search && pokemonSearch.refetch();
     }
+
+    if (!isFirstRender.current && !pokemonLists.isLoading) {
+      SplashScreen.hide();
+    } else {
+      isFirstRender.current = false;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
+  }, [search, pokemonLists.isLoading]);
 
   useEffect(() => {
     ShakeUpDown(shakeAnimation, 500);
@@ -63,67 +78,59 @@ export default function ListPokemon({
   }, []);
 
   return (
-    <View style={styles.base}>
+    <Animated.View
+      style={[
+        styles.base,
+        {
+          transform: [{translateY: Animated.add(translateY, searchTranslateY)}],
+          height: windowHeight,
+        },
+      ]}>
       <Animated.Image
         style={[styles.pokeball, {transform: [{translateY: shakeAnimation}]}]}
         source={require('@assets/images/pokeball.png')}
       />
-      {search && (
-        <PokemonImage
-          name={pokeSearch.name}
-          navigation={navigation}
-          key={pokeSearch.name}
-          id={pokeSearch.id}
-        />
+      {search && !pokemonSearch.isFetching && (
+        <View style={styles.single}>
+          <PokemonImage
+            name={pokeSearch.name}
+            navigation={navigation}
+            id={pokeSearch.id}
+            isSearch={Boolean(search)}
+          />
+        </View>
       )}
       {pokemonLists.isLoading && <ListPokemonSkeleton />}
-      {!search &&
-        !pokemonLists.isLoading &&
-        pokemons?.map((page: any, pageIndex) => {
-          return (
-            <View key={pageIndex} style={styles.pages}>
-              {page.results.map((pokemon: any, pokemonIndex: number) => {
-                const pokemonId = pageIndex * limit + pokemonIndex + 1;
-                return (
-                  <PokemonImage
-                    name={pokemon.name}
-                    id={pokemonId}
-                    navigation={navigation}
-                    key={pokemon.name}
-                  />
-                );
-              })}
-            </View>
-          );
-        })}
-    </View>
+      {!search && !pokemonLists.isLoading && (
+        <Animated.FlatList
+          data={flattenData}
+          renderItem={({item, index}) => (
+            <PokemonImage
+              name={item.name}
+              id={index + 1}
+              navigation={navigation}
+              key={item.name}
+              isSearch={false}
+            />
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          showsHorizontalScrollIndicator={false}
+          onEndReachedThreshold={0.8}
+          numColumns={4}
+          // estimatedItemSize={1000}
+          // estimatedListSize={{height: windowHeight, width: windowWidth}}
+          onEndReached={() => handleLoadMore()}
+          onScroll={handleScroll}
+          showsVerticalScrollIndicator={false}
+          removeClippedSubviews={true}
+          initialNumToRender={limit}
+          contentContainerStyle={styles.cusFlatList}
+          ListFooterComponent={() =>
+            pokemonLists.isFetchingNextPage && <LoadingList text="Loading..." />
+          }
+        />
+      )}
+      {pokemonLists.isFetchingNextPage && <TextView>Loading</TextView>}
+    </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  base: {
-    flex: 1,
-    backgroundColor: theme.colors.white,
-    padding: 16,
-    borderTopLeftRadius: 16,
-    borderTopRightRadius: 16,
-    position: 'relative',
-    paddingTop: 48,
-    gap: 16,
-  },
-  pokeball: {
-    width: 72,
-    height: 72,
-    alignSelf: 'center',
-    position: 'absolute',
-    top: -32,
-    zIndex: 1000,
-  },
-  pages: {
-    flex: 1,
-    gap: 16,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-  },
-});
