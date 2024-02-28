@@ -21,6 +21,7 @@ export function InfiniteQuery(options: any) {
       return AxiosAdapter(options);
     },
     ...options,
+    staleTime: 600000,
     getNextPageParam: (lastPage: any) => {
       const urlString = lastPage.next;
       const parsedParams = queryString.parseUrl(urlString).query;
