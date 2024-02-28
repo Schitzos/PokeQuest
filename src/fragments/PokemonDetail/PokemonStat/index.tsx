@@ -17,7 +17,7 @@ export default function PokemonStat({
     <View style={styles.base}>
       {labeled && (
         <View style={styles.labeled}>
-          <TextView fz={16} color={theme.colors.neutral500}>
+          <TextView color={theme.colors.black} font={theme.font.bold}>
             Pokemon Stats:
           </TextView>
         </View>

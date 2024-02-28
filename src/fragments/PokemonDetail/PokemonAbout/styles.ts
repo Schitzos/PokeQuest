@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 export const styles = StyleSheet.create({
   base: {
     flex: 1,
-    gap: 16,
+    gap: 8,
     paddingTop: 16,
     paddingHorizontal: 16,
   },
@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     zIndex: 1000,
   },
   typesContainer: {
-    gap: 16,
+    gap: 8,
   },
   typeContainer: {
     flexDirection: 'row',

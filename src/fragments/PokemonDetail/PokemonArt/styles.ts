@@ -21,13 +21,13 @@ export const styles = StyleSheet.create({
   artwork: {
     width: 320,
     height: 320,
-    zIndex: 2000,
   },
   choosenImageContainer: {
     width: '100%',
     height: '100%',
     backgroundColor: theme.colors.black,
     position: 'absolute',
+    zIndex: 1000,
   },
   choosenImage: {
     width: '100%',

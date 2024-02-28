@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {Animated, View} from 'react-native';
 import {styles} from './styles';
 import TextView from '@/components/TextView';
-import {ShakeUpDown} from '@/utils/animation/shake';
+import {ShakeUpDown} from '@/utils/animation';
 import theme from '@/theme';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import {

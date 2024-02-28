@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     borderColor: theme.colors.primary,
     borderWidth: 1,
     borderRadius: 8,
+    backgroundColor: theme.colors.neutral50,
   },
   childBase: {
     flex: 1,
@@ -48,5 +49,8 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.primary,
     borderRadius: 8,
+  },
+  labeled: {
+    paddingVertical: 8,
   },
 });
