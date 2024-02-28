@@ -28,7 +28,7 @@ export default function Preload({navigation}: PreloadScreenProps) {
 
   useEffect(() => {
     if (loaded && selectedPokemon) {
-      navigation.navigate('PetNavigator');
+      navigation.navigate('Dashboard');
     } else {
       navigation.navigate('Home');
     }
