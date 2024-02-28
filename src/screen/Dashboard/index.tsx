@@ -3,12 +3,6 @@ import {View, StyleSheet, SafeAreaView, Platform} from 'react-native';
 import {DashboardScreenProps} from './type';
 import {usePokemon} from '@/hooks/usePokemon';
 import FastImage from 'react-native-fast-image';
-import ListBerry from '@/fragments/Dashboard/ListBerry';
-import PokemonInfo from '@/fragments/Dashboard/PokemonInfo';
-import Button from '@/components/Button';
-import TextView from '@/components/TextView';
-import PokemonStat from '@/fragments/PokemonDetail/PokemonStat';
-import {berryFirmnessHeightScale} from '@/utils/berry/indext';
 import {
   findPokemonEvolveById,
   getNextEvolveDetail,
@@ -16,42 +10,14 @@ import {
 } from '@/utils/common/evolution';
 import {transformStatsArray, transformTypesArray} from '@/utils/common/stat';
 import SplashScreen from 'react-native-splash-screen';
+import MenuNavigationContent from '@/fragments/Dashboard/MenuNavigationContent';
+import PokemonArt from '@/fragments/Dashboard/PokemonArt';
 
-export default function Dashboard({navigation, route}: DashboardScreenProps) {
+export default function Dashboard({navigation}: DashboardScreenProps) {
   const {pokemon, removePokemon, setPokemon} = usePokemon();
-  const {action} = route.params;
-
   const handleRemovePokemon = () => {
     removePokemon();
     navigation.navigate('Home');
-  };
-
-  const handleAction = (val: any) => {
-    let heightCalculate;
-    if (
-      !pokemon.selected.prevBerry ||
-      pokemon.selected.prevBerry !== val.berryFirmness
-    ) {
-      heightCalculate =
-        pokemon.selected.currentExp +
-        berryFirmnessHeightScale[val.berryFirmness];
-    } else {
-      heightCalculate =
-        pokemon.selected.currentExp -
-        berryFirmnessHeightScale[val.berryFirmness] * 2;
-    }
-
-    const temp = {
-      detail: pokemon.detail,
-      species: pokemon.species,
-      evolve: pokemon.evolve,
-      selected: {
-        ...pokemon.selected,
-        currentExp: heightCalculate <= 0 ? 0 : heightCalculate,
-        prevBerry: val.berryFirmness,
-      },
-    };
-    setPokemon(temp);
   };
 
   const handleEvolve = async () => {
@@ -60,6 +26,7 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
         pokemonId: res.detail.id,
         pokemonName: res.detail.name,
         currentExp: Math.round(pokemon.selected.currentExp),
+        prevExp: pokemon.selected.prevExp,
         nextExpEvolve: Math.round(res.detail.weight * 0.1),
         hungerPoints: 0,
         isActive: true,
@@ -102,6 +69,7 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
         return {detail, species};
       }
     } catch (error) {
+      console.log('error handlePokemonEvolution');
       return error;
     }
   };
@@ -123,74 +91,23 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
   };
 
   useEffect(() => {
-    SplashScreen.hide();
+    if (pokemon) {
+      setTimeout(() => {
+        SplashScreen.hide();
+      }, 1000);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <View style={styles.base}>
       <FastImage
-        source={require('@assets/images/skyview.jpg')}
+        source={require('@assets/images/background-dashboard.png')}
         style={styles.backgroundImage}
         resizeMode={FastImage.resizeMode.cover}>
         <SafeAreaView />
-        <View style={styles.container}>
-          <PokemonInfo />
-          <View style={styles.artContainer}>
-            <FastImage
-              source={{
-                uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.detail.id}.png`,
-                priority: FastImage.priority.high,
-              }}
-              style={styles.art}
-              defaultSource={require('@assets/images/default_image_loading.png')}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-            <FastImage
-              source={require('@assets/images/hungry-image.png')}
-              style={styles.hungry}
-              defaultSource={require('@assets/images/default_image_loading.png')}
-              resizeMode={FastImage.resizeMode.contain}>
-              <View style={styles.hungryText}>
-                <TextView>I'am Hungry</TextView>
-              </View>
-            </FastImage>
-            {pokemon?.selected?.currentExp >=
-              pokemon?.selected?.nextExpEvolve && (
-              <Button onPress={() => handleEvolve()}>Evolve !!!</Button>
-            )}
-          </View>
-        </View>
-        {action === 'dashboard' && (
-          <FastImage
-            source={require('@assets/images/stat-frame.png')}
-            style={styles.contentDashboard}
-            defaultSource={require('@assets/images/default_image_loading.png')}
-            resizeMode={FastImage.resizeMode.stretch}>
-            <PokemonStat pokemonDetail={pokemon.detail} labeled={true} />
-          </FastImage>
-        )}
-        {action === 'feed' && (
-          <FastImage
-            source={require('@assets/images/stat-frame.png')}
-            style={styles.contentFeed}
-            defaultSource={require('@assets/images/default_image_loading.png')}
-            resizeMode={FastImage.resizeMode.stretch}>
-            <ListBerry handleAction={handleAction} />
-          </FastImage>
-        )}
-        {action === 'remove' && (
-          <FastImage
-            source={require('@assets/images/stat-frame.png')}
-            style={styles.contentFeed}
-            defaultSource={require('@assets/images/default_image_loading.png')}
-            resizeMode={FastImage.resizeMode.stretch}>
-            <View style={styles.content}>
-              <Button onPress={() => handleRemovePokemon()}>
-                remove pokemon
-              </Button>
-            </View>
-          </FastImage>
-        )}
+        <PokemonArt handleEvolve={handleEvolve} />
+        <MenuNavigationContent handleRemovePokemon={handleRemovePokemon} />
       </FastImage>
     </View>
   );
@@ -199,6 +116,7 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
 const styles = StyleSheet.create({
   base: {
     flex: 1,
+    position: 'relative',
   },
   container: {
     flex: 1,
@@ -206,7 +124,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   contentDashboard: {
-    height: '30%',
+    height: '35%',
     padding: 16,
     marginTop: -16,
     width: '100%',
@@ -250,7 +168,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 90,
     top: 0,
-    right: 0,
+    right: 100,
     display: 'flex',
   },
   hungryText: {

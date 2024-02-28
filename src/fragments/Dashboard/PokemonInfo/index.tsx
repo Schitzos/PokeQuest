@@ -8,8 +8,12 @@ import * as Progress from 'react-native-progress';
 
 export default function PokemonInfo() {
   const {pokemon} = usePokemon();
-  const currentExp =
-    pokemon?.selected?.currentExp / pokemon?.selected?.nextExpEvolve;
+  const currentExp: number =
+    Number(
+      (
+        pokemon?.selected?.currentExp / pokemon?.selected?.nextExpEvolve
+      ).toFixed(1),
+    ) || 0;
 
   const handleColor = (value: number) => {
     if (value <= 0.3) {
@@ -20,6 +24,7 @@ export default function PokemonInfo() {
       return theme.colors.success;
     }
   };
+
   return (
     <View style={styles.pokemonInfo}>
       <FastImage
@@ -41,9 +46,14 @@ export default function PokemonInfo() {
         style={styles.frame}
         resizeMode={FastImage.resizeMode.stretch}>
         <View style={styles.textInfoContainer}>
-          <TextView fz={16} color={theme.colors.white}>
-            {pokemon.species.name} #{pokemon.detail.id}
-          </TextView>
+          <View style={styles.flexRowSpaceBetween}>
+            <TextView fz={16} color={theme.colors.white}>
+              {pokemon.species.name}
+            </TextView>
+            <TextView fz={16} color={theme.colors.white}>
+              #{pokemon.detail.id}
+            </TextView>
+          </View>
           <View style={styles.flexRow}>
             <TextView fz={10} capitalize={false} color={theme.colors.white}>
               Weight
@@ -53,10 +63,12 @@ export default function PokemonInfo() {
                 progress={currentExp}
                 color={handleColor(currentExp)}
                 unfilledColor={theme.colors.neutral100}
+                width={140}
               />
             </View>
             <TextView fz={10} capitalize={false} color={theme.colors.white}>
-              {pokemon?.selected?.currentExp}/{pokemon?.selected?.nextExpEvolve}
+              {pokemon?.selected?.currentExp}/
+              {pokemon?.selected?.nextExpEvolve.toFixed(0)}
             </TextView>
           </View>
         </View>
@@ -87,8 +99,8 @@ const styles = StyleSheet.create({
   frame: {
     justifyContent: 'center',
     height: 72,
-    paddingLeft: 16,
     flex: 1,
+    paddingHorizontal: 16,
   },
   textInfoContainer: {
     padding: 8,
@@ -107,5 +119,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    width: '100%',
+  },
+  flexRowSpaceBetween: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
