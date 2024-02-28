@@ -40,6 +40,7 @@ export const handleChoosePokemon = async ({
           pokemonId: detail.id,
           pokemonName: detail.name,
           currentExp: Math.round(detail.weight * 0.1),
+          prevExp: 0,
           nextExpEvolve: Math.round(res.weight * 0.1),
           hungerPoints: 0,
           isActive: true,
@@ -54,7 +55,7 @@ export const handleChoosePokemon = async ({
         };
         const toLocalStorage = {detail, species, selected: payload};
         setPokemon(toLocalStorage);
-        navigation.navigate('PetNavigator');
+        navigation.navigate('Dashboard');
       },
     );
   }, 1000);
