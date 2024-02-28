@@ -5,7 +5,7 @@ export type RootStackParamList = {
     id: number;
     tab?: number | undefined;
   };
-  Dashboard: {action: string};
+  Dashboard: undefined;
   PetNavigator: undefined;
   Pet: {action: string};
   Feed: {action: string};
