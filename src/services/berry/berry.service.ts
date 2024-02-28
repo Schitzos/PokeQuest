@@ -3,7 +3,6 @@ import Tanstack from '@/utils/tanstackAdapter';
 interface GetListBerryParams {
   limit: number;
   key: string[];
-  offset: number;
 }
 
 interface GetBerryParams {
@@ -16,12 +15,12 @@ interface GetBerryImageParams {
   key: string[];
 }
 
-export const getListBerry = ({limit, offset, key}: GetListBerryParams) => {
+export const getListBerry = ({key, limit}: GetListBerryParams) => {
   const options = {
     url: 'https://pokeapi.co/api/v2/berry',
     method: 'GET',
     key: key,
-    params: {limit: limit, offset: offset},
+    params: {limit: limit},
   };
 
   return Tanstack.Query(options);
