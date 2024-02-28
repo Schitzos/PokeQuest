@@ -7,7 +7,7 @@ import {
 } from '@/services/pokemon/pokemon.service';
 import {ListPokemonProps, PokemonItem, PokemonListPage} from './type';
 import PokemonImage from '../PokemonImage';
-import {ShakeUpDown} from '@/utils/animation/shake';
+import {ShakeUpDown} from '@/utils/animation';
 import ListPokemonSkeleton from '../ListPokemonSkeleton';
 import SplashScreen from 'react-native-splash-screen';
 import TextView from '@/components/TextView';
