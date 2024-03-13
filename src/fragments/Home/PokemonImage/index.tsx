@@ -2,15 +2,16 @@ import React, {memo, useEffect, useState} from 'react';
 import {ImageBackground, Text, TouchableOpacity, View} from 'react-native';
 import TextView from '@/components/TextView';
 import {getSpeciesPokemonAlt} from '@/services/pokemon/pokemon.service';
-import {PokemonItem, PokemonSpecies} from './type';
+import {PokemonImageProps} from './type';
 import theme from '@/theme';
 import FastImage from 'react-native-fast-image';
 import {pokemonColor} from '@/constants/pokemonColor';
 import Skeleton from '@/components/Skeleton';
 import {styles} from './styles';
+import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
 
-function PokemonImage({name, id, navigation, isSearch}: PokemonItem) {
-  const [species, setSpecies] = useState<PokemonSpecies | undefined>();
+function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
+  const [species, setSpecies] = useState<PokemonSpeciesResponse | undefined>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,7 +37,7 @@ function PokemonImage({name, id, navigation, isSearch}: PokemonItem) {
       }
       style={[styles.base, isSearch && styles.baseLarge]}>
       <View style={[styles.each, isSearch && styles.eachLarge]}>
-        {loading && <Skeleton height={100} width={'100%'} />}
+        {loading && <Skeleton height={isSearch ? 220 : 100} width={'100%'} />}
         {!loading && (
           <ImageBackground
             source={

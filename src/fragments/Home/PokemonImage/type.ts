@@ -2,17 +2,11 @@ import {RootStackParamList} from '@/navigation/types';
 import {queryResponseProps} from '@/utils/types';
 import {StackNavigationProp} from '@react-navigation/stack';
 
-export interface PokemonItem {
+export interface PokemonImageProps {
   name: string;
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
   id: number;
   isSearch: boolean;
-}
-
-export interface PokemonSpecies {
-  color: {
-    name: string;
-  };
 }
 
 export interface PokemonSpeciesDataResponse extends queryResponseProps {

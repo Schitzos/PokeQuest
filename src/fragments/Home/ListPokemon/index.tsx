@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unstable-nested-components */
 import React, {useEffect, useRef} from 'react';
-import {Animated, Dimensions, View} from 'react-native';
+import {Animated, Dimensions, TouchableOpacity, View} from 'react-native';
 import {
   getListPokemon,
   searchPokemon,
 } from '@/services/pokemon/pokemon.service';
-import {ListPokemonProps, PokemonItem, PokemonListPage} from './type';
+import {ListPokemonProps} from './type';
 import PokemonImage from '../PokemonImage';
 import {ShakeUpDown} from '@/utils/animation';
 import ListPokemonSkeleton from '../ListPokemonSkeleton';
@@ -13,6 +13,7 @@ import SplashScreen from 'react-native-splash-screen';
 import TextView from '@/components/TextView';
 import LoadingList from '../LoadingList';
 import {styles} from './styles';
+import {PokemonItem, PokemonListPage} from '@/types/ListPokemon';
 
 export default function ListPokemon({
   navigation,
@@ -20,6 +21,7 @@ export default function ListPokemon({
   scrollY,
   handleScroll,
   searchTranslateY,
+  soundRef,
 }: ListPokemonProps) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
@@ -86,11 +88,19 @@ export default function ListPokemon({
           height: windowHeight,
         },
       ]}>
-      <Animated.Image
-        style={[styles.pokeball, {transform: [{translateY: shakeAnimation}]}]}
-        source={require('@assets/images/pokeball.png')}
-      />
-      {search && !pokemonSearch.isFetching && (
+      <TouchableOpacity
+        onPress={() =>
+          soundRef?.current?.isPlaying()
+            ? soundRef?.current?.pause()
+            : soundRef?.current?.play()
+        }
+        style={styles.pokeballCont}>
+        <Animated.Image
+          style={[styles.pokeball, {transform: [{translateY: shakeAnimation}]}]}
+          source={require('@assets/images/pokeball.png')}
+        />
+      </TouchableOpacity>
+      {search && !pokemonSearch.isFetching && pokemonSearch.isSuccess && (
         <View style={styles.single}>
           <PokemonImage
             name={pokeSearch.name}
@@ -98,6 +108,11 @@ export default function ListPokemon({
             id={pokeSearch.id}
             isSearch={Boolean(search)}
           />
+        </View>
+      )}
+      {search && !pokemonSearch.isSuccess && (
+        <View style={styles.single}>
+          <TextView align="center">No Pokèmon found</TextView>
         </View>
       )}
       {pokemonLists.isLoading && <ListPokemonSkeleton />}
@@ -117,8 +132,6 @@ export default function ListPokemon({
           showsHorizontalScrollIndicator={false}
           onEndReachedThreshold={0.8}
           numColumns={4}
-          // estimatedItemSize={1000}
-          // estimatedListSize={{height: windowHeight, width: windowWidth}}
           onEndReached={() => handleLoadMore()}
           onScroll={handleScroll}
           showsVerticalScrollIndicator={false}

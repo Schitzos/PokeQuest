@@ -2,57 +2,18 @@ import {
   getDetailPokemonAlt,
   getSpeciesPokemonAlt,
 } from '@/services/pokemon/pokemon.service';
-
-type EvolutionDetail = {
-  gender: null | string;
-  held_item: null | string;
-  item: null | string;
-  known_move: null | string;
-  known_move_type: null | string;
-  location: null | string;
-  min_affection: null | string;
-  min_beauty: null | string;
-  min_happiness: null | string;
-  min_level: number;
-  needs_overworld_rain: boolean;
-  party_species: null | string;
-  party_type: null | string;
-  relative_physical_stats: null | string;
-  time_of_day: string;
-  trade_species: null | string;
-  trigger: {
-    name: string;
-    url: string;
-  };
-  turn_upside_down: boolean;
-};
-
-type EvolutionChainData = {
-  evolution_details: EvolutionDetail[];
-  evolves_to: EvolutionChainData[];
-  is_baby: boolean;
-  species: {
-    name: string;
-    url: string;
-  };
-};
-
-export type PokemonDatas = {
-  species_name: string;
-  species_id: number;
-  evolveTo?: PokemonDatas[];
-};
+import {EvolutionChainData, PokemonEvolveData} from '@/types/EvolutionPokemon';
 
 export function parseEvolutionChainRecursive(
   evolutionChain: EvolutionChainData,
-): PokemonDatas {
+): PokemonEvolveData {
   const species_name = evolutionChain?.species?.name;
   const species_id = parseInt(
     evolutionChain?.species?.url?.split('/').reverse()[1],
     10,
   );
 
-  const evolveTo: PokemonDatas[] = evolutionChain?.evolves_to?.map(
+  const evolveTo: PokemonEvolveData[] = evolutionChain?.evolves_to?.map(
     parseEvolutionChainRecursive,
   );
 
@@ -64,9 +25,9 @@ export function parseEvolutionChainRecursive(
 }
 
 export const findPokemonEvolveById = (
-  evolves: PokemonDatas,
+  evolves: PokemonEvolveData,
   pokemonId: number,
-): PokemonDatas | null => {
+): PokemonEvolveData | null => {
   if (evolves.species_id === pokemonId) {
     return evolves;
   }
@@ -106,3 +67,25 @@ export const getNextEvolveSpecies = async (species_id: number) => {
       console.log('error get species', error);
     });
 };
+
+export function isLatestEvolve(
+  evolveArray: PokemonEvolveData[],
+  targetId: number,
+): boolean {
+  let latestEvolveId: number | null = null;
+
+  function findLatestId(evolve: PokemonEvolveData) {
+    if (
+      (!evolve.evolveTo || evolve.evolveTo.length === 0) &&
+      evolve.species_id === targetId
+    ) {
+      latestEvolveId = evolve.species_id;
+    } else {
+      evolve?.evolveTo?.forEach(findLatestId);
+    }
+  }
+
+  evolveArray?.forEach(findLatestId);
+
+  return latestEvolveId === targetId;
+}

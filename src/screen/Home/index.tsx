@@ -1,52 +1,64 @@
-import React, {useState} from 'react';
-import {DashboardScreenProps} from './type';
-import ListPokemon from '@/fragments/Home/ListPokemon';
-import {View, SafeAreaView, Animated} from 'react-native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {View, SafeAreaView, BackHandler} from 'react-native';
 import Search from '@/fragments/Shared/Search';
-import {handleSearch} from './function';
+import ListPokemon from '@/fragments/Home/ListPokemon';
+import Sound from 'react-native-sound';
+import {handleBackPress, handleSearch, playBackgroundMusic} from './function';
 import {
   handleScroll,
-  pokeballOpacity,
-  pokeballOpacitySearch,
   scrollY,
   searchAnimation,
   searchTranslateY,
   translateY,
 } from './animation';
 import {styles} from './styles';
+import {DashboardScreenProps} from './type';
+import {useFocusEffect} from '@react-navigation/native';
+import OnBoarding from '@/fragments/Home/OnBoarding';
 
-export default function Dashboard({navigation}: DashboardScreenProps) {
+export default function Dashboard({navigation, route}: DashboardScreenProps) {
   const [search, setSearch] = useState('');
+  const doubleBackToExitPressedOnce = useRef(false);
+  const soundRef = useRef<Sound | null>(null);
+
+  const handleHardwareBackPress = useCallback(() => {
+    return handleBackPress({
+      routeName: route.name,
+      doubleBackToExitPressedOnce,
+    }); // Pass route.name and doubleBackToExitPressedOnce
+  }, [route.name, doubleBackToExitPressedOnce]);
+
+  useFocusEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleHardwareBackPress(),
+    );
+    return () => backHandler.remove();
+  });
+
+  useEffect(() => {
+    playBackgroundMusic(soundRef);
+  }, []);
+
   return (
     <View style={styles.base}>
       <SafeAreaView style={styles.safeArea} />
-      <Animated.View
-        style={[
-          styles.infoContainer,
-          {
-            transform: [
-              {translateY: Animated.add(translateY, searchTranslateY)},
-            ],
-          },
-        ]}>
-        <Animated.Image
-          style={[
-            styles.appLogo,
-            {opacity: search ? pokeballOpacitySearch : pokeballOpacity},
-          ]}
-          source={require('@assets/images/app_logo.png')}
-        />
+      <OnBoarding
+        search={search}
+        searchTranslateY={searchTranslateY}
+        translateY={translateY}>
         <Search
           placeholder="Search Pokemon by Name or Pokemon ID"
           handleSearch={text => handleSearch(text, setSearch, searchAnimation)}
         />
-      </Animated.View>
+      </OnBoarding>
       <ListPokemon
         navigation={navigation}
         search={search}
         handleScroll={handleScroll}
         scrollY={scrollY}
         searchTranslateY={searchTranslateY}
+        soundRef={soundRef}
       />
     </View>
   );

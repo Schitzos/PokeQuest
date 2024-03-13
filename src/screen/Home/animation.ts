@@ -1,7 +1,6 @@
 import {Animated} from 'react-native';
 
 export const searchAnimation = new Animated.Value(0);
-
 export const scrollY = new Animated.Value(0);
 
 export const handleScroll = Animated.event(
@@ -15,20 +14,8 @@ export const translateY = scrollY.interpolate({
   extrapolate: 'clamp',
 });
 
-export const pokeballOpacity = scrollY.interpolate({
-  inputRange: [0, 750], // Adjust the range as needed
-  outputRange: [1, 0],
-  extrapolate: 'extend',
-});
-
 export const searchTranslateY = searchAnimation.interpolate({
   inputRange: [0, 1],
   outputRange: [0, 0],
-  extrapolate: 'identity',
-});
-
-export const pokeballOpacitySearch = searchAnimation.interpolate({
-  inputRange: [0, 1],
-  outputRange: [0, 1],
-  extrapolate: 'clamp',
+  extrapolate: 'extend',
 });

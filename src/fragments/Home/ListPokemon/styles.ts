@@ -12,13 +12,19 @@ export const styles = StyleSheet.create({
     gap: 16,
     marginBottom: 500,
   },
+  pokeballCont: {
+    width: 72,
+    height: 72,
+    alignSelf: 'center',
+    position: 'absolute',
+    zIndex: 2000,
+  },
   pokeball: {
     width: 72,
     height: 72,
     alignSelf: 'center',
     position: 'absolute',
     top: -32,
-    zIndex: 1000,
   },
   pages: {
     flex: 1,

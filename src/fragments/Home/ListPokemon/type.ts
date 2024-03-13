@@ -1,10 +1,7 @@
 import {RootStackParamList} from '@/navigation/types';
 import {StackNavigationProp} from '@react-navigation/stack';
-
-export interface PokemonItem {
-  name: string;
-  id: number;
-}
+import {MutableRefObject} from 'react';
+import Sound from 'react-native-sound';
 
 export interface ListPokemonProps {
   navigation: StackNavigationProp<RootStackParamList, 'Home'>;
@@ -12,17 +9,5 @@ export interface ListPokemonProps {
   scrollY: any;
   handleScroll: any;
   searchTranslateY: any;
-}
-
-export interface PokemonListPage {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: PokemonItem[];
-}
-
-export interface PokemonListsResponse {
-  data: {
-    pages: PokemonListPage[];
-  };
+  soundRef: MutableRefObject<Sound | null>;
 }
