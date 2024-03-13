@@ -1,17 +1,19 @@
 import {
-  PokemonDetailDataResponse,
-  PokemonSpeciesDataResponse,
-} from '@/fragments/Home/PokemonImage/type';
-import {
-  PokemonDatas,
   findPokemonEvolveById,
   getNextEvolveDetail,
   parseEvolutionChainRecursive,
 } from '@/utils/common/evolution';
 import {transformStatsArray, transformTypesArray} from '@/utils/common/stat';
-import {PokemonEvolveDataResponse} from './type';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@/navigation/types';
+import {QueryCache} from '@tanstack/react-query';
+import FastImage from 'react-native-fast-image';
+import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
+import {PokemonDetailResponse} from '@/types/DetailPokemon';
+import {
+  EvolutionChainResponse,
+  PokemonEvolveData,
+} from '@/types/EvolutionPokemon';
 
 export const handleChoosePokemon = async ({
   setSpark,
@@ -24,14 +26,15 @@ export const handleChoosePokemon = async ({
   navigation,
 }: {
   setSpark: (data: boolean) => void;
-  detail: PokemonDetailDataResponse;
-  species: PokemonSpeciesDataResponse;
-  parsedEvolve: PokemonDatas;
+  detail: PokemonDetailResponse;
+  species: PokemonSpeciesResponse;
+  parsedEvolve: PokemonEvolveData;
   id: number;
-  evolve: PokemonEvolveDataResponse;
+  evolve: EvolutionChainResponse;
   setPokemon: (data: any) => void;
   navigation: StackNavigationProp<RootStackParamList, 'PokemonDetail'>;
 }) => {
+  const queryCache = new QueryCache();
   setSpark(true);
   setTimeout(async () => {
     await handlePokemonHadEvolution({detail, parsedEvolve, id}).then(
@@ -55,6 +58,10 @@ export const handleChoosePokemon = async ({
         };
         const toLocalStorage = {detail, species, selected: payload};
         setPokemon(toLocalStorage);
+
+        queryCache.clear();
+        // FastImage.clearDiskCache();
+        FastImage.clearMemoryCache();
         navigation.navigate('Dashboard');
       },
     );
@@ -66,8 +73,8 @@ export const handlePokemonHadEvolution = async ({
   parsedEvolve,
   id,
 }: {
-  detail: PokemonDetailDataResponse;
-  parsedEvolve: PokemonDatas;
+  detail: PokemonDetailResponse;
+  parsedEvolve: PokemonEvolveData;
   id: number;
 }) => {
   try {

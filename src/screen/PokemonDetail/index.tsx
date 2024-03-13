@@ -3,18 +3,14 @@ import React, {useEffect, useState} from 'react';
 import {View, useWindowDimensions, Text, Animated} from 'react-native';
 import HeaderScreen from '@components/HeaderScreen';
 import {styles} from './styles';
-import {PokemonDetailScreenProps, PokemonEvolveDataResponse} from './type';
+import {CustomRoute, PokemonDetailScreenProps} from './type';
 import {pokemonType} from '@/constants/pokemonType';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {SceneMap, TabBar, TabBarProps, TabView} from 'react-native-tab-view';
 import PokemonArt from '@/fragments/PokemonDetail/PokemonArt';
 import PokemonAbout from '@/fragments/PokemonDetail/PokemonAbout';
 import PokemonStat from '@/fragments/PokemonDetail/PokemonStat';
 import FloatingButton from '@/fragments/PokemonDetail/FloatingButton';
 import PokemonEvolveChain from '@/fragments/PokemonDetail/PokemonEvolveChain';
-import {
-  PokemonDetailDataResponse,
-  PokemonSpeciesDataResponse,
-} from '@/fragments/Home/PokemonImage/type';
 import {
   getDetailPokemon,
   getEvolveChain,
@@ -22,11 +18,15 @@ import {
 } from '@/services/pokemon/pokemon.service';
 import PokemonDetailLoading from '@/fragments/PokemonDetail/PokemonDetailLoading';
 import {usePokemon} from '@/hooks/usePokemon';
-import {
-  PokemonDatas,
-  parseEvolutionChainRecursive,
-} from '@/utils/common/evolution';
+import {parseEvolutionChainRecursive} from '@/utils/common/evolution';
 import {handleChoosePokemon} from './function';
+import PokemonDetailError from '@/fragments/PokemonDetail/PokemonDetailError';
+import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
+import {PokemonDetailResponse} from '@/types/DetailPokemon';
+import {
+  EvolutionChainResponse,
+  PokemonEvolveData,
+} from '@/types/EvolutionPokemon';
 
 export default function PokemonDetail({
   route,
@@ -47,22 +47,22 @@ export default function PokemonDetail({
     id: id,
     key: ['getSpeciesPokemon', id],
   });
-  const species = (pokemonSpecies?.data || {}) as PokemonSpeciesDataResponse;
+  const species = (pokemonSpecies?.data || {}) as PokemonSpeciesResponse;
 
   const pokemonDetail = getDetailPokemon({
     id: id,
     key: ['getDetailPokemon', id],
   });
-  const detail = (pokemonDetail?.data || {}) as PokemonDetailDataResponse;
+  const detail = (pokemonDetail?.data || {}) as PokemonDetailResponse;
 
   const pokemonEvolveChain = getEvolveChain({
     id: species?.evolution_chain?.url?.split('/')?.reverse()[1],
     key: ['getEvolveChain', id],
   });
-  const evolve = (pokemonEvolveChain?.data || []) as PokemonEvolveDataResponse;
+  const evolve = (pokemonEvolveChain?.data || []) as EvolutionChainResponse;
   const parsedEvolve = parseEvolutionChainRecursive(
     evolve?.chain || [],
-  ) as PokemonDatas;
+  ) as PokemonEvolveData;
 
   const renderScene = SceneMap({
     about: () => (
@@ -77,12 +77,13 @@ export default function PokemonDetail({
     ),
   });
 
-  const baseColor = !pokemonDetail.isFetching
-    ? pokemonType.find(val => val.name === detail?.types[0]?.type?.name)
-        ?.baseColor
-    : '';
+  const baseColor =
+    !pokemonDetail.isFetching && pokemonDetail.isSuccess
+      ? pokemonType?.find(val => val.name === detail?.types[0]?.type?.name)
+          ?.baseColor
+      : pokemonType[0].baseColor;
 
-  const renderTabBar = (props: any) => (
+  const renderTabBar = (props: TabBarProps<CustomRoute>) => (
     <TabBar
       {...props}
       pressColor={baseColor}
@@ -111,6 +112,10 @@ export default function PokemonDetail({
 
   if (pokemonDetail.isFetching) {
     return <PokemonDetailLoading />;
+  }
+
+  if (pokemonDetail.isError || pokemonSpecies.isError) {
+    return <PokemonDetailError />;
   }
 
   return (

@@ -5,12 +5,13 @@ import TextView from '@/components/TextView';
 import * as Progress from 'react-native-progress';
 import {statColor} from '@/utils/common/stat';
 import theme from '@/theme';
+import {PokemonDetailResponse} from '@/types/DetailPokemon';
 
 export default function PokemonStat({
   pokemonDetail,
   labeled = false,
 }: {
-  pokemonDetail: any;
+  pokemonDetail: PokemonDetailResponse;
   labeled?: boolean;
 }) {
   return (
@@ -22,7 +23,7 @@ export default function PokemonStat({
           </TextView>
         </View>
       )}
-      {pokemonDetail.stats.map((val: any) => (
+      {pokemonDetail.stats.map(val => (
         <View key={val.stat.name} style={styles.perStat}>
           <TextView align="center" color={theme.colors.black50}>
             {val.stat.name}

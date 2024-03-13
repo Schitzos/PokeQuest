@@ -4,30 +4,40 @@ import {styles} from './styles';
 import TextView from '@/components/TextView';
 import {pokemonType} from '@/constants/pokemonType';
 import theme from '@/theme';
+import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
+import {Ability, PokemonDetailResponse} from '@/types/DetailPokemon';
 
 export default function PokemonAbout({
   pokemonSpecies,
   pokemonDetail,
   labeled = false,
 }: {
-  pokemonSpecies: any;
-  pokemonDetail: any;
+  pokemonSpecies: PokemonSpeciesResponse;
+  pokemonDetail: PokemonDetailResponse;
   labeled?: boolean;
 }) {
   const aboutData = [
     {
       label: 'Abilities',
       value: pokemonDetail?.abilities
-        ?.map((ability: any) => ability.ability.name)
+        ?.map((ability: Ability) => ability.ability.name)
         .join(', '),
     },
   ];
 
   const englishDesc = pokemonSpecies?.flavor_text_entries?.filter(
-    (val: any) => val.language.name === 'en',
+    val => val.language.name === 'en',
   );
 
-  const randomDesc = Math.floor(Math.random() * englishDesc.length);
+  let description = 'No Description for this Pokémon';
+
+  if (englishDesc && englishDesc.length > 0) {
+    const randomDesc = Math.floor(Math.random() * englishDesc.length);
+    const selectedDesc = englishDesc[randomDesc];
+    if (selectedDesc && selectedDesc.flavor_text) {
+      description = selectedDesc.flavor_text.replace(/[\n\f]/g, ' ');
+    }
+  }
 
   return (
     <ScrollView showsHorizontalScrollIndicator={false}>
@@ -38,7 +48,7 @@ export default function PokemonAbout({
           </TextView>
         )}
         <TextView align="left" color={theme.colors.neutral500}>
-          {englishDesc[randomDesc].flavor_text.replace(/[\n\f]/g, ' ')}
+          {description}
         </TextView>
         <View style={styles.typesContainer}>
           <TextView color={theme.colors.black} font={theme.font.bold}>
@@ -46,7 +56,7 @@ export default function PokemonAbout({
           </TextView>
           <View style={styles.typeContainer}>
             {pokemonDetail &&
-              pokemonDetail?.types?.map((val: any) => {
+              pokemonDetail?.types?.map(val => {
                 const getIcon = pokemonType.find(
                   type => type.name === val?.type?.name,
                 );
@@ -70,7 +80,7 @@ export default function PokemonAbout({
             Abilities
           </TextView>
           <View style={styles.type}>
-            {aboutData.map(val => {
+            {aboutData?.map(val => {
               return (
                 <TextView
                   align="left"
