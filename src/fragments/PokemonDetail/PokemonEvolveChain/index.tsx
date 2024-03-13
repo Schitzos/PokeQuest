@@ -2,16 +2,16 @@
 import React from 'react';
 import {ScrollView, TouchableOpacity, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {PokemonDatas} from '@/utils/common/evolution';
 import TextView from '@/components/TextView';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@/navigation/types';
 import {useNavigation} from '@react-navigation/native';
 import {styles} from './styles';
 import theme from '@/theme';
+import {PokemonEvolveData} from '@/types/EvolutionPokemon';
 
 interface PokemonEvolveChainProps {
-  pokemonEvolve: PokemonDatas;
+  pokemonEvolve: PokemonEvolveData;
   currentState: string;
   labeled?: boolean;
   redirect?: boolean;
@@ -26,7 +26,7 @@ const PokemonEvolveChain: React.FC<PokemonEvolveChainProps> = ({
   const navigation =
     useNavigation<StackNavigationProp<RootStackParamList, 'PokemonDetail'>>();
 
-  const PokemonNode: React.FC<{pokemon: PokemonDatas}> = ({pokemon}) => (
+  const PokemonNode: React.FC<{pokemon: PokemonEvolveData}> = ({pokemon}) => (
     <View style={styles.base}>
       <TouchableOpacity
         style={[
@@ -53,7 +53,7 @@ const PokemonEvolveChain: React.FC<PokemonEvolveChainProps> = ({
       </TouchableOpacity>
       {pokemon.evolveTo && (
         <View style={styles.childBase}>
-          {pokemon.evolveTo.map((evolve: PokemonDatas, index: number) => (
+          {pokemon.evolveTo.map((evolve: PokemonEvolveData, index: number) => (
             <View style={styles.childWrapper} key={index}>
               <TextView>{'>'}</TextView>
               <PokemonNode pokemon={evolve} />
