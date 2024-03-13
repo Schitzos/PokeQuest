@@ -70,7 +70,7 @@ export default function HungryInfo({pokemon}: HungryInfoProps) {
   useEffect(() => {
     setSelectedText(getRandomText(randomEatText));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pokemon.selected.currentExp]);
+  }, [pokemon.selected]);
 
   return (
     <Animated.View

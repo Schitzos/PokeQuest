@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import TextView from '@/components/TextView';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Animated} from 'react-native';
 import {usePokemon} from '@/hooks/usePokemon';
 import FastImage from 'react-native-fast-image';
 import theme from '@/theme';
 import * as Progress from 'react-native-progress';
+import {
+  animateOpacityHidden,
+  animateOpacityShow,
+} from '@/fragments/PokemonDetail/PokemonArt/animation';
 
 export default function PokemonInfo() {
   const {pokemon} = usePokemon();
+  const readyEvolve = useRef(new Animated.Value(0)).current;
+
   const currentExp: number =
     Number(
       (
@@ -25,8 +31,25 @@ export default function PokemonInfo() {
     }
   };
 
+  useEffect(() => {
+    if (pokemon?.selected?.currentExp >= pokemon?.selected?.nextExpEvolve) {
+      animateOpacityShow(readyEvolve);
+    } else {
+      animateOpacityHidden(readyEvolve);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pokemon]);
+
   return (
     <View style={styles.pokemonInfo}>
+      <Animated.View style={[styles.readyEvolve, {opacity: readyEvolve}]}>
+        <FastImage
+          source={require('@assets/images/electric-spark.gif')}
+          style={styles.artSpark}
+          defaultSource={require('@assets/images/default_image_loading.png')}
+          resizeMode={FastImage.resizeMode.stretch}
+        />
+      </Animated.View>
       <FastImage
         source={require('@assets/images/frame-circle.png')}
         style={styles.frameAvatar}
@@ -124,5 +147,15 @@ const styles = StyleSheet.create({
   flexRowSpaceBetween: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  readyEvolve: {
+    position: 'absolute',
+    left: 16,
+    top: 16,
+    zIndex: 1000,
+  },
+  artSpark: {
+    width: 50,
+    height: 50,
   },
 });

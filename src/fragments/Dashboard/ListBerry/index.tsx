@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -18,6 +18,7 @@ import FastImage from 'react-native-fast-image';
 import Skeleton from '@/components/Skeleton';
 import {usePokemon} from '@/hooks/usePokemon';
 import {berryFirmnessHeightScale} from '@/utils/berry';
+import {WalkY} from '@/utils/animation';
 
 export interface ListBerryDataResponse {
   results: any;
@@ -32,6 +33,7 @@ export default function ListBerry() {
   const [currentPage, setCurrentPage] = useState(1);
   const [visibleBerries, setVisibleBerries] = useState([]);
   const {pokemon, setPokemon} = usePokemon();
+  const bouncingAnimation = useRef(new Animated.Value(0)).current;
 
   const berryList = getListBerry({
     key: ['getListBerry'],
@@ -154,6 +156,11 @@ export default function ListBerry() {
     setPokemon(temp);
   };
 
+  useEffect(() => {
+    Animated.loop(WalkY(bouncingAnimation, 1000)).start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [berryDetail]);
+
   return (
     <View style={styles.berryContainer}>
       <View style={styles.berryList}>
@@ -180,14 +187,14 @@ export default function ListBerry() {
             <TouchableOpacity
               onPress={() => handlePrev()}
               disabled={currentPage === 1}>
-              <TextView fz={10}>{'< Prev'}</TextView>
+              <TextView fz={12}>{'< Prev'}</TextView>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => handleNext()}
               disabled={
                 currentPage === Math.ceil(berries?.count / ITEMS_PER_PAGE)
               }>
-              <TextView fz={10}>{'Next >'}</TextView>
+              <TextView fz={12}>{'Next >'}</TextView>
             </TouchableOpacity>
           </View>
         )}
@@ -200,16 +207,10 @@ export default function ListBerry() {
         <TextView>{selectedBerry ? selectedBerry : 'Select Berry'}</TextView>
         {selectedBerry && (
           <View style={styles.flexRow}>
-            <TextView
-              fz={10}
-              // customStyle={styles.customInfoStyles}
-              align="center">
+            <TextView fz={10} align="center">
               Firmness
             </TextView>
-            <TextView
-              fz={10}
-              // customStyle={styles.customStyles}
-              align="center">
+            <TextView fz={10} align="center">
               :{' '}
               {berryItemDetail.isFetching ? (
                 <ActivityIndicator style={styles.cusLoading} />
@@ -220,21 +221,29 @@ export default function ListBerry() {
           </View>
         )}
       </FastImage>
-      <PanGestureHandler
-        onGestureEvent={onGestureEvent}
-        onHandlerStateChange={onHandlerStateChange}>
-        <Animated.View
-          style={[
-            {transform: [{translateY: translateY}, {translateX: translateX}]},
-          ]}>
-          <Image
-            style={styles.berryArt}
-            source={{
-              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${selectedBerry}-berry.png`,
-            }}
-          />
-        </Animated.View>
-      </PanGestureHandler>
+      {!berryItemDetail.isFetching && (
+        <PanGestureHandler
+          onGestureEvent={onGestureEvent}
+          onHandlerStateChange={onHandlerStateChange}>
+          <Animated.View
+            style={[
+              {
+                transform: [
+                  {translateY: translateY},
+                  {translateY: bouncingAnimation},
+                  {translateX: translateX},
+                ],
+              },
+            ]}>
+            <Image
+              style={styles.berryArt}
+              source={{
+                uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${selectedBerry}-berry.png`,
+              }}
+            />
+          </Animated.View>
+        </PanGestureHandler>
+      )}
     </View>
   );
 }
@@ -305,7 +314,7 @@ const styles = StyleSheet.create({
     zIndex: 1000,
     position: 'absolute',
     right: 52,
-    top: 24,
+    top: 32,
   },
   customButton: {
     marginTop: 8,
