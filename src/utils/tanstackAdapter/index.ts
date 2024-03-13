@@ -10,6 +10,7 @@ export function Query(options: any) {
     meta: {
       errorMessage: 'Failed to fetch data',
     },
+    staleTime: 600000,
   });
 }
 
@@ -23,10 +24,12 @@ export function InfiniteQuery(options: any) {
     ...options,
     staleTime: 600000,
     getNextPageParam: (lastPage: any) => {
-      const urlString = lastPage.next;
-      const parsedParams = queryString.parseUrl(urlString).query;
-      const offset = parsedParams.offset;
-      return offset;
+      if (lastPage.next) {
+        const urlString = lastPage.next;
+        const parsedParams = queryString.parseUrl(urlString).query;
+        const offset = parsedParams.offset;
+        return offset;
+      }
     },
   });
 }
