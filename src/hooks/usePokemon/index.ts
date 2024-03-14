@@ -8,7 +8,7 @@ export function usePokemon() {
     if (contextValue === null) {
       return {
         pokemon: null,
-        setPokemon: () => {},
+        setPokemon: () => null,
       };
     }
 

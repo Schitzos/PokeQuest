@@ -1,23 +1,22 @@
 import React, {useEffect, useRef} from 'react';
 import TextView from '@/components/TextView';
-import {View, StyleSheet, Animated} from 'react-native';
+import {View, Animated} from 'react-native';
 import {usePokemon} from '@/hooks/usePokemon';
 import FastImage from 'react-native-fast-image';
 import theme from '@/theme';
 import * as Progress from 'react-native-progress';
-import {
-  animateOpacityHidden,
-  animateOpacityShow,
-} from '@/fragments/PokemonDetail/PokemonArt/animation';
+import {useAnimation} from '@/hooks/useAnimation';
+import {styles} from './styles';
 
 export default function PokemonInfo() {
   const {pokemon} = usePokemon();
+  const {animateOpacityHidden, animateOpacityShow} = useAnimation();
   const readyEvolve = useRef(new Animated.Value(0)).current;
 
   const currentExp: number =
     Number(
       (
-        pokemon?.selected?.currentExp / pokemon?.selected?.nextExpEvolve
+        pokemon?.selected?.currentExp! / pokemon?.selected?.nextExpEvolve!
       ).toFixed(1),
     ) || 0;
 
@@ -32,7 +31,7 @@ export default function PokemonInfo() {
   };
 
   useEffect(() => {
-    if (pokemon?.selected?.currentExp >= pokemon?.selected?.nextExpEvolve) {
+    if (pokemon?.selected?.currentExp! >= pokemon?.selected?.nextExpEvolve!) {
       animateOpacityShow(readyEvolve);
     } else {
       animateOpacityHidden(readyEvolve);
@@ -56,7 +55,7 @@ export default function PokemonInfo() {
         resizeMode={FastImage.resizeMode.cover}>
         <FastImage
           source={{
-            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemon.detail.id}.gif`,
+            uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/${pokemon?.detail.id}.gif`,
             priority: FastImage.priority.low,
           }}
           style={styles.miniArt}
@@ -71,10 +70,10 @@ export default function PokemonInfo() {
         <View style={styles.textInfoContainer}>
           <View style={styles.flexRowSpaceBetween}>
             <TextView fz={16} color={theme.colors.white}>
-              {pokemon.species.name}
+              {pokemon?.species.name}
             </TextView>
             <TextView fz={16} color={theme.colors.white}>
-              #{pokemon.detail.id}
+              #{pokemon?.detail.id}
             </TextView>
           </View>
           <View style={styles.flexRow}>
@@ -99,63 +98,3 @@ export default function PokemonInfo() {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  pokemonInfo: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'flex-start',
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-    gap: 4,
-    position: 'absolute',
-    top: 0,
-    left: 0,
-  },
-  frameAvatar: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 8,
-  },
-  frame: {
-    justifyContent: 'center',
-    height: 72,
-    flex: 1,
-    paddingHorizontal: 16,
-  },
-  textInfoContainer: {
-    padding: 8,
-    borderRadius: 8,
-    gap: 4,
-  },
-  miniArt: {
-    width: 56,
-    height: 56,
-  },
-  art: {
-    width: 300,
-    height: 300,
-  },
-  flexRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    width: '100%',
-  },
-  flexRowSpaceBetween: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  readyEvolve: {
-    position: 'absolute',
-    left: 16,
-    top: 16,
-    zIndex: 1000,
-  },
-  artSpark: {
-    width: 50,
-    height: 50,
-  },
-});

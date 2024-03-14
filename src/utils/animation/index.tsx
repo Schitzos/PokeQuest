@@ -73,7 +73,7 @@ export const WalkY = (animation: Animated.Value, duration: number) => {
 };
 
 let counter = 0;
-export const reverseX = (animation: Animated.Value, duration: number = 0) => {
+export const reverseX = (animation: Animated.Value, duration: number) => {
   return Animated.timing(animation, {
     toValue: counter % 2 === 0 ? 1 : 0,
     duration: duration,

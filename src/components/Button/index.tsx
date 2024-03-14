@@ -8,17 +8,15 @@ interface ContentProps {
   onPress: () => void;
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
-  customStyle?: any;
   disabled?: boolean;
 }
 
 export default function Button({
   children,
   color,
-  onPress = () => {},
+  onPress = () => null,
   size = 'md',
   fullWidth = false,
-  customStyle,
   disabled = false,
 }: ContentProps) {
   const styleSize = {
@@ -60,11 +58,7 @@ export default function Button({
 
   return (
     <TouchableOpacity
-      style={[
-        styles.base as ViewStyle,
-        customStyle,
-        disabled && styles.disabled,
-      ]}
+      style={[styles.base as ViewStyle, disabled && styles.disabled]}
       onPress={() => onPress()}
       disabled={disabled}>
       <Text style={styles.label}>{children}</Text>

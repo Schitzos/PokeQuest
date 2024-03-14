@@ -1,5 +1,6 @@
 export interface PokemonSpeciesResponse {
   id: number;
+  name: string;
   color: {
     name: string;
   };

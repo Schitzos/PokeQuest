@@ -5,7 +5,7 @@ import {
 
 export const handleSubmitSearch = (
   event: NativeSyntheticEvent<TextInputSubmitEditingEventData>,
-  handleSearch: (event: any) => void,
+  handleSearch: (event: string) => void,
 ) => {
   handleSearch(event.nativeEvent.text);
 };

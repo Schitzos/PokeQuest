@@ -1,3 +1,4 @@
+import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
 import AxiosAdapter from '@/utils/axiosAdapter';
 import Tanstack from '@utils/tanstackAdapter';
 
@@ -51,13 +52,13 @@ export const searchPokemon = ({key, search}: SearchPokemonParams) => {
 
 export const getSpeciesPokemonAlt = async ({
   id,
-}: GetSpeciesPokemonAltParams) => {
+}: GetSpeciesPokemonAltParams): Promise<PokemonSpeciesResponse> => {
   const options = {
     url: `${process.env.BASE_URL}/pokemon-species/${id}`,
     method: 'GET',
   };
 
-  return await AxiosAdapter(options);
+  return (await AxiosAdapter(options)) as PokemonSpeciesResponse;
 };
 
 export const getSpeciesPokemon = ({id, key}: GetSpeciesPokemonParams) => {

@@ -18,11 +18,11 @@ function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
     getSpeciesPokemonAlt({
       id: id,
     })
-      .then((res: any) => {
+      .then((res: PokemonSpeciesResponse) => {
         setSpecies(res);
         setLoading(false);
       })
-      .catch((error: any) => {
+      .catch((error: Error) => {
         setLoading(false);
         console.log('error get species', error);
       });

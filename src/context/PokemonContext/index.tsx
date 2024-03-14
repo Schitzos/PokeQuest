@@ -1,9 +1,16 @@
+import {PokemonDetailResponse} from '@/types/DetailPokemon';
+import {SelectedPokemon} from '@/types/SelectedPokemon';
+import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, {createContext, useEffect, useState} from 'react';
 
 export interface PokemonContextType {
-  pokemon: any;
-  setPokemon: (newData: any) => void;
+  pokemon: {
+    detail: PokemonDetailResponse;
+    species: PokemonSpeciesResponse;
+    selected: SelectedPokemon;
+  } | null;
+  setPokemon: (pokemon: any) => void;
 }
 
 interface PokemonProviderProps {

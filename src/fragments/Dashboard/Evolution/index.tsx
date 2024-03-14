@@ -20,7 +20,7 @@ export default function Evolution({
         <View style={styles.evolveWrapper}>
           <FastImage
             source={{
-              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.detail.id}.png`,
+              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon?.detail.id}.png`,
               priority: FastImage.priority.high,
             }}
             style={styles.artEvolve}
@@ -28,7 +28,7 @@ export default function Evolution({
             resizeMode={FastImage.resizeMode.contain}
           />
           <TextView color={theme.colors.white} fz={24}>
-            {pokemon.selected.pokemonName}
+            {pokemon?.selected.pokemonName}
           </TextView>
         </View>
       </View>

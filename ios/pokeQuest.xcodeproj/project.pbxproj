@@ -14,7 +14,6 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		4EE1AD90F57C4F7783B73B55 /* PixeloidSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B4DFFC75D5CF4D17905EF27B /* PixeloidSans-Bold.ttf */; };
-		55C24A7A2BA1A5C10023C424 /* bit_audio_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 55C24A792BA1A5C10023C424 /* bit_audio_sound.mp3 */; };
 		55F09A632B72B5660087B8CB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55F09A622B72B5660087B8CB /* GoogleService-Info.plist */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		A12AD564606815033760CA7B /* Pods_PokeQuest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5AAE1B7214932A471E59CDD6 /* Pods_PokeQuest.framework */; };
@@ -43,7 +42,6 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = PokeQuest/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = PokeQuest/main.m; sourceTree = "<group>"; };
 		3A03FA038FD6D7834A96FC7E /* Pods-PokeQuest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeQuest.debug.xcconfig"; path = "Target Support Files/Pods-PokeQuest/Pods-PokeQuest.debug.xcconfig"; sourceTree = "<group>"; };
-		55C24A792BA1A5C10023C424 /* bit_audio_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bit_audio_sound.mp3; sourceTree = "<group>"; };
 		55F09A622B72B5660087B8CB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5AAE1B7214932A471E59CDD6 /* Pods_PokeQuest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PokeQuest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7930EA1726203A25FC84E38B /* Pods-PokeQuest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeQuest.release.xcconfig"; path = "Target Support Files/Pods-PokeQuest/Pods-PokeQuest.release.xcconfig"; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				55C24A792BA1A5C10023C424 /* bit_audio_sound.mp3 */,
 				55F09A622B72B5660087B8CB /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* PokeQuest */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -269,7 +266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				55C24A7A2BA1A5C10023C424 /* bit_audio_sound.mp3 in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B3773CC14F0B4CCB92399837 /* Minecraftia-Regular.ttf in Resources */,
 				EEEA1D26A08A4EA1BB22486D /* PixeloidMono.ttf in Resources */,

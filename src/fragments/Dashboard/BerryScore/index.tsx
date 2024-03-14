@@ -1,24 +1,19 @@
 import React, {useEffect, useRef} from 'react';
-import {StyleSheet, Animated, Platform} from 'react-native';
+import {Animated} from 'react-native';
 import TextView from '@/components/TextView';
 import theme from '@/theme';
 import {usePokemon} from '@/hooks/usePokemon';
-import {animateOpacityToggle} from '@/fragments/PokemonDetail/PokemonArt/animation';
-
-export interface ListBerryDataResponse {
-  results: any;
-  count: number;
-  previous: string | null;
-  next: string | null;
-}
+import {useAnimation} from '@/hooks/useAnimation';
+import {styles} from './styles';
 
 export default function BerryScore() {
   const {pokemon} = usePokemon();
+  const {animateOpacityToggle} = useAnimation();
   const opacityAnimation = new Animated.Value(0);
   const isMounted = useRef(false);
 
-  const oldExp = pokemon.selected.prevExp;
-  const curExp = pokemon.selected.currentExp;
+  const oldExp = pokemon?.selected.prevExp!;
+  const curExp = pokemon?.selected.currentExp!;
   const expDifference = curExp - oldExp;
   const sign = expDifference >= 0 ? '+' : '';
 
@@ -29,7 +24,7 @@ export default function BerryScore() {
       isMounted.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pokemon.selected]);
+  }, [pokemon?.selected]);
   return (
     <Animated.View style={[styles.expPoint, {opacity: opacityAnimation}]}>
       <TextView
@@ -41,15 +36,3 @@ export default function BerryScore() {
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  expPoint: {
-    zIndex: 4000,
-    position: 'absolute',
-    top: Platform.OS === 'ios' ? -410 : -450,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    padding: 8,
-    borderRadius: 16,
-    left: 250,
-  },
-});

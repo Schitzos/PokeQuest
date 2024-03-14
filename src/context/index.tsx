@@ -6,7 +6,7 @@ import TansatckContextProvider from './TanstackContext';
 export default function ContextProvider({
   children,
 }: {
-  children: any;
+  children: React.ReactNode;
 }): React.ReactNode {
   return (
     <TansatckContextProvider>

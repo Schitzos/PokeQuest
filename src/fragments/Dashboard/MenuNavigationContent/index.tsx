@@ -1,14 +1,14 @@
 import TextView from '@/components/TextView';
 import PokemonStat from '@/fragments/PokemonDetail/PokemonStat';
 import {usePokemon} from '@/hooks/usePokemon';
-import theme from '@/theme';
 import React, {useState} from 'react';
-import {View, StyleSheet, TouchableOpacity, Platform} from 'react-native';
+import {View, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Button from '@/components/Button';
 import PokemonAbout from '@/fragments/PokemonDetail/PokemonAbout';
 import PokemonEvolveChain from '@/fragments/PokemonDetail/PokemonEvolveChain';
 import Feed from '../Feed';
+import {styles} from './styles';
 
 export default function MenuNavigation({
   handleRemovePokemon,
@@ -26,8 +26,8 @@ export default function MenuNavigation({
       component: (
         <PokemonAbout
           labeled={true}
-          pokemonDetail={pokemon.detail}
-          pokemonSpecies={pokemon.species}
+          pokemonDetail={pokemon?.detail!}
+          pokemonSpecies={pokemon?.species!}
         />
       ),
       sidebar: false,
@@ -37,7 +37,9 @@ export default function MenuNavigation({
       icon: require('@assets/images/ultra-ball.png'),
       route: 'stat',
       sidebar: true,
-      component: <PokemonStat pokemonDetail={pokemon.detail} labeled={true} />,
+      component: (
+        <PokemonStat pokemonDetail={pokemon?.detail!} labeled={true} />
+      ),
     },
     {
       label: 'Feed',
@@ -52,8 +54,8 @@ export default function MenuNavigation({
       route: 'evolve',
       component: (
         <PokemonEvolveChain
-          currentState={pokemon.selected.pokemonName}
-          pokemonEvolve={pokemon.selected.evolveChain}
+          currentState={pokemon?.selected.pokemonName!}
+          pokemonEvolve={pokemon?.selected.evolveChain!}
           labeled={true}
           redirect={false}
         />
@@ -123,70 +125,3 @@ export default function MenuNavigation({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  base: {
-    height: '35%',
-    width: '100%',
-    position: 'absolute',
-    bottom: -8,
-  },
-  bottomNavigation: {
-    position: 'absolute',
-    backgroundColor: theme.colors.white,
-    bottom: 0,
-    width: '100%',
-    height: Platform.OS === 'ios' ? 80 : 64,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-    borderTopColor: theme.colors.primary,
-    borderTopWidth: 4,
-  },
-  navigation: {
-    alignItems: 'center',
-    flex: 1,
-  },
-  sideNavigation: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    left: 8,
-    top: -156,
-    gap: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.8)',
-    padding: 8,
-    borderRadius: 16,
-  },
-  sideTouchNav: {
-    alignItems: 'center',
-  },
-  sideIcon: {
-    width: 48,
-    height: 48,
-  },
-  icon: {
-    width: 24,
-    height: 24,
-  },
-  content: {
-    height: Platform.OS === 'ios' ? '80%' : '85%',
-    padding: 16,
-    marginTop: -16,
-    width: '100%',
-  },
-  profile: {
-    flex: 1,
-    padding: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  fragmentContainer: {
-    width: '100%',
-    position: 'absolute',
-    top: 0,
-    height: 200,
-    paddingHorizontal: 16,
-  },
-});

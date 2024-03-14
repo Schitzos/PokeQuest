@@ -5,13 +5,6 @@ import theme from '@/theme';
 import BerryScore from '../BerryScore';
 import ListBerry from '../ListBerry';
 
-export interface ListBerryDataResponse {
-  results: any;
-  count: number;
-  previous: string | null;
-  next: string | null;
-}
-
 export default function Feed() {
   return (
     <View style={styles.container}>

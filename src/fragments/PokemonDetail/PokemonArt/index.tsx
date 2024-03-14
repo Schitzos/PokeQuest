@@ -4,26 +4,23 @@ import {styles} from './styles';
 import {pokemonType} from '@/constants/pokemonType';
 import {Shake} from '@/utils/animation';
 import FastImage from 'react-native-fast-image';
-import {
-  animateBackgroundColor,
-  animateOpacityHidden,
-  animateOpacityShow,
-  resetAnimations,
-} from './animation';
+import {resetAnimations} from './animation';
+import {useAnimation} from '@/hooks/useAnimation';
+import {PokemonDetailResponse} from '@/types/DetailPokemon';
 
 export default function PokemonArt({
   pokemonDetail,
   spark,
 }: {
-  pokemonDetail: any;
+  pokemonDetail: PokemonDetailResponse;
   spark: boolean;
 }) {
+  const {animateOpacityHidden, animateOpacityShow} = useAnimation();
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [bounce, setBounce] = useState(false);
   const opacityHidden = new Animated.Value(1);
   const opacityShow = new Animated.Value(0);
-  const backgroundColor = new Animated.Value(0);
 
   const styleAnimate = bounce
     ? [{translateY: shakeAnimation}]
@@ -54,9 +51,8 @@ export default function PokemonArt({
     if (spark) {
       animateOpacityHidden(opacityHidden);
       animateOpacityShow(opacityShow);
-      animateBackgroundColor(backgroundColor);
     } else {
-      resetAnimations(opacityHidden, opacityShow, backgroundColor);
+      resetAnimations(opacityHidden, opacityShow);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [spark]);

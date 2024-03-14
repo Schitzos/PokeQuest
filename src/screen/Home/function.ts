@@ -64,7 +64,10 @@ export function playBackgroundMusic(soundRef: SoundRef) {
 
   const handleAppStateChange = (nextAppState: string) => {
     if (nextAppState === 'background' && soundRef.current) {
-      soundRef.current.stop();
+      soundRef.current.pause();
+    }
+    if (nextAppState === 'active' && soundRef.current) {
+      soundRef.current.play();
     }
   };
 
@@ -77,3 +80,8 @@ export function playBackgroundMusic(soundRef: SoundRef) {
     }
   };
 }
+
+export const handleRemovePokemon = (removePokemon, navigation) => {
+  removePokemon();
+  navigation.navigate('Home');
+};

@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Animated} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import TextView from '@/components/TextView';
-import {animateOpacityToggle} from '@/fragments/PokemonDetail/PokemonArt/animation';
+import {useAnimation} from '@/hooks/useAnimation';
 
 interface Pokemon {
   selected: {
@@ -16,6 +16,7 @@ interface HungryInfoProps {
 }
 
 export default function HungryInfo({pokemon}: HungryInfoProps) {
+  const {animateOpacityToggle} = useAnimation();
   const [selectedText, setSelectedText] = useState('');
   const opacityAnimation = new Animated.Value(0);
 

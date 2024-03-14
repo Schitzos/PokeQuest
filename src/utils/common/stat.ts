@@ -18,7 +18,7 @@ interface StatItem {
   };
 }
 
-interface TransformedStats {
+export interface TransformedStats {
   [key: string]: number;
 }
 
@@ -44,7 +44,7 @@ interface TypeItem {
   };
 }
 
-interface TransformedType {
+export interface TransformedType {
   name: string;
 }
 
