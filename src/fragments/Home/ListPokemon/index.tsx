@@ -20,7 +20,6 @@ export default function ListPokemon({
   search,
   scrollY,
   handleScroll,
-  searchTranslateY,
   soundRef,
 }: ListPokemonProps) {
   const isFirstRender = useRef(true);
@@ -28,7 +27,7 @@ export default function ListPokemon({
   const limit = 96;
   const windowHeight = Dimensions.get('window').height;
   const translateY = scrollY.interpolate({
-    inputRange: [0, 750], // Adjust the range as needed
+    inputRange: [0, 750],
     outputRange: [0, -260],
     extrapolate: 'clamp',
   });
@@ -84,7 +83,7 @@ export default function ListPokemon({
       style={[
         styles.base,
         {
-          transform: [{translateY: Animated.add(translateY, searchTranslateY)}],
+          transform: [{translateY: translateY}],
           height: windowHeight,
         },
       ]}>

@@ -1,21 +1,23 @@
-import {Animated} from 'react-native';
+import {Animated, Easing} from 'react-native';
 
-export const searchAnimation = new Animated.Value(0);
 export const scrollY = new Animated.Value(0);
 
 export const handleScroll = Animated.event(
   [{nativeEvent: {contentOffset: {y: scrollY}}}],
-  {useNativeDriver: true}, // Set to true if you want to use native driver (not supported for all properties)
+  {useNativeDriver: true},
 );
 
 export const translateY = scrollY.interpolate({
-  inputRange: [0, 750], // Adjust the range as needed
+  inputRange: [0, 750],
   outputRange: [0, -265],
   extrapolate: 'clamp',
 });
 
-export const searchTranslateY = searchAnimation.interpolate({
-  inputRange: [0, 1],
-  outputRange: [0, 0],
-  extrapolate: 'extend',
-});
+export const resetScrollY = () => {
+  Animated.timing(scrollY, {
+    toValue: 0,
+    duration: 1000, // Adjust the duration as per your preference
+    easing: Easing.linear, // Adjust the easing function if needed
+    useNativeDriver: true,
+  }).start();
+};

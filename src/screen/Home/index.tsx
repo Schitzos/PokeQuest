@@ -4,13 +4,7 @@ import Search from '@/fragments/Shared/Search';
 import ListPokemon from '@/fragments/Home/ListPokemon';
 import Sound from 'react-native-sound';
 import {handleBackPress, handleSearch, playBackgroundMusic} from './function';
-import {
-  handleScroll,
-  scrollY,
-  searchAnimation,
-  searchTranslateY,
-  translateY,
-} from './animation';
+import {handleScroll, resetScrollY, scrollY, translateY} from './animation';
 import {styles} from './styles';
 import {DashboardScreenProps} from './type';
 import {useFocusEffect} from '@react-navigation/native';
@@ -25,7 +19,7 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
     return handleBackPress({
       routeName: route.name,
       doubleBackToExitPressedOnce,
-    }); // Pass route.name and doubleBackToExitPressedOnce
+    });
   }, [route.name, doubleBackToExitPressedOnce]);
 
   useFocusEffect(() => {
@@ -43,13 +37,10 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
   return (
     <View style={styles.base}>
       <SafeAreaView style={styles.safeArea} />
-      <OnBoarding
-        search={search}
-        searchTranslateY={searchTranslateY}
-        translateY={translateY}>
+      <OnBoarding search={search} translateY={translateY}>
         <Search
           placeholder="Search Pokemon by Name or Pokemon ID"
-          handleSearch={text => handleSearch(text, setSearch, searchAnimation)}
+          handleSearch={text => handleSearch(text, setSearch, resetScrollY)}
         />
       </OnBoarding>
       <ListPokemon
@@ -57,7 +48,6 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
         search={search}
         handleScroll={handleScroll}
         scrollY={scrollY}
-        searchTranslateY={searchTranslateY}
         soundRef={soundRef}
       />
     </View>

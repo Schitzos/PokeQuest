@@ -1,19 +1,19 @@
-import {Alert, Animated, AppState, BackHandler} from 'react-native';
+import {Alert, AppState, BackHandler} from 'react-native';
 import RNExitApp from 'react-native-exit-app';
 import {HandleBackPressParams, SoundRef} from './type';
 import Sound from 'react-native-sound';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '@/navigation/types';
 
 export const handleSearch = (
   text: string,
   setSearch: (event: string) => void,
-  searchAnimation: Animated.Value,
+  resetScrollY: () => void,
 ) => {
   setSearch(text);
-  Animated.timing(searchAnimation, {
-    toValue: text ? 1 : 0,
-    duration: 300,
-    useNativeDriver: true,
-  }).start();
+  if (text !== '') {
+    resetScrollY();
+  }
 };
 
 export const handleBackPress = ({
@@ -81,7 +81,10 @@ export function playBackgroundMusic(soundRef: SoundRef) {
   };
 }
 
-export const handleRemovePokemon = (removePokemon, navigation) => {
+export const handleRemovePokemon = (
+  removePokemon: () => void,
+  navigation: StackNavigationProp<RootStackParamList, 'Dashboard'>,
+) => {
   removePokemon();
   navigation.navigate('Home');
 };

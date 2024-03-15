@@ -9,6 +9,5 @@ export interface ListPokemonProps {
   search: string;
   scrollY: Animated.Value;
   handleScroll: any;
-  searchTranslateY: Animated.AnimatedInterpolation<string | number>;
   soundRef: MutableRefObject<Sound | null>;
 }
