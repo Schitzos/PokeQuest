@@ -17,16 +17,23 @@ export default function BerryScore() {
   const expDifference = curExp - oldExp;
   const sign = expDifference >= 0 ? '+' : '';
 
+  const randomY = Math.random() * (400 - 200) - 400;
+  const randomX = Math.random() * (250 - 50) + 50;
+
   useEffect(() => {
     if (isMounted.current) {
-      animateOpacityToggle(opacityAnimation, 1000);
+      animateOpacityToggle(opacityAnimation, 2000);
     } else {
       isMounted.current = true;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemon?.selected]);
   return (
-    <Animated.View style={[styles.expPoint, {opacity: opacityAnimation}]}>
+    <Animated.View
+      style={[
+        styles.expPoint,
+        {opacity: opacityAnimation, left: randomX, top: randomY},
+      ]}>
       <TextView
         color={expDifference >= 0 ? theme.colors.success : theme.colors.error}
         fz={24}>

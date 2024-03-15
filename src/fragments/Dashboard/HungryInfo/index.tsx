@@ -3,45 +3,48 @@ import {View, StyleSheet, Animated} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import TextView from '@/components/TextView';
 import {useAnimation} from '@/hooks/useAnimation';
+import {usePokemon} from '@/hooks/usePokemon';
+import {debuglog} from '@/utils/common/debug';
 
-interface Pokemon {
-  selected: {
-    pokemonName: string;
-    currentExp: number;
-  };
-}
-
-interface HungryInfoProps {
-  pokemon: Pokemon;
-}
-
-export default function HungryInfo({pokemon}: HungryInfoProps) {
+export default function HungryInfo() {
+  const {pokemon} = usePokemon();
   const {animateOpacityToggle} = useAnimation();
   const [selectedText, setSelectedText] = useState('');
   const opacityAnimation = new Animated.Value(0);
-
+  debuglog('pokemon', pokemon?.selected);
   const randomHungryText = [
     'I am hungry..',
     'Give me some berry..',
-    `${pokemon.selected.pokemonName} is starving..`,
+    `${pokemon?.selected.pokemonName} is starving..`,
     'Feed me please..',
     'Hungry for a treat!',
     'In need of a snack...',
     'Time for a meal!',
     'Craving some food...',
-    `${pokemon.selected.pokemonName} wants to eat!`,
+    `${pokemon?.selected.pokemonName} wants to eat!`,
   ];
 
   const randomEatText = [
-    `${pokemon.selected.pokemonName} loves berries!`,
+    `${pokemon?.selected.pokemonName} loves berries!`,
     'Berries vanish quickly!',
-    `${pokemon.selected.pokemonName} enjoys munching!`,
-    `Berry bliss for ${pokemon.selected.pokemonName}`,
+    `${pokemon?.selected.pokemonName} enjoys munching!`,
+    `Berry bliss for ${pokemon?.selected.pokemonName}`,
     'Satisfied after berry feast!',
     'Quick berry snack!',
-    `${pokemon.selected.pokemonName} devours berries!`,
+    `${pokemon?.selected.pokemonName} devours berries!`,
     'Satisfied berry craving!',
-    `${pokemon.selected.pokemonName} craves more berries!`,
+    `${pokemon?.selected.pokemonName} craves more berries!`,
+  ];
+
+  const randomNotLikeBerryText = [
+    `${pokemon?.selected.pokemonName} doesn't like this berry...`,
+    'Yuck! Not this berry...',
+    `Nope, this berry is a no-go for ${pokemon?.selected.pokemonName}...`,
+    'Sorry, not a fan of this berry...',
+    'Looks like this berry wont do...',
+    `${pokemon?.selected.pokemonName} doesn't like this...`,
+    'Not a fan of this berry...',
+    'This one a pass...',
   ];
 
   const getRandomText = (randomText: string[]) =>
@@ -69,9 +72,15 @@ export default function HungryInfo({pokemon}: HungryInfoProps) {
   }, [selectedText]);
 
   useEffect(() => {
-    setSelectedText(getRandomText(randomEatText));
+    setSelectedText(
+      getRandomText(
+        pokemon?.selected?.currentExp! > pokemon?.selected?.prevExp!
+          ? randomEatText
+          : randomNotLikeBerryText,
+      ),
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pokemon.selected]);
+  }, [pokemon?.selected]);
 
   return (
     <Animated.View

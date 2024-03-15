@@ -64,7 +64,6 @@ export default function ListBerry() {
   };
 
   const handleSelectBerry = (val: string) => {
-    console.log(val);
     setSelectedBerry(val);
   };
 
