@@ -88,7 +88,7 @@ export default function PokemonArt({
               resizeMode={FastImage.resizeMode.contain}
             />
           </Animated.View>
-          {pokemon && <HungryInfo pokemon={pokemon} />}
+          <HungryInfo />
         </Animated.View>
         {pokemon &&
           pokemon?.selected?.currentExp >= pokemon?.selected?.nextExpEvolve &&
