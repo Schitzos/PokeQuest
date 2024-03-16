@@ -1,7 +1,6 @@
 import {Alert, BackHandler} from 'react-native';
 import {HandleBackPressParams} from '../Home/type';
 import RNExitApp from 'react-native-exit-app';
-import {Animated} from 'react-native';
 import {transformStatsArray, transformTypesArray} from '@/utils/common/stat';
 import {PokemonEvolveData} from '@/types/EvolutionPokemon';
 import {
