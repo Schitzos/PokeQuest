@@ -28,6 +28,7 @@ export default function BerryScore() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pokemon?.selected]);
+
   return (
     <Animated.View
       style={[

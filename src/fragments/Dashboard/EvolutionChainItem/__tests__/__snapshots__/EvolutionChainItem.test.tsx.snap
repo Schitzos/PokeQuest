@@ -1,0 +1,134 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EvolutionChainItem component matches snapshot 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "flex": 1,
+      "height": 500,
+      "justifyContent": "center",
+      "overflow": "hidden",
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "height": 225,
+          "width": 225,
+        },
+      ]
+    }
+  >
+    <FastImageView
+      defaultSource={
+        {
+          "testUri": "../../../assets/images/default_image_loading.png",
+        }
+      }
+      resizeMode="contain"
+      style={
+        {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+    />
+  </View>
+  <Text
+    style={
+      [
+        {
+          "color": "#FFFFFF",
+          "fontFamily": "PixeloidMono",
+          "fontSize": 20,
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "textTransform": "capitalize",
+        },
+      ]
+    }
+  >
+    Bulbasaur
+  </Text>
+  <Text
+    style={
+      [
+        {
+          "color": "#FFFFFF",
+          "fontFamily": "PixeloidMono",
+          "fontSize": 14,
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "textTransform": "capitalize",
+        },
+      ]
+    }
+  >
+    Weight Needed "
+    20
+    "
+  </Text>
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": false,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "backgroundColor": "#00AFF0",
+        "borderRadius": 8,
+        "flex": 0,
+        "justifyContent": "center",
+        "opacity": 1,
+        "padding": 8,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#FFFFFF",
+          "fontFamily": "PixeloidMono",
+          "fontSize": 16,
+          "textAlign": "center",
+        }
+      }
+    >
+      Choose 
+      Bulbasaur
+    </Text>
+  </View>
+</View>
+`;

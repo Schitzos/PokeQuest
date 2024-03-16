@@ -4,17 +4,19 @@ import React from 'react';
 import {styles} from './styles';
 import TextView from '@components/TextView';
 import {useNavigation} from '@react-navigation/native';
-import {View} from 'react-native';
+import {TouchableOpacity, View} from 'react-native';
 import IconChevronLeft from '@assets/icons/icon-chevron-left.svg';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {HeaderScreenProps} from './type';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {RootStackParamList} from '@/navigation/types';
 
 export default function HeaderScreen({
   label,
   color = theme.colors.white,
   align = 'center',
 }: HeaderScreenProps) {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<StackNavigationProp<RootStackParamList, 'PokemonDetail'>>();
   return (
     <SafeArea color={color}>
       <View style={styles.base}>

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SafeArea component matches snapshot with custom color 1`] = `
+<RCTSafeAreaView
+  style={
+    {
+      "backgroundColor": "red",
+    }
+  }
+>
+  Child Component
+</RCTSafeAreaView>
+`;
+
+exports[`SafeArea component matches snapshot with default props 1`] = `
+<RCTSafeAreaView
+  style={
+    {
+      "backgroundColor": "#F6F6F6",
+    }
+  }
+>
+  Child Component
+</RCTSafeAreaView>
+`;

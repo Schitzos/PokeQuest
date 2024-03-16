@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BerryItem component matches snapshot 1`] = `
+<View
+  accessibilityState={
+    {
+      "busy": undefined,
+      "checked": undefined,
+      "disabled": undefined,
+      "expanded": undefined,
+      "selected": undefined,
+    }
+  }
+  accessibilityValue={
+    {
+      "max": undefined,
+      "min": undefined,
+      "now": undefined,
+      "text": undefined,
+    }
+  }
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onClick={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    {
+      "alignItems": "center",
+      "opacity": 1,
+      "paddingVertical": 4,
+      "width": "33%",
+    }
+  }
+>
+  <View
+    style={
+      [
+        {
+          "overflow": "hidden",
+        },
+        {
+          "height": 16,
+          "width": 16,
+        },
+      ]
+    }
+  >
+    <FastImageView
+      defaultSource={
+        {
+          "testUri": "../../../assets/images/default_image_loading.png",
+        }
+      }
+      resizeMode="cover"
+      style={
+        {
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        }
+      }
+    />
+  </View>
+  <Text
+    style={
+      [
+        {
+          "color": "#333",
+          "fontFamily": "PixeloidMono",
+          "fontSize": 10,
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "textTransform": "capitalize",
+        },
+      ]
+    }
+  >
+    testBerry
+  </Text>
+</View>
+`;

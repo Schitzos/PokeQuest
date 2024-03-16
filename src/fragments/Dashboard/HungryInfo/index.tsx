@@ -1,17 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, Animated} from 'react-native';
+import {View, Animated} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import TextView from '@/components/TextView';
 import {useAnimation} from '@/hooks/useAnimation';
 import {usePokemon} from '@/hooks/usePokemon';
-import {debuglog} from '@/utils/common/debug';
+import {styles} from './styles';
 
 export default function HungryInfo() {
   const {pokemon} = usePokemon();
   const {animateOpacityToggle} = useAnimation();
   const [selectedText, setSelectedText] = useState('');
   const opacityAnimation = new Animated.Value(0);
-  debuglog('pokemon', pokemon?.selected);
+
   const randomHungryText = [
     'I am hungry..',
     'Give me some berry..',
@@ -97,29 +97,3 @@ export default function HungryInfo() {
     </Animated.View>
   );
 }
-
-const styles = StyleSheet.create({
-  hungryContainer: {
-    position: 'absolute',
-    width: 150,
-    height: 120,
-    top: -64,
-    right: 0,
-    display: 'flex',
-  },
-  hungry: {
-    width: 150,
-    height: 120,
-    top: 0,
-    right: 0,
-    display: 'flex',
-  },
-  hungryText: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignSelf: 'center',
-    flex: 1,
-    marginTop: -16,
-    paddingHorizontal: 8,
-  },
-});

@@ -13,9 +13,11 @@
     "start": "react-native start",
     "start-clear": "npm start -- --reset-cache",
     "postinstall": "npm run ios:pod-install",
-    "test": "jest",
     "lint-fix": "eslint . --fix",
-    "kill": "watchman watch-del-all"
+    "kill": "watchman watch-del-all",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cover": "jest --collectCoverage --coverageDirectory=\"./coverage\" && open ./coverage/index.html"
   },
   "dependencies": {
     "@notifee/react-native": "^7.8.2",
@@ -52,8 +54,7 @@
     "react-native-tab-view": "^3.5.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "@babel/preset-env": "^7.20.0",
+    "@babel/preset-typescript": "^7.23.3",
     "@babel/runtime": "^7.20.0",
     "@commitlint/cli": "^18.4.4",
     "@commitlint/config-conventional": "^18.4.4",
@@ -61,6 +62,10 @@
     "@react-native/eslint-config": "0.73.2",
     "@react-native/metro-config": "0.73.3",
     "@react-native/typescript-config": "0.73.1",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/react-native": "^12.4.3",
+    "@types/jest": "^29.5.12",
     "@types/react": "^18.2.6",
     "@types/react-test-renderer": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^5.62.0",
@@ -75,7 +80,9 @@
     "lint-staged": "^15.2.0",
     "metro-react-native-babel-preset": "^0.77.0",
     "prettier": "2.8.8",
-    "react-test-renderer": "18.2.0"
+    "react-test-renderer": "18.2.0",
+    "ts-jest": "^29.1.2",
+    "typescript": "^5.4.2"
   },
   "engines": {
     "node": ">=18"

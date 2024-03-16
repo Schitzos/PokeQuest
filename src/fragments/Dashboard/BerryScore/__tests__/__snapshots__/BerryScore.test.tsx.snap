@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BerryScore component matches snapshot 1`] = `
+<View
+  collapsable={false}
+  style={
+    {
+      "backgroundColor": "rgba(255, 255, 255, 0.8)",
+      "borderRadius": 16,
+      "left": 150,
+      "opacity": 0,
+      "padding": 8,
+      "position": "absolute",
+      "top": -300,
+      "zIndex": 4000,
+    }
+  }
+>
+  <Text
+    style={
+      [
+        {
+          "color": "#52D5BA",
+          "fontFamily": "PixeloidMono",
+          "fontSize": 24,
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "textTransform": "capitalize",
+        },
+      ]
+    }
+  >
+    +
+    100
+  </Text>
+</View>
+`;

@@ -1,11 +1,11 @@
-import theme from '@theme/index';
+import theme from '@/theme';
 import React from 'react';
 import {StyleSheet, ViewStyle, Text, TouchableOpacity} from 'react-native';
 
 interface ContentProps {
   children: React.ReactNode;
   color?: string;
-  onPress: () => void;
+  onPress?: () => void;
   size?: 'sm' | 'md' | 'lg';
   fullWidth?: boolean;
   disabled?: boolean;
@@ -59,7 +59,7 @@ export default function Button({
   return (
     <TouchableOpacity
       style={[styles.base as ViewStyle, disabled && styles.disabled]}
-      onPress={() => onPress()}
+      onPress={onPress}
       disabled={disabled}>
       <Text style={styles.label}>{children}</Text>
     </TouchableOpacity>
