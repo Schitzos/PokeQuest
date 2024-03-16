@@ -42,24 +42,6 @@ export const handleBackPress = ({
   };
 };
 
-export const handleEvolve = async (
-  animateOpacityHidden: (value: Animated.Value) => void,
-  animateOpacityShow: (value: Animated.Value) => void,
-  viewBaseAnimate: Animated.Value,
-  viewEvolveAnimate: Animated.Value,
-  viewEvolveSpark: Animated.Value,
-  handleEvolveTransform: () => void,
-) => {
-  animateOpacityHidden(viewBaseAnimate);
-  animateOpacityShow(viewEvolveAnimate);
-  setTimeout(() => {
-    animateOpacityShow(viewEvolveSpark);
-  }, 1000);
-  setTimeout(() => {
-    handleEvolveTransform();
-  }, 2000);
-};
-
 export const handleNormalEvolution = async (
   currentStatePokemon: PokemonEvolveData,
   pokemon: any,

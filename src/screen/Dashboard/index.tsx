@@ -12,7 +12,6 @@ import EvolutionChainOption from '@/fragments/Dashboard/EvolutionChainOption';
 import {useFocusEffect} from '@react-navigation/native';
 import {
   handleBackPress,
-  handleEvolve,
   handleMultipleEvolution,
   handleNormalEvolution,
   handleSelectEvolution,
@@ -30,10 +29,22 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
   const viewEvolveSpark = useRef(new Animated.Value(0)).current;
   const viewEvolveChain = useRef(new Animated.Value(0)).current;
   const doubleBackToExitPressedOnce = useRef(false);
+  const [activeFragments, setActiveFragments] = useState('home');
 
   const [pokemonEvolveOption, setPokemonEvolveOption] = useState<
     PokemonEvolveData[] | undefined
   >([]);
+
+  const handleEvolve = async () => {
+    animateOpacityHidden(viewBaseAnimate);
+    animateOpacityShow(viewEvolveAnimate);
+    setTimeout(() => {
+      animateOpacityShow(viewEvolveSpark);
+    }, 1000);
+    setTimeout(() => {
+      handleEvolveTransform();
+    }, 2000);
+  };
 
   const handleEvolveTransform = async () => {
     let currentStatePokemon;
@@ -61,6 +72,7 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
       animateOpacityHidden(viewEvolveSpark);
       animateOpacityShow(viewEvolveChain);
     }
+    setActiveFragments('home');
   };
 
   const handleChooseEvolution = async (id: number) => {
@@ -86,7 +98,7 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
         SplashScreen.hide();
       }, 1000);
     }
-    FastImage.clearDiskCache();
+    // FastImage.clearDiskCache();
     FastImage.clearMemoryCache();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -114,19 +126,10 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
           style={styles.backgroundImage}
           resizeMode={FastImage.resizeMode.cover}>
           <SafeAreaView />
-          <PokemonArt
-            handleEvolve={() =>
-              handleEvolve(
-                animateOpacityHidden,
-                animateOpacityShow,
-                viewBaseAnimate,
-                viewEvolveAnimate,
-                viewEvolveSpark,
-                handleEvolveTransform,
-              )
-            }
-          />
+          <PokemonArt handleEvolve={() => handleEvolve()} />
           <MenuNavigationContent
+            activeFragments={activeFragments}
+            setActiveFragments={setActiveFragments}
             handleRemovePokemon={() =>
               handleRemovePokemon(removePokemon, navigation)
             }

@@ -1,7 +1,7 @@
 import TextView from '@/components/TextView';
 import PokemonStat from '@/fragments/PokemonDetail/PokemonStat';
 import {usePokemon} from '@/hooks/usePokemon';
-import React, {useState} from 'react';
+import React from 'react';
 import {View, TouchableOpacity} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import Button from '@/components/Button';
@@ -12,11 +12,14 @@ import {styles} from './styles';
 
 export default function MenuNavigation({
   handleRemovePokemon,
+  activeFragments,
+  setActiveFragments,
 }: {
   handleRemovePokemon: () => void;
+  activeFragments: string;
+  setActiveFragments: (route: string) => void;
 }) {
   const {pokemon} = usePokemon();
-  const [activeFragments, setActiveFragments] = useState('home');
 
   const menuNavigation = [
     {
