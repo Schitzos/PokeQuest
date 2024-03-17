@@ -71,7 +71,11 @@ export default function MenuNavigation({
       route: 'profile',
       component: (
         <View style={styles.profile}>
-          <Button onPress={() => handleRemovePokemon()}>remove pokemon</Button>
+          <TextView>
+            Feel free to explore more Pokémon! You can always go back to the
+            list to feed another Pokémon. Catch 'em all!
+          </TextView>
+          <Button onPress={() => handleRemovePokemon()}>Release Pokèmon</Button>
         </View>
       ),
       sidebar: false,

@@ -58,6 +58,7 @@ export const styles = StyleSheet.create({
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
+    gap: 16,
   },
   fragmentContainer: {
     width: '100%',
