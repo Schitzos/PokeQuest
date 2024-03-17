@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      BASE_URL: ${{secrets.FIREBASE_APP_ID}}
+      BASE_URL: ${{secrets.BASE_URL}}
 
     steps:
       - name: Checkout repository
