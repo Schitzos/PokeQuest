@@ -9,14 +9,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      BASE_URL: ${{secrets.FIREBASE_APP_ID}}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: 18.18.0
 
       - name: Install Java
         uses: actions/setup-java@v2
@@ -26,11 +29,6 @@ jobs:
           
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18.18.0
 
       - name: Install dependencies
         run: npm install - force
@@ -54,6 +52,13 @@ jobs:
           name: Build
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
+      - name: Extract commit messages
+        id: extract_messages
+        run: |
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*  # Fetch tags for getting commit messages
+          COMMITS=$(git log $(git describe --tags --abbrev=0)..HEAD --pretty=format:"%s")
+          echo "::set-output name=commits::$COMMITS"  # Set output for later use
+
       - name: Upload artifact to Firebase App Distribution
         id: testing_outputs
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -62,5 +67,4 @@ jobs:
           serviceCredentialsFileContent: ${{ secrets.CREDENTIAL_FILE_CONTENT }}
           groups: testers
           file: android/app/build/outputs/apk/debug/app-debug.apk
-
-      
+          releaseNotes: ${{ steps.extract_messages.outputs.commits }}
