@@ -1,15 +1,35 @@
-import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import React, {useRef} from 'react';
+import {
+  NavigationContainer,
+  useNavigationContainerRef,
+} from '@react-navigation/native';
 import {RootStackParamList} from './types';
 import {createStackNavigator} from '@react-navigation/stack';
 import route from './route';
-// import PetNavigator from './PetNavigator';
+import analytics from '@react-native-firebase/analytics';
 
 const Stack = createStackNavigator<RootStackParamList>(); // Specify the param list type
 
 export default function Navigation() {
+  const navigationRef = useNavigationContainerRef();
+  const routeNameRef = useRef<string | undefined>();
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => {
+        routeNameRef.current = navigationRef?.getCurrentRoute()?.name;
+      }}
+      onStateChange={async () => {
+        const previousRouteName = routeNameRef.current;
+        const currentRouteName = navigationRef?.getCurrentRoute()?.name;
+        if (previousRouteName !== currentRouteName) {
+          routeNameRef.current = currentRouteName;
+          await analytics().logScreenView({
+            screen_name: currentRouteName,
+            screen_class: currentRouteName,
+          });
+        }
+      }}>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,

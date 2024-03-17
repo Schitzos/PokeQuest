@@ -9,6 +9,7 @@ import PokemonAbout from '@/fragments/PokemonDetail/PokemonAbout';
 import PokemonEvolveChain from '@/fragments/PokemonDetail/PokemonEvolveChain';
 import Feed from '../Feed';
 import {styles} from './styles';
+import analytics from '@react-native-firebase/analytics';
 
 export default function MenuNavigation({
   handleRemovePokemon,
@@ -86,6 +87,14 @@ export default function MenuNavigation({
     val => val.route === activeFragments,
   )?.component;
 
+  const handleNavigation = (data: any) => {
+    setActiveFragments(data.route);
+    analytics().logScreenView({
+      screen_name: data.label,
+      screen_class: data.label,
+    });
+  };
+
   return (
     <View style={styles.base}>
       <FastImage
@@ -103,7 +112,7 @@ export default function MenuNavigation({
                 <TouchableOpacity
                   style={styles.navigation}
                   key={val.label}
-                  onPress={() => setActiveFragments(val.route)}>
+                  onPress={() => handleNavigation(val)}>
                   <FastImage source={val.icon} style={styles.icon} />
                   <TextView fz={10}>{val.label}</TextView>
                 </TouchableOpacity>
@@ -118,7 +127,7 @@ export default function MenuNavigation({
             if (val.sidebar) {
               return (
                 <TouchableOpacity
-                  onPress={() => setActiveFragments(val.route)}
+                  onPress={() => handleNavigation(val)}
                   style={styles.sideTouchNav}
                   key={val.label}>
                   <FastImage source={val.icon} style={styles.sideIcon} />

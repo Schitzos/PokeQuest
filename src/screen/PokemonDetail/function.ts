@@ -14,6 +14,7 @@ import {
   EvolutionChainResponse,
   PokemonEvolveData,
 } from '@/types/EvolutionPokemon';
+import analytics from '@react-native-firebase/analytics';
 
 export const handleChoosePokemon = async ({
   setSpark,
@@ -34,6 +35,10 @@ export const handleChoosePokemon = async ({
   setPokemon: (data: any) => void;
   navigation: StackNavigationProp<RootStackParamList, 'PokemonDetail'>;
 }) => {
+  analytics().logEvent('select_pokemon', {
+    pokemon_name: detail.name,
+    pokemon_id: detail.id,
+  });
   const queryCache = new QueryCache();
   setSpark(true);
   setTimeout(async () => {

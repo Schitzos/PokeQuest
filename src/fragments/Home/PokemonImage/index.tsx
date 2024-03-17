@@ -9,10 +9,21 @@ import {pokemonColor} from '@/constants/pokemonColor';
 import Skeleton from '@/components/Skeleton';
 import {styles} from './styles';
 import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
+import analytics from '@react-native-firebase/analytics';
 
 function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
   const [species, setSpecies] = useState<PokemonSpeciesResponse | undefined>();
   const [loading, setLoading] = useState(true);
+
+  const handleNavigateToDetail = async () => {
+    analytics().logEvent('detail_pokemon', {
+      pokemon_name: name,
+      pokemon_id: id,
+    });
+    navigation.navigate('PokemonDetail', {
+      id: id,
+    });
+  };
 
   useEffect(() => {
     getSpeciesPokemonAlt({
@@ -30,11 +41,7 @@ function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
 
   return (
     <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('PokemonDetail', {
-          id: id,
-        })
-      }
+      onPress={() => handleNavigateToDetail()}
       style={[styles.base, isSearch && styles.baseLarge]}>
       <View style={[styles.each, isSearch && styles.eachLarge]}>
         {loading && <Skeleton height={isSearch ? 220 : 100} width={'100%'} />}

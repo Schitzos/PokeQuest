@@ -15,6 +15,7 @@ import {usePokemon} from '@/hooks/usePokemon';
 import {berryFirmnessHeightScale} from '@/utils/berry';
 import {WalkY} from '@/utils/animation';
 import {styles} from './styles';
+import analytics from '@react-native-firebase/analytics';
 
 export interface ListBerryDataResponse {
   results: BerryItem[];
@@ -153,6 +154,10 @@ export default function ListBerry() {
         prevBerry: val.berryFirmness,
       },
     };
+    analytics().logEvent('favourite_berry', {
+      berry_name: val.berryName,
+      berry_firmness: val.berryFirmness,
+    });
     setPokemon(temp);
   };
 
