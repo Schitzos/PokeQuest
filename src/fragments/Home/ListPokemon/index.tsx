@@ -114,7 +114,9 @@ export default function ListPokemon({
           <TextView align="center">No Pokèmon found</TextView>
         </View>
       )}
-      {pokemonLists.isLoading && <ListPokemonSkeleton />}
+      {(pokemonLists.isLoading || pokemonSearch.isFetching) && (
+        <ListPokemonSkeleton />
+      )}
       {!search && !pokemonLists.isLoading && (
         <Animated.FlatList
           data={flattenData}
