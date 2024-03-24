@@ -21,6 +21,7 @@ jobs:
 
   firebase_app_distribution:
     runs-on: ubuntu-latest
+    needs: sonarcloud
 
     env:
       BASE_URL: ${{secrets.BASE_URL}}
@@ -39,7 +40,12 @@ jobs:
         with:
           java-version: "17"
           distribution: "adopt"
-          
+      
+      - name: Create Google Services JSON File
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES }}
+        run: echo $GOOGLE_SERVICES_JSON | base64 -di > ./android/app/google-services.json
+
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
 
