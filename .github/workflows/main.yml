@@ -40,11 +40,6 @@ jobs:
         with:
           java-version: "17"
           distribution: "adopt"
-      
-      - name: Create Google Services JSON File
-        env:
-          GOOGLE_SERVICES_JSON: ${{secrets.GOOGLE_SERVICES_JSON}}
-        run: echo $GOOGLE_SERVICES_JSON | base64 -di > ./android/app/google-services.json
 
       - name: Validate Gradle wrapper
         uses: gradle/wrapper-validation-action@v1
@@ -60,6 +55,11 @@ jobs:
 
       - name: Running Tests
         run: npm test
+
+      - name: Create Google Services JSON File
+        env:
+          GOOGLE_SERVICES_JSON: ${{secrets.GOOGLE_SERVICES_JSON}}
+        run: echo $GOOGLE_SERVICES_JSON | base64 -di > ./android/app/google-services.json
 
       - name: Build application
         run: |
