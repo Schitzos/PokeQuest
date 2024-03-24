@@ -21,7 +21,7 @@ export default function ListPokemon({
   scrollY,
   handleScroll,
   soundRef,
-}: ListPokemonProps) {
+}: Readonly<ListPokemonProps>) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const limit = 96;
@@ -45,7 +45,7 @@ export default function ListPokemon({
 
   const pokemons = (pokemonLists?.data?.pages as PokemonListPage[]) || [];
   const flattenData = pokemons.flatMap(page => {
-    return (page?.results || []) as PokemonItem[];
+    return page?.results || [];
   });
 
   const pokeSearch = (pokemonSearch.data as PokemonItem) || {};
@@ -99,7 +99,7 @@ export default function ListPokemon({
           source={require('@assets/images/pokeball.png')}
         />
       </TouchableOpacity>
-      {search && !pokemonSearch.isFetching && pokemonSearch.isSuccess && (
+      {!!(search && !pokemonSearch.isFetching && pokemonSearch.isSuccess) && (
         <View style={styles.single}>
           <PokemonImage
             name={pokeSearch.name}
@@ -109,7 +109,7 @@ export default function ListPokemon({
           />
         </View>
       )}
-      {search && !pokemonSearch.isSuccess && (
+      {!!(search && !pokemonSearch.isSuccess) && (
         <View style={styles.single}>
           <TextView align="center">No Pokèmon found</TextView>
         </View>
@@ -139,9 +139,12 @@ export default function ListPokemon({
           removeClippedSubviews={true}
           initialNumToRender={limit}
           contentContainerStyle={styles.cusFlatList}
-          ListFooterComponent={() =>
-            pokemonLists.isFetchingNextPage && <LoadingList text="Loading..." />
-          }
+          ListFooterComponent={() => (
+            <LoadingList
+              text="Loading..."
+              isLoading={pokemonLists.isFetchingNextPage}
+            />
+          )}
         />
       )}
       {pokemonLists.isFetchingNextPage && <TextView>Loading</TextView>}

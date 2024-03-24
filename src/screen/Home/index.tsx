@@ -31,7 +31,7 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
   });
 
   useEffect(() => {
-    // playBackgroundMusic(soundRef);
+    playBackgroundMusic(soundRef);
   }, []);
 
   return (
