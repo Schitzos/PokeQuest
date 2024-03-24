@@ -1,8 +1,9 @@
 # Project Setup Guide
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=alert_status)] (https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) (https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest)[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Schitzos_PokeQuest&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest)
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=Schitzos_PokeQuest)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest) [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=Schitzos_PokeQuest)
-
+ 
 ## Introduction
 
 This guide will walk you through the steps to set up and run the project. The project is built using React Native v0.73.2 and requires Node.js version 18 or above, as well as Java version 17.
