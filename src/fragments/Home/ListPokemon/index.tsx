@@ -145,7 +145,7 @@ export default function ListPokemon({
         numColumns={4}
         onEndReached={() => handleLoadMore()}
         onScroll={handleScroll}
-        showsVerticalScrollIndicator={true}
+        showsVerticalScrollIndicator={false}
         removeClippedSubviews={true}
         initialNumToRender={limit}
         contentContainerStyle={styles.cusFlatList}
