@@ -49,9 +49,8 @@ export default function AxiosAdapter(options: AxiosRequestConfig) {
           error.response.headers['content-type'],
         );
         await httpMetric.stop();
-      } finally {
-        // @ts-ignore
-        // eslint-disable-next-line no-unsafe-finally
+        // eslint-disable-next-line no-catch-shadow, @typescript-eslint/no-shadow
+      } catch (error) {
         return Promise.reject(error);
       }
     },

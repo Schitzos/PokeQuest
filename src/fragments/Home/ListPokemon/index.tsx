@@ -109,7 +109,9 @@ export default function ListPokemon({
         ]}>
         <TextView align="center">No Pokèmon found</TextView>
       </View>
-      {search && !pokemonSearch.isFetching && pokemonSearch.isSuccess && (
+      {Boolean(
+        search && !pokemonSearch.isFetching && pokemonSearch.isSuccess,
+      ) && (
         <View
           style={[
             styles.single,
