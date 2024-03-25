@@ -109,20 +109,22 @@ export default function ListPokemon({
         ]}>
         <TextView align="center">No Pokèmon found</TextView>
       </View>
-      <View
-        style={[
-          styles.single,
-          search && !pokemonSearch.isFetching && pokemonSearch.isSuccess
-            ? styles.visible
-            : styles.hidden,
-        ]}>
-        <PokemonImage
-          name={pokeSearch.name}
-          navigation={navigation}
-          id={pokeSearch.id}
-          isSearch={Boolean(search)}
-        />
-      </View>
+      {search && !pokemonSearch.isFetching && pokemonSearch.isSuccess && (
+        <View
+          style={[
+            styles.single,
+            search && !pokemonSearch.isFetching && pokemonSearch.isSuccess
+              ? styles.visible
+              : styles.hidden,
+          ]}>
+          <PokemonImage
+            name={pokeSearch.name}
+            navigation={navigation}
+            id={pokeSearch.id}
+            isSearch={Boolean(search)}
+          />
+        </View>
+      )}
       <Animated.FlatList
         style={
           !search && !pokemonLists.isLoading ? styles.visible : styles.hidden
@@ -143,7 +145,7 @@ export default function ListPokemon({
         numColumns={4}
         onEndReached={() => handleLoadMore()}
         onScroll={handleScroll}
-        showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={true}
         removeClippedSubviews={true}
         initialNumToRender={limit}
         contentContainerStyle={styles.cusFlatList}
