@@ -47,9 +47,18 @@ export const styles = StyleSheet.create({
     zIndex: 1000,
   },
   single: {
-    flex: 1,
+    height: 300,
+    width: '100%',
   },
   cusFlatList: {
     paddingBottom: 256,
+  },
+  visible: {
+    opacity: 1,
+    display: 'flex',
+  },
+  hidden: {
+    opacity: 0,
+    display: 'none',
   },
 });

@@ -24,7 +24,7 @@ export default function ListPokemon({
 }: Readonly<ListPokemonProps>) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
-  const limit = 96;
+  const limit = 56;
   const windowHeight = Dimensions.get('window').height;
   const translateY = scrollY.interpolate({
     inputRange: [0, 750],
@@ -99,54 +99,61 @@ export default function ListPokemon({
           source={require('@assets/images/pokeball.png')}
         />
       </TouchableOpacity>
-      {!!(search && !pokemonSearch.isFetching && pokemonSearch.isSuccess) && (
-        <View style={styles.single}>
-          <PokemonImage
-            name={pokeSearch.name}
-            navigation={navigation}
-            id={pokeSearch.id}
-            isSearch={Boolean(search)}
-          />
-        </View>
-      )}
-      {!!(search && !pokemonSearch.isSuccess) && (
-        <View style={styles.single}>
-          <TextView align="center">No Pokèmon found</TextView>
-        </View>
-      )}
       {(pokemonLists.isLoading || pokemonSearch.isFetching) && (
         <ListPokemonSkeleton />
       )}
-      {!search && !pokemonLists.isLoading && (
-        <Animated.FlatList
-          data={flattenData}
-          renderItem={({item, index}) => (
-            <PokemonImage
-              name={item.name}
-              id={index + 1}
-              navigation={navigation}
-              key={item.name}
-              isSearch={false}
-            />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          showsHorizontalScrollIndicator={false}
-          onEndReachedThreshold={0.8}
-          numColumns={4}
-          onEndReached={() => handleLoadMore()}
-          onScroll={handleScroll}
-          showsVerticalScrollIndicator={false}
-          removeClippedSubviews={true}
-          initialNumToRender={limit}
-          contentContainerStyle={styles.cusFlatList}
-          ListFooterComponent={() => (
-            <LoadingList
-              text="Loading..."
-              isLoading={pokemonLists.isFetchingNextPage}
-            />
-          )}
+      <View
+        style={[
+          styles.single,
+          search && !pokemonSearch.isSuccess ? styles.visible : styles.hidden,
+        ]}>
+        <TextView align="center">No Pokèmon found</TextView>
+      </View>
+      <View
+        style={[
+          styles.single,
+          search && !pokemonSearch.isFetching && pokemonSearch.isSuccess
+            ? styles.visible
+            : styles.hidden,
+        ]}>
+        <PokemonImage
+          name={pokeSearch.name}
+          navigation={navigation}
+          id={pokeSearch.id}
+          isSearch={Boolean(search)}
         />
-      )}
+      </View>
+      <Animated.FlatList
+        style={
+          !search && !pokemonLists.isLoading ? styles.visible : styles.hidden
+        }
+        data={flattenData}
+        renderItem={({item, index}) => (
+          <PokemonImage
+            name={item.name}
+            id={index + 1}
+            navigation={navigation}
+            key={item.name}
+            isSearch={false}
+          />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        showsHorizontalScrollIndicator={false}
+        onEndReachedThreshold={0.8}
+        numColumns={4}
+        onEndReached={() => handleLoadMore()}
+        onScroll={handleScroll}
+        showsVerticalScrollIndicator={false}
+        removeClippedSubviews={true}
+        initialNumToRender={limit}
+        contentContainerStyle={styles.cusFlatList}
+        ListFooterComponent={() => (
+          <LoadingList
+            text="Loading..."
+            isLoading={pokemonLists.isFetchingNextPage}
+          />
+        )}
+      />
       {pokemonLists.isFetchingNextPage && <TextView>Loading</TextView>}
     </Animated.View>
   );

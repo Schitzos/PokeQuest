@@ -21,3 +21,12 @@ export const resetScrollY = () => {
     useNativeDriver: true,
   }).start();
 };
+
+export const defaultScrollY = () => {
+  Animated.timing(scrollY, {
+    toValue: 750,
+    duration: 500, // Adjust the duration as per your preference
+    easing: Easing.linear, // Adjust the easing function if needed
+    useNativeDriver: true,
+  }).start();
+};

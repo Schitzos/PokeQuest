@@ -4,6 +4,7 @@ import {HandleBackPressParams, SoundRef} from './type';
 import Sound from 'react-native-sound';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '@/navigation/types';
+import {defaultScrollY} from './animation';
 
 export const handleSearch = (
   text: string,
@@ -13,6 +14,8 @@ export const handleSearch = (
   setSearch(text);
   if (text !== '') {
     resetScrollY();
+  } else {
+    defaultScrollY();
   }
 };
 
