@@ -10,8 +10,10 @@ import Skeleton from '@/components/Skeleton';
 import {styles} from './styles';
 import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
 import analytics from '@react-native-firebase/analytics';
+import ScreenPerformanceTrace from '@/utils/performance/screenPerformanceTrace';
 
 function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
+  const trace = ScreenPerformanceTrace('load_each_pokemon_data');
   const [species, setSpecies] = useState<PokemonSpeciesResponse | undefined>();
   const [loading, setLoading] = useState(true);
 
@@ -32,12 +34,19 @@ function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
       .then((res: PokemonSpeciesResponse) => {
         setSpecies(res);
         setLoading(false);
+        trace.stop();
       })
       .catch((error: Error) => {
         setLoading(false);
         console.log('error get species', error);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
+
+  useEffect(() => {
+    trace.start();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <TouchableOpacity
@@ -57,6 +66,7 @@ function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
             <FastImage
               style={[styles.artwork, isSearch && styles.artworkLarge]}
               source={{
+                // uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
                 uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`,
                 priority: FastImage.priority.high,
               }}
