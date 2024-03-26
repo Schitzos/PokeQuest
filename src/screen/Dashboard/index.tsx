@@ -20,6 +20,7 @@ import {PokemonEvolveData} from '@/types/EvolutionPokemon';
 import {styles} from './styles';
 import {handleRemovePokemon} from '../Home/function';
 import {useAnimation} from '@/hooks/useAnimation';
+import remoteConfig from '@react-native-firebase/remote-config';
 
 export default function Dashboard({navigation, route}: DashboardScreenProps) {
   const {pokemon, removePokemon, setPokemon} = usePokemon();
@@ -122,7 +123,12 @@ export default function Dashboard({navigation, route}: DashboardScreenProps) {
     <View style={styles.base}>
       <Animated.View style={[styles.container, {opacity: viewBaseAnimate}]}>
         <FastImage
-          source={require('@assets/images/background-dashboard.png')}
+          source={{
+            uri: remoteConfig()
+              .getValue('dashboard_background_image')
+              .asString(),
+            priority: 'high',
+          }}
           style={styles.backgroundImage}
           resizeMode={FastImage.resizeMode.cover}>
           <SafeAreaView />

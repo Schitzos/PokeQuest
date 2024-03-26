@@ -24,7 +24,7 @@ export default function ListPokemon({
 }: Readonly<ListPokemonProps>) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
-  const limit = 56;
+  const limit = 100;
   const windowHeight = Dimensions.get('window').height;
   const translateY = scrollY.interpolate({
     inputRange: [0, 750],

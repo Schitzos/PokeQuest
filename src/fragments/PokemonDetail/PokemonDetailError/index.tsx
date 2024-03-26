@@ -24,7 +24,7 @@ export default function PokemonDetailError() {
           </TextView>
           <TextView align="center" capitalize={false}>
             Pokè API didnt provide any detail for this Pokèmon, you can explore
-            another Pokèmon to give them feed !!!
+            another Pokèmon choose !!!
           </TextView>
         </View>
       </View>
