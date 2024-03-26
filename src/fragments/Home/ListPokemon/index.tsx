@@ -14,6 +14,7 @@ import TextView from '@/components/TextView';
 import LoadingList from '../LoadingList';
 import {styles} from './styles';
 import {PokemonItem, PokemonListPage} from '@/types/ListPokemon';
+import ScreenPerformanceTrace from '@/utils/performance/screenPerformanceTrace';
 
 export default function ListPokemon({
   navigation,
@@ -57,14 +58,17 @@ export default function ListPokemon({
   };
 
   useEffect(() => {
+    const trace = ScreenPerformanceTrace('load_home_screen');
     if (!isFirstRender.current) {
       search && pokemonSearch.refetch();
     }
 
     if (!isFirstRender.current && !pokemonLists.isLoading) {
       SplashScreen.hide();
+      trace.stop();
     } else {
       isFirstRender.current = false;
+      trace.start();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, pokemonLists.isLoading]);

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unstable-nested-components */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useLayoutEffect, useState} from 'react';
 import {View, useWindowDimensions, Text, Animated} from 'react-native';
 import HeaderScreen from '@components/HeaderScreen';
 import {styles} from './styles';
@@ -27,6 +27,7 @@ import {
   EvolutionChainResponse,
   PokemonEvolveData,
 } from '@/types/EvolutionPokemon';
+import ScreenPerformanceTrace from '@/utils/performance/screenPerformanceTrace';
 
 export default function PokemonDetail({
   route,
@@ -109,6 +110,22 @@ export default function PokemonDetail({
   useEffect(() => {
     setSpark(false);
   }, []);
+
+  useEffect(() => {
+    const trace = ScreenPerformanceTrace('load_detail_screen');
+    trace.start();
+    if (
+      !pokemonSpecies.isFetching &&
+      !pokemonDetail.isFetching &&
+      !pokemonEvolveChain.isFetching
+    ) {
+      trace.stop();
+    }
+  }, [
+    pokemonSpecies.isFetching,
+    pokemonDetail.isFetching,
+    pokemonEvolveChain.isFetching,
+  ]);
 
   if (pokemonDetail.isFetching) {
     return <PokemonDetailLoading />;
