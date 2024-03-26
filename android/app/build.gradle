@@ -94,17 +94,17 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            firebaseCrashlytics {
-                nativeSymbolUploadEnabled true
-            }
+            // firebaseCrashlytics {
+            //     nativeSymbolUploadEnabled true
+            // }
         }
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             signingConfig signingConfigs.debug
-            firebaseCrashlytics {
-                nativeSymbolUploadEnabled true
-            }
+            // firebaseCrashlytics {
+            //     nativeSymbolUploadEnabled true
+            // }
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
