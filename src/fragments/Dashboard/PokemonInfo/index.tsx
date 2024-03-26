@@ -85,7 +85,7 @@ export default function PokemonInfo() {
                 progress={currentExp}
                 color={handleColor(currentExp)}
                 unfilledColor={theme.colors.neutral100}
-                width={140}
+                width={128}
               />
             </View>
             <TextView fz={10} capitalize={false} color={theme.colors.white}>
