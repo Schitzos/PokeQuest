@@ -73,7 +73,6 @@ export function isLatestEvolve(
   targetId: number,
 ): boolean {
   let latestEvolveId: number | null = null;
-
   function findLatestId(evolve: PokemonEvolveData) {
     if (
       (!evolve.evolveTo || evolve.evolveTo.length === 0) &&
@@ -86,6 +85,9 @@ export function isLatestEvolve(
   }
 
   evolveArray?.forEach(findLatestId);
-
-  return latestEvolveId === targetId;
+  if (evolveArray) {
+    return latestEvolveId === targetId;
+  } else {
+    return true;
+  }
 }
