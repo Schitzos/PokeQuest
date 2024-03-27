@@ -139,7 +139,11 @@ export default function PokemonDetail({
     <Animated.View style={styles.base}>
       <Animated.View style={styles.base}>
         <HeaderScreen align="center" label={detail.name} color={baseColor} />
-        <PokemonArt pokemonDetail={detail} spark={spark} />
+        <PokemonArt
+          pokemonDetail={detail}
+          spark={spark}
+          isLegendary={species.is_legendary}
+        />
         <View style={styles.pokeStat}>
           <TabView
             navigationState={{index, routes}}

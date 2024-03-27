@@ -35,4 +35,30 @@ export const styles = StyleSheet.create({
     backgroundColor: theme.colors.black,
     position: 'absolute',
   },
+  legendaryFrame: {
+    width: 96,
+    height: 48,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 32,
+    right: -8,
+  },
+  legendary: {
+    width: 48,
+    height: 48,
+  },
+  textLegendary: {
+    color: theme.colors.white, // Text color set to white
+    fontSize: 10, // Example font size, adjust as needed
+    zIndex: 1000,
+    fontFamily: theme.font.reguler,
+    marginTop: -12,
+  },
+  frameId: {
+    position: 'absolute',
+    top: -44,
+    right: 16,
+    transform: [{rotate: '0deg'}],
+  },
 });

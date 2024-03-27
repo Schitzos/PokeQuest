@@ -13,4 +13,5 @@ export interface PokemonSpeciesResponse {
       name: string;
     };
   }>;
+  is_legendary: boolean;
 }

@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {View, Animated, Pressable} from 'react-native';
+import {View, Animated, Pressable, Text} from 'react-native';
 import {styles} from './styles';
 import {pokemonType} from '@/constants/pokemonType';
 import {Shake} from '@/utils/animation';
@@ -7,13 +7,17 @@ import FastImage from 'react-native-fast-image';
 import {resetAnimations} from './animation';
 import {useAnimation} from '@/hooks/useAnimation';
 import {PokemonDetailResponse} from '@/types/DetailPokemon';
+import TextView from '@/components/TextView';
+import theme from '@/theme';
 
 export default function PokemonArt({
   pokemonDetail,
   spark,
+  isLegendary,
 }: {
   pokemonDetail: PokemonDetailResponse;
   spark: boolean;
+  isLegendary: boolean;
 }) {
   const {animateOpacityHidden, animateOpacityShow} = useAnimation();
   const shakeAnimation = useRef(new Animated.Value(0)).current;
@@ -68,6 +72,20 @@ export default function PokemonArt({
           }
           style={[styles.imageBackground, {opacity: opacityHidden}]}
         />
+        <View style={styles.frameId}>
+          <TextView fz={24} color={theme.colors.neutral100}>
+            #{pokemonDetail.id}
+          </TextView>
+        </View>
+        {isLegendary && (
+          <View style={styles.legendaryFrame}>
+            <FastImage
+              style={styles.legendary}
+              source={require('@assets/images/legendary-frame.png')}
+            />
+            <Text style={styles.textLegendary}>Legendary</Text>
+          </View>
+        )}
         <Animated.View
           style={[styles.choosenImageContainer, {opacity: opacityShow}]}>
           <FastImage
