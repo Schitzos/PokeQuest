@@ -30,7 +30,7 @@ Make sure you have completed the [React Native - Environment Setup](https://reac
     npm install
     ```
 
-   Make some  ☕️ coffee, this will take little bit long in first run
+   Make some  ☕️ , this will take little bit long in first run
    * This will install project dependency in node_modules also generate a google-services.json and install pod dependency (pod install)GoogleService-Info.plist if you running on macOS
    
 ## Running the Project
