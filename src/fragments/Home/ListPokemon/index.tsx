@@ -67,8 +67,8 @@ export default function ListPokemon({
       SplashScreen.hide();
       trace.stop();
     } else {
-      isFirstRender.current = false;
       trace.start();
+      isFirstRender.current = false;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search, pokemonLists.isLoading]);
