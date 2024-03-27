@@ -22,6 +22,11 @@ Make sure you have completed the [React Native - Environment Setup](https://reac
     ```bash
     npm install
     ```
+4. On your root folder, add file .env and put this value for the env
+
+   ```bash
+   BASE_URL = 'https://pokeapi.co/api/v2'
+   ```
 
    if you running on macOS, it will auto install pod, please make sure you have pod installed on your maching
 
