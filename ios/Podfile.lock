@@ -1982,7 +1982,7 @@ PODS:
     - RNFBApp
   - RNFlashList (1.6.4):
     - React-Core
-  - RNGestureHandler (2.15.0):
+  - RNGestureHandler (2.16.0):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
@@ -2368,7 +2368,7 @@ SPEC CHECKSUMS:
   RNFBRemoteConfig: e36f9b70aeca4a73dcb683573c79619b83d59c4f
   RNFBStorage: ebf84836d1e919f1fd3fa8d53178e47ca35f186b
   RNFlashList: b521ebdd7f9352673817f1d98e8bdc0c8cf8545b
-  RNGestureHandler: 7feb85c5a30ebbcd4d5c7a851ba9e7eafb9860cb
+  RNGestureHandler: fdcd620c0e90c3d80612dd994e8518a8866ed34b
   RNNotifee: 8e2d3df3f0e9ce8f5d1fe4c967431138190b6175
   RNReanimated: 8c009e95ed82289b412801b9fc220dca24455f8d
   RNScreens: 56b4a83c6c84e01f4eaa7e06d4f335a0300f99ab
