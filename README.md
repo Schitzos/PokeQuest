@@ -23,7 +23,7 @@ Make sure you have completed the [React Native - Environment Setup](https://reac
     npm install
     ```
 
-   if you running on macOS, it will auto install pod, please make sure you have pod installed on your maching
+   * This will install project dependency in node_modules also generate a google-services.json and install pod dependency (pod install)GoogleService-Info.plist if you running on macOS
    
 4. Meanwhile, on your root folder, add file .env and put this value for the env
 
@@ -31,9 +31,7 @@ Make sure you have completed the [React Native - Environment Setup](https://reac
    BASE_URL = 'https://pokeapi.co/api/v2'
    GOOGLE_SERVICES_JSON = 'ewogICJwcm9qZWN0X2luZm8iOiB7CiAgICAicHJvamVjdF9udW1iZXIiOiAiNTYwMzMxMjA0MzA3IiwKICAgICJwcm9qZWN0X2lkIjogInBva2VxdWVzdC02YWQ5NCIsCiAgICAic3RvcmFnZV9idWNrZXQiOiAicG9rZXF1ZXN0LTZhZDk0LmFwcHNwb3QuY29tIgogIH0sCiAgImNsaWVudCI6IFsKICAgIHsKICAgICAgImNsaWVudF9pbmZvIjogewogICAgICAgICJtb2JpbGVzZGtfYXBwX2lkIjogIjE6NTYwMzMxMjA0MzA3OmFuZHJvaWQ6YWE2ZDFhNmQ3Y2E1MzA1YTg5OTYyNiIsCiAgICAgICAgImFuZHJvaWRfY2xpZW50X2luZm8iOiB7CiAgICAgICAgICAicGFja2FnZV9uYW1lIjogImNvbS5wb2tlcXVlc3QiCiAgICAgICAgfQogICAgICB9LAogICAgICAib2F1dGhfY2xpZW50IjogW10sCiAgICAgICJhcGlfa2V5IjogWwogICAgICAgIHsKICAgICAgICAgICJjdXJyZW50X2tleSI6ICJBSXphU3lCUGdOTVBzMUdUTHJndXdJTEFpb25zclBCQ01QZ2RkUEkiCiAgICAgICAgfQogICAgICBdLAogICAgICAic2VydmljZXMiOiB7CiAgICAgICAgImFwcGludml0ZV9zZXJ2aWNlIjogewogICAgICAgICAgIm90aGVyX3BsYXRmb3JtX29hdXRoX2NsaWVudCI6IFtdCiAgICAgICAgfQogICAgICB9CiAgICB9CiAgXSwKICAiY29uZmlndXJhdGlvbl92ZXJzaW9uIjogIjEiCn0='
    ```
-
    
-
 ## Running the Project
 
 Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
