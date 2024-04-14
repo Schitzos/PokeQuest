@@ -145,7 +145,7 @@ export default function ListPokemon({
             isSearch={false}
           />
         )}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={item => item.name.toString()}
         showsHorizontalScrollIndicator={false}
         onEndReachedThreshold={0.8}
         numColumns={4}
@@ -153,7 +153,7 @@ export default function ListPokemon({
         onScroll={handleScroll}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews={true}
-        initialNumToRender={limit}
+        initialNumToRender={limit / 2}
         contentContainerStyle={styles.cusFlatList}
         ListFooterComponent={() => (
           <LoadingList

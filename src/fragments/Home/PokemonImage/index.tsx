@@ -28,23 +28,32 @@ function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
   };
 
   useEffect(() => {
+    let isMounted = true;
     getSpeciesPokemonAlt({
       id: id,
     })
       .then((res: PokemonSpeciesResponse) => {
-        setSpecies(res);
-        setLoading(false);
-        trace.stop();
+        if (isMounted) {
+          setSpecies(res);
+          setLoading(false);
+          trace.stop();
+        }
       })
       .catch((error: Error) => {
         setLoading(false);
         console.log('error get species', error);
       });
+    return () => {
+      isMounted = false;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   useEffect(() => {
     trace.start();
+    return () => {
+      trace.stop();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
