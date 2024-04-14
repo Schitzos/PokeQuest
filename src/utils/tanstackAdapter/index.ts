@@ -22,7 +22,8 @@ export function InfiniteQuery(options: any) {
       return AxiosAdapter(options);
     },
     ...options,
-    staleTime: 600000,
+    cacheTime: 600000,
+    refetchInterval: 600000,
     getNextPageParam: (lastPage: any) => {
       if (lastPage.next) {
         const urlString = lastPage.next;
