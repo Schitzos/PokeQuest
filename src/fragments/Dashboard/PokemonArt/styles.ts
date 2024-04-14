@@ -81,15 +81,19 @@ export const styles = StyleSheet.create({
   btnEvolveContainer: {
     zIndex: 3000,
     position: 'absolute',
-    bottom: Platform.OS === 'ios' ? 16 : -20,
-    // bottom: 64,
+    bottom: Platform.OS === 'ios' ? 4 : -20,
   },
   btnEvolve: {
-    backgroundColor: 'rgba(0, 175, 240, 0.9)',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderWidth: 1,
     borderColor: theme.colors.black50,
+    width: 150,
+    height: 48,
+    paddingTop: 10,
+  },
+  artSpark: {
+    position: 'absolute',
+    top: -8,
+    left: -16,
+    width: 150,
+    height: 48,
   },
 });

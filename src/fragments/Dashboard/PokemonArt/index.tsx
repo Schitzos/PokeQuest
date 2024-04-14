@@ -101,12 +101,22 @@ export default function PokemonArt({
                 styles.btnEvolveContainer,
                 {opacity: btnEvolveAnimation},
               ]}>
-              <TouchableOpacity
-                onPress={() => handleEvolve(pokemon.detail.id)}
-                style={styles.btnEvolve}>
-                <TextView fz={16} color={theme.colors.white}>
-                  Evolve
-                </TextView>
+              <TouchableOpacity onPress={() => handleEvolve(pokemon.detail.id)}>
+                <FastImage
+                  source={require('@assets/images/button_pixel_blue.png')}
+                  style={styles.btnEvolve}
+                  defaultSource={require('@assets/images/default_image_loading.png')}
+                  resizeMode={FastImage.resizeMode.contain}>
+                  <FastImage
+                    source={require('@assets/images/electric-spark.gif')}
+                    style={styles.artSpark}
+                    defaultSource={require('@assets/images/default_image_loading.png')}
+                    resizeMode={FastImage.resizeMode.stretch}
+                  />
+                  <TextView fz={16} color={theme.colors.white} align="center">
+                    Evolve
+                  </TextView>
+                </FastImage>
               </TouchableOpacity>
             </Animated.View>
           )}
