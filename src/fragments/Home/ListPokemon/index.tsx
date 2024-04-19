@@ -25,7 +25,7 @@ export default function ListPokemon({
 }: Readonly<ListPokemonProps>) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
-  const limit = 100;
+  const limit = 20;
   const windowHeight = Dimensions.get('window').height;
   const translateY = scrollY.interpolate({
     inputRange: [0, 750],
@@ -153,7 +153,7 @@ export default function ListPokemon({
         onScroll={handleScroll}
         showsVerticalScrollIndicator={false}
         removeClippedSubviews={true}
-        initialNumToRender={limit / 2}
+        initialNumToRender={20}
         contentContainerStyle={styles.cusFlatList}
         ListFooterComponent={() => (
           <LoadingList
