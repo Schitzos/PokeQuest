@@ -10,7 +10,7 @@ import Skeleton from '@/components/Skeleton';
 import {styles} from './styles';
 import {PokemonSpeciesResponse} from '@/types/SpeciesPokemon';
 import analytics from '@react-native-firebase/analytics';
-import ScreenPerformanceTrace from '@/utils/performance/screenPerformanceTrace';
+import ScreenPerformanceTrace from '@/config/fbPerformance/screenPerformanceTrace';
 
 function PokemonImage({name, id, navigation, isSearch}: PokemonImageProps) {
   const trace = ScreenPerformanceTrace('load_each_pokemon_data');

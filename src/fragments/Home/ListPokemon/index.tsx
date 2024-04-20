@@ -7,14 +7,14 @@ import {
 } from '@/services/pokemon/pokemon.service';
 import {ListPokemonProps} from './type';
 import PokemonImage from '../PokemonImage';
-import {ShakeUpDown} from '@/utils/animation';
 import ListPokemonSkeleton from '../ListPokemonSkeleton';
 import SplashScreen from 'react-native-splash-screen';
 import TextView from '@/components/TextView';
 import LoadingList from '../LoadingList';
 import {styles} from './styles';
 import {PokemonItem, PokemonListPage} from '@/types/ListPokemon';
-import ScreenPerformanceTrace from '@/utils/performance/screenPerformanceTrace';
+import ScreenPerformanceTrace from '@/config/fbPerformance/screenPerformanceTrace';
+import {useAnimation} from '@/hooks/useAnimation';
 
 export default function ListPokemon({
   navigation,
@@ -25,6 +25,8 @@ export default function ListPokemon({
 }: Readonly<ListPokemonProps>) {
   const isFirstRender = useRef(true);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
+  const {animateShake} = useAnimation();
+
   const limit = 100;
   const windowHeight = Dimensions.get('window').height;
   const translateY = scrollY.interpolate({
@@ -74,9 +76,9 @@ export default function ListPokemon({
   }, [search, pokemonLists.isLoading]);
 
   useEffect(() => {
-    ShakeUpDown(shakeAnimation, 500);
+    animateShake(shakeAnimation, 500);
     const intervalId = setInterval(() => {
-      ShakeUpDown(shakeAnimation, 500);
+      animateShake(shakeAnimation, 500);
     }, 5000);
     return () => clearInterval(intervalId);
     // eslint-disable-next-line react-hooks/exhaustive-deps

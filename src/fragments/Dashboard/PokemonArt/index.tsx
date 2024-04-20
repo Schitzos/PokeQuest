@@ -4,7 +4,6 @@ import {View, Animated} from 'react-native';
 import {usePokemon} from '@/hooks/usePokemon';
 import FastImage from 'react-native-fast-image';
 import PokemonInfo from '@/fragments/Dashboard/PokemonInfo';
-import {WalkX, WalkY, reverseX} from '@/utils/animation';
 import HungryInfo from '../HungryInfo';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import TextView from '@/components/TextView';
@@ -19,7 +18,13 @@ export default function PokemonArt({
   handleEvolve: (e: number) => void;
 }) {
   const {pokemon} = usePokemon();
-  const {animateOpacityHidden, animateOpacityShow} = useAnimation();
+  const {
+    animateOpacityHidden,
+    animateOpacityShow,
+    animateWalkX,
+    animateWalkY,
+    animateReverseX,
+  } = useAnimation();
   const walkAnimationX = useRef(new Animated.Value(0)).current;
   const walkAnimationY = useRef(new Animated.Value(0)).current;
   const reverse = useRef(new Animated.Value(0)).current;
@@ -27,13 +32,13 @@ export default function PokemonArt({
 
   useEffect(() => {
     const combinedAnimation = Animated.parallel([
-      Animated.loop(WalkX(walkAnimationX, 1000)),
-      Animated.loop(WalkY(walkAnimationY, 500)),
+      Animated.loop(animateWalkX(walkAnimationX, 1000)),
+      Animated.loop(animateWalkY(walkAnimationY, 500)),
     ]);
     combinedAnimation.start();
 
     const reverseInterval = setInterval(() => {
-      reverseX(reverse, 500);
+      animateReverseX(reverse, 500);
     }, 6000);
 
     return () => {

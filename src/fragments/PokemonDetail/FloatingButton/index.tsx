@@ -2,7 +2,6 @@ import React, {useEffect} from 'react';
 import {Animated, View} from 'react-native';
 import {styles} from './styles';
 import TextView from '@/components/TextView';
-import {ShakeUpDown} from '@/utils/animation';
 import theme from '@/theme';
 import {PanGestureHandler} from 'react-native-gesture-handler';
 import {
@@ -13,6 +12,7 @@ import {
   translateY,
 } from './animation';
 import {handleGestureEvent} from './function';
+import {useAnimation} from '@/hooks/useAnimation';
 
 export default function FloatingButton({
   color,
@@ -23,12 +23,15 @@ export default function FloatingButton({
   handleChoosePokemon: () => void;
   spark: boolean;
 }) {
+  const {animateShake} = useAnimation();
+
   useEffect(() => {
-    ShakeUpDown(shakeAnimation, 500);
+    animateShake(shakeAnimation, 500);
     const intervalId = setInterval(() => {
-      ShakeUpDown(shakeAnimation, 500);
+      animateShake(shakeAnimation, 500);
     }, 2000);
     return () => clearInterval(intervalId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

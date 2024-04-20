@@ -4,8 +4,8 @@ import React, {useEffect} from 'react';
 import Navigation from './navigation';
 import ContextProvider from './context';
 import {LogBox} from 'react-native';
-import {setupNetInfoListener} from './utils/netInfo';
-import setupRemoteConfig from './utils/remoteConf';
+import {setupNetInfoListener} from './config/netInfo';
+import setupRemoteConfig from './config/fbRemoteConfig';
 
 function App() {
   useEffect(() => {

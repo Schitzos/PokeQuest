@@ -12,10 +12,10 @@ import TextView from '@/components/TextView';
 import FastImage from 'react-native-fast-image';
 import Skeleton from '@/components/Skeleton';
 import {usePokemon} from '@/hooks/usePokemon';
-import {berryFirmnessHeightScale} from '@/utils/berry';
-import {WalkY} from '@/utils/animation';
+import {berryFirmnessHeightScale} from '@/constants/berry';
 import {styles} from './styles';
 import analytics from '@react-native-firebase/analytics';
+import {useAnimation} from '@/hooks/useAnimation';
 
 export interface ListBerryDataResponse {
   results: BerryItem[];
@@ -35,6 +35,7 @@ export default function ListBerry() {
   const [currentPage, setCurrentPage] = useState(1);
   const [visibleBerries, setVisibleBerries] = useState<BerryItem[]>([]);
   const {pokemon, setPokemon} = usePokemon();
+  const {animateWalkY} = useAnimation();
   const bouncingAnimation = useRef(new Animated.Value(0)).current;
 
   const berryList = getListBerry({
@@ -162,7 +163,7 @@ export default function ListBerry() {
   };
 
   useEffect(() => {
-    Animated.loop(WalkY(bouncingAnimation, 1000)).start();
+    Animated.loop(animateWalkY(bouncingAnimation, 1000)).start();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [berryDetail]);
 

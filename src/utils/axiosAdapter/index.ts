@@ -64,7 +64,7 @@ export default function AxiosAdapter(options: AxiosRequestConfig) {
         resolve(res.data); // Resolve with the response data
       })
       .catch(err => {
-        reject(err); // Reject with the error
+        reject(`, ${err} when fetching ${options.url}`); // Reject with the error
       });
   });
 }

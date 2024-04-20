@@ -2,7 +2,6 @@ import React, {useEffect, useRef, useState} from 'react';
 import {View, Animated, Pressable, Text} from 'react-native';
 import {styles} from './styles';
 import {pokemonType} from '@/constants/pokemonType';
-import {Shake} from '@/utils/animation';
 import FastImage from 'react-native-fast-image';
 import {resetAnimations} from './animation';
 import {useAnimation} from '@/hooks/useAnimation';
@@ -19,7 +18,8 @@ export default function PokemonArt({
   spark: boolean;
   isLegendary: boolean;
 }) {
-  const {animateOpacityHidden, animateOpacityShow} = useAnimation();
+  const {animateOpacityHidden, animateOpacityShow, animateShake} =
+    useAnimation();
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const [imageLoaded, setImageLoaded] = useState(false);
   const [bounce, setBounce] = useState(false);
@@ -32,9 +32,9 @@ export default function PokemonArt({
 
   useEffect(() => {
     if (imageLoaded) {
-      Shake(shakeAnimation, 1000);
+      animateShake(shakeAnimation, 1000);
       const intervalId = setInterval(() => {
-        Shake(shakeAnimation, 1000);
+        animateShake(shakeAnimation, 1000);
       }, 10000);
       return () => clearInterval(intervalId);
     }
@@ -43,7 +43,7 @@ export default function PokemonArt({
 
   useEffect(() => {
     if (imageLoaded) {
-      Shake(shakeAnimation, 500);
+      animateShake(shakeAnimation, 500);
     }
     setTimeout(() => {
       setBounce(false);

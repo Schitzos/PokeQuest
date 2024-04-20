@@ -52,7 +52,7 @@ export const getNextEvolveDetail = async (species_id: number) => {
       return res;
     })
     .catch((error: any) => {
-      console.log('error get species', error);
+      console.log('error get detail', error);
     });
 };
 

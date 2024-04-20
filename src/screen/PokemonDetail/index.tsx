@@ -27,7 +27,7 @@ import {
   EvolutionChainResponse,
   PokemonEvolveData,
 } from '@/types/EvolutionPokemon';
-import ScreenPerformanceTrace from '@/utils/performance/screenPerformanceTrace';
+import ScreenPerformanceTrace from '@/config/fbPerformance/screenPerformanceTrace';
 
 export default function PokemonDetail({
   route,
