@@ -38,6 +38,11 @@ Make sure you have completed the [React Native - Environment Setup](https://reac
    ```bash
    npm run android:generate-google-services-json
    ```
+
+7. If you got some error while IOS installation, kindly remove package.lock.json and Podfile.lock is root/ios/Podfile.lock then run command below
+   ```bash
+   npm run ios:reinstall
+   ```
    
 ## Running the Project
 
