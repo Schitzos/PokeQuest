@@ -11,6 +11,7 @@
     "ios": "react-native run-ios",
     "ios:generate-google-services-plist": "node scripts/generateGoogleServicesInfoPlist.js",
     "ios:pod-install": "cd ios && pod install --verbose",
+    "ios:reinstall": "cd ios && pod deintegrate && npm install --verbose",
     "lint": "eslint .",
     "start": "react-native start",
     "start:dev": "react-native start --experimental-debugger",
