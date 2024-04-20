@@ -11,7 +11,7 @@ describe('queryClientConfig', () => {
   test('default options should be set correctly', () => {
     expect(queryClientConfig.getDefaultOptions()).toEqual({
       queries: {
-        retry: false,
+        retry: 1,
         refetchOnWindowFocus: false,
       },
     });

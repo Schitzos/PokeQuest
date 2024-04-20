@@ -12,5 +12,5 @@ module.exports = {
     '^@/theme$': '<rootDir>/src/theme/index.ts',
   },
   coverageReporters: ['html'],
-  setupFiles: ['<rootDir>/src/utils/jest/setup.ts'],
+  setupFiles: ['<rootDir>/src/config/jest/setup.ts'],
 };
