@@ -84,6 +84,14 @@ export default function ListPokemon({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  if (pokemonLists.isError) {
+    return (
+      <View>
+        <TextView>Error</TextView>
+      </View>
+    );
+  }
+
   return (
     <Animated.View
       style={[
